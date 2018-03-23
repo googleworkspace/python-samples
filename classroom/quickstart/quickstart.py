@@ -18,6 +18,7 @@ Shows basic usage of the Classroom API.
 Creates a Classroom API service object and prints the names of the first
 10 courses the user has access to.
 """
+# [START classroom_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -42,3 +43,4 @@ else:
     print('Courses:')
     for course in courses:
         print(course['name'])
+# [END classroom_quickstart]
