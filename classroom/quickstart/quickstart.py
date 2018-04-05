@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START classroom_quickstart]
 """
 Shows basic usage of the Classroom API.
 
 Creates a Classroom API service object and prints the names of the first
 10 courses the user has access to.
 """
-# [START classroom_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http

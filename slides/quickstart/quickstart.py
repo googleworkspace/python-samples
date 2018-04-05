@@ -13,8 +13,10 @@
 # limitations under the License.
 
 """
-Shows basic usage of the Slides API. Prints values from a Google Spreadsheet.
+Shows basic usage of the Slides API. Prints the number of slides and elments in
+a presentation.
 """
+# [START slides_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -38,3 +40,4 @@ print ('The presentation contains {} slides:'.format(len(slides)))
 for i, slide in enumerate(slides):
     print('- Slide #{} contains {} elements.'.format(i + 1,
                                                      len(slide.get('pageElements'))))
+# [END slides_quickstart]

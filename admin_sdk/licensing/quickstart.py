@@ -12,35 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START drive_quickstart]
+# [START admin_sdk_licensing_quickstart]
 """
-Shows basic usage of the Drive v3 API.
-
-Creates a Drive v3 API service and prints the names and ids of the last 10 files
-the user has access to.
+Shows basic usage of the Admin SDK Licensing API. Outputs the first 10 license
+assignments for G Suite seats.
 """
 from __future__ import print_function
-from apiclient.discovery import build
+from apiclient.discovery import build, http
 from httplib2 import Http
 from oauth2client import file, client, tools
+import StringIO
+import random
 
-# Setup the Drive v3 API
-SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly'
+import apiclient
+from email import Utils
+from email import MIMEText
+
+# Setup the Admin SDK Licensing API
+SCOPES = 'https://www.googleapis.com/auth/apps.licensing'
 store = file.Storage('credentials.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
     creds = tools.run_flow(flow, store)
-service = build('drive', 'v3', http=creds.authorize(Http()))
+service = build('licensing', 'v1', http=creds.authorize(Http()))
 
-# Call the Drive v3 API
-results = service.files().list(
-    pageSize=10, fields="nextPageToken, files(id, name)").execute()
-items = results.get('files', [])
+customerId = raw_input('Enter the domain name of your G Suite domain: ')
+results = service.licenseAssignments().listForProduct(
+    productId='Google-Apps', customerId=customerId, maxResults=10).execute()
+items = results.get('items', [])
 if not items:
-    print('No files found.')
+    print('No license assignments found.')
 else:
-    print('Files:')
+    print('License assignments:')
     for item in items:
-        print('{0} ({1})'.format(item['name'], item['id']))
-# [END drive_quickstart]
+        print('{0} ({1})'.format(item['userId'], item['skuId']))
+# [END admin_sdk_licensing_quickstart]

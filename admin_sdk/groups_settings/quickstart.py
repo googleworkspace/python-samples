@@ -12,35 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START admin_sdk_groups_migration_quickstart]
 """
-Shows basic usage of the Sheets API. Prints values from a Google Spreadsheet.
+Shows basic usage of the Admin SDK Groups Settings API. Outputs a group's
+settings identified by the group's email address.
 """
-# [START sheets_quickstart]
 from __future__ import print_function
-from apiclient.discovery import build
+from apiclient.discovery import build, http
 from httplib2 import Http
 from oauth2client import file, client, tools
+import StringIO
+import random
 
-# Setup the Sheets API
-SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+import apiclient
+from email import Utils
+from email import MIMEText
+
+# Setup the Admin SDK Groups Migration API
+SCOPES = 'https://www.googleapis.com/auth/apps.groups.settings'
 store = file.Storage('credentials.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
     creds = tools.run_flow(flow, store)
-service = build('sheets', 'v4', http=creds.authorize(Http()))
+service = build('groupssettings', 'v1', http=creds.authorize(Http()))
 
-# Call the Sheets API
-SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-RANGE_NAME = 'Class Data!A2:E'
-result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
-                                             range=RANGE_NAME).execute()
-values = result.get('values', [])
-if not values:
-    print('No data found.')
-else:
-    print('Name, Major:')
-    for row in values:
-        # Print columns A and E, which correspond to indices 0 and 4.
-        print('%s, %s' % (row[0], row[4]))
-# [END sheets_quickstart]
+groupEmail = raw_input('Enter the email address of a Google Group in your domain: ')
+try:
+    results = service.groups().get(groupUniqueId=groupEmail,
+        alt='json').execute()
+    print(json.dumps(results, indent=4))
+except:
+    print('Unable to read group: {0}'.format(groupEmail))
+    raise
+# [END admin_sdk_groups_migration_quickstart]

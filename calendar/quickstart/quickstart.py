@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START calendar_quickstart]
 """
-Shows basic usage of the Google Calendar API.
-
-Creates a Google Calendar API service object and outputs a list of the next
-10 events on the user's calendar.
+Shows basic usage of the Google Calendar API. Creates a Google Calendar API
+service object and outputs a list of the next 10 events on the user's calendar.
 """
 from __future__ import print_function
 from apiclient.discovery import build
@@ -46,3 +45,4 @@ if not events:
 for event in events:
     start = event['start'].get('dateTime', event['start'].get('date'))
     print(start, event['summary'])
+# [END calendar_quickstart]

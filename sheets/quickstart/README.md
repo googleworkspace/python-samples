@@ -7,10 +7,15 @@ requests to the Google Sheets API.
 
 ## Install
 
-`pip install --upgrade google-api-python-client`
+```
+pip install --upgrade google-api-python-client
+```
+
 
 ## Run
 
 After following the quickstart setup instructions, run the sample:
 
-`python quickstart.py`
+```
+python quickstart.py
+```

@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [END gmail_quickstart]
 """
-Shows basic usage of the Gmail API. Lists the user's Gmail labels.
+Shows basic usage of the Gmail API.
+
+Lists the user's Gmail labels.
 """
 from __future__ import print_function
 from apiclient.discovery import build
@@ -38,3 +41,4 @@ else:
     print('Labels:')
     for label in labels:
         print(label['name'])
+# [END gmail_quickstart]
