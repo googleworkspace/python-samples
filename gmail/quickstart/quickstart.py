@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [END gmail_quickstart]
+# [START gmail_quickstart]
 """
 Shows basic usage of the Gmail API.
 
