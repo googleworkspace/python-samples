@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START admin_sdk_groups_migration_quickstart]
+# [START admin_sdk_groups_settings_quickstart]
 """
 Shows basic usage of the Admin SDK Groups Settings API. Outputs a group's
 settings identified by the group's email address.
@@ -45,4 +45,4 @@ try:
 except:
     print('Unable to read group: {0}'.format(groupEmail))
     raise
-# [END admin_sdk_groups_migration_quickstart]
+# [END admin_sdk_groups_settings_quickstart]

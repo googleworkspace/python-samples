@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START admin_sdk_reports_quickstart]
+# [START admin_sdk_reseller_quickstart]
 """
 Shows basic usage of the Admin SDK Reports API. Outputs a list of last 10 login
 events.
@@ -49,4 +49,4 @@ else:
     for activity in activities:
         print('{0}: {1} ({2})'.format(activity['id']['time'],
             activity['actor']['email'], activity['events'][0]['name']))
-# [END admin_sdk_reports_quickstart]
+# [END admin_sdk_reseller_quickstart]
