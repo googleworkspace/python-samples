@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START sheets_quickstart]
 """
 Shows basic usage of the Sheets API. Prints values from a Google Spreadsheet.
 """
-# [START sheets_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http

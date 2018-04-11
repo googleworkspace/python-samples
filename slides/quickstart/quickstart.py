@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START slides_quickstart]
 """
 Shows basic usage of the Slides API. Prints the number of slides and elments in
 a presentation.
 """
-# [START slides_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http

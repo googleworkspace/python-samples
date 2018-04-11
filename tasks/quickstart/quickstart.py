@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START tasks_quickstart]
 """
 Shows basic usage of the Tasks API. Outputs the first 10 task lists.
 """
-# [START tasks_quickstart]
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
