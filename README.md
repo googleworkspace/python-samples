@@ -1,4 +1,4 @@
-# G Suite Python Samples
+# G Suite Python Samples [![Build Status](https://travis-ci.org/gsuitedevs/python-samples.svg?branch=master)](https://travis-ci.org/gsuitedevs/python-samples)
 
 Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 
