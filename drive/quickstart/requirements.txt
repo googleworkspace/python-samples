@@ -1,3 +1,1 @@
-* Python 2.6 or greater.
-* The pip package management tool.
-* A Google account with Gmail enabled.
+
