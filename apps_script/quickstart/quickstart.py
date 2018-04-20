@@ -43,7 +43,7 @@ try:
     'files': [{
       'name': 'hello',
       'type': 'SERVER_JS',
-      'source': 'function helloWorld() {\n  console.log("Hello, world!");}'
+      'source': 'function helloWorld() {\n  console.log("Hello, world!");\n}'
     }, {
       'name': 'appsscript',
       'type': 'JSON',
