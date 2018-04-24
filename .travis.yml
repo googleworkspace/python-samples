@@ -3,6 +3,8 @@ python:
   - "2.7"
   - "3.6"
 install:
-- pip install -r requirements.txt
+- pip install pylint
+# - pip install -r requirements.txt
 script:
-- pytest
+- find . -iname "*.py" | xargs pylint
+# - pytest
