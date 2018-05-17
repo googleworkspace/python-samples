@@ -12,31 +12,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START tasks_quickstart]
+# [START vault_quickstart]
 """
-Shows basic usage of the Tasks API. Outputs the first 10 task lists.
+Shows basic usage of the Vault API. Outputs the names and IDs of the first
+10 matters in Vault.
 """
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# Setup the Tasks API
-SCOPES = 'https://www.googleapis.com/auth/tasks.readonly'
+# Setup the Vault API
+SCOPES = 'https://www.googleapis.com/auth/ediscovery'
 store = file.Storage('credentials.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
     creds = tools.run_flow(flow, store)
-service = build('tasks', 'v1', http=creds.authorize(Http()))
+service = build('vault', 'v1', http=creds.authorize(Http()))
 
-# Call the Tasks API
-results = service.tasklists().list(maxResults=10).execute()
-items = results.get('items', [])
-if not items:
-    print('No task lists found.')
+# Call the Vault API
+results = service.matters().list(pageSize=10).execute()
+matters = results.get('matters', [])
+
+if not matters:
+    print('No matters found.')
 else:
-    print('Task lists:')
-    for item in items:
-        print('{0} ({1})'.format(item['title'], item['id']))
-# [END tasks_quickstart]
+    print('Matters:')
+    for matter in matters:
+        print('{} ({})'.format(matter.get('name'), matter.get('id')))
+# [END vault_quickstart]
