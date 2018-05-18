@@ -38,5 +38,27 @@ this directory.
 ### Run
 
 ```
-detect_external_access.py
+python detect_external_access.py
+```
+
+## Restrict External Access
+
+This script restricts external access to domain access for the given group.
+It requires the same `client_secret.json` file used by the quickstart.
+
+
+### Install
+
+```
+pip install --upgrade google-api-python-client
+```
+
+Follow the [Quickstart instructions](https://developers.google.com/admin-sdk/groups-settings/quickstart/python),
+to create an OAuth2 client ID and download the `client_secret.json` file into
+this directory.
+
+### Run
+
+```
+python restrict_external_access.py
 ```
