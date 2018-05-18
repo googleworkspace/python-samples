@@ -61,7 +61,6 @@ def get_credentials():
         creds = tools.run_flow(flow, store)
     return creds
 
-
 def print_group_settings(group_email, settings):
     """
     Given the group email and its settings, checks some of its settings and
@@ -84,7 +83,6 @@ def print_group_settings(group_email, settings):
         print('\twhoCanPostMessage - {0}'.format(who_can_post_message))
         print('\twhoCanViewMembership - {0}'.format(who_can_view_membership))
 
-
 def check_group_settings(group_settings_service, group_email):
     """
     Gets the group settings for the given group_email and prints the group
@@ -96,7 +94,6 @@ def check_group_settings(group_settings_service, group_email):
         print_group_settings(group_email, settings)
     except errors.HttpError:
         print('Unable to read group: {0}'.format(group_email))
-
 
 def check_groups(group_service, group_settings_service, page_token):
     """
@@ -115,7 +112,6 @@ def check_groups(group_service, group_settings_service, page_token):
         for group in groups:
             check_group_settings(group_settings_service, group['email'])
     return results.get('nextPageToken', None)
-
 
 def main():
     """
