@@ -13,8 +13,8 @@
 # limitations under the License.
 
 """
-print_group_settingss all the groups in the domain which have 'external' to the domain access.
-Also print_group_settingss their access settings.
+Outputs all the groups in the domain which have 'external' to the domain access.
+Also outputs their access settings.
 """
 from __future__ import print_function
 import httplib2
