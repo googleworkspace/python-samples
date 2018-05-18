@@ -25,7 +25,7 @@ from oauth2client.file import Storage
 
 # If modifying these scopes, delete your previously saved credentials
 # at credentials.json
-SCOPES = ['https://www.googleapis.com/auth/admin.directory.group',
+SCOPES = ['https://www.googleapis.com/auth/admin.directory.group.readonly',
           'https://www.googleapis.com/auth/apps.groups.settings']
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'List Groups with external access'
