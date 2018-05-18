@@ -46,7 +46,8 @@ ANYONE_CAN_POST_MESSAGE = 'ANYONE_CAN_POST'
 ANYONE_CAN_VIEW_MEMBERSHIP = 'ANYONE_CAN_VIEW'
 
 def get_credentials():
-    """Gets valid user credentials from storage.
+    """
+    Gets valid user credentials from storage.
 
     If nothing has been stored, or if the stored credentials are invalid,
     the OAuth2 flow is completed to obtain the new credentials.
@@ -71,11 +72,11 @@ def print_group_settings(group_email, settings):
     allow_external_members = settings['allowExternalMembers']
     who_can_post_message = settings['whoCanPostMessage']
     who_can_view_membership = settings['whoCanViewMembership']
-    if (who_can_view_group == ANYONE_CAN_VIEW_GROUP
-            or who_can_join == ANYONE_CAN_JOIN_GROUP
-            or allow_external_members == EXTERNAL_MEMBERS_CAN_JOIN
-            or who_can_post_message == ANYONE_CAN_POST_MESSAGE
-            or who_can_view_membership == ANYONE_CAN_VIEW_MEMBERSHIP):
+    if (who_can_view_group == ANYONE_CAN_VIEW_GROUP or
+            who_can_join == ANYONE_CAN_JOIN_GROUP or
+            allow_external_members == EXTERNAL_MEMBERS_CAN_JOIN or
+            who_can_post_message == ANYONE_CAN_POST_MESSAGE or
+            who_can_view_membership == ANYONE_CAN_VIEW_MEMBERSHIP):
         print(group_email)
         print('\twhoCanViewGroup - {0}'.format(who_can_view_group))
         print('\twhoCanJoin - {0}'.format(who_can_join))
