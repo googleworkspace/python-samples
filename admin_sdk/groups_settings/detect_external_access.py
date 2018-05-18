@@ -12,12 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START admin_sdk_groups_settings_quickstart]
-"""
-Shows basic usage of the Admin SDK Groups Settings API. Outputs a group's
-settings identified by the group's email address.
-"""
-
 """
 Outputs all the groups in the domain which have 'external' to the domain access.
 Also outputs their access settings.
