@@ -21,7 +21,7 @@ python quickstart.py
 
 ## Detect External Access
 
-This script lists all groups in your domain with some form of external acess
+This script lists all groups in your domain with some form of external access
 enabled.
 
 ### Install
