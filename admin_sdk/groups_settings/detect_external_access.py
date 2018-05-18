@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#         http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,23 +13,15 @@
 # limitations under the License.
 
 """
-Outputs all the groups in the domain which have 'external' to the domain access.
-Also outputs their access settings.
+print_group_settingss all the groups in the domain which have 'external' to the domain access.
+Also print_group_settingss their access settings.
 """
 from __future__ import print_function
 import httplib2
-import os
 
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
+from apiclient import discovery, errors
+from oauth2client import client, tools
 from oauth2client.file import Storage
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/group-settings-public.json
@@ -54,101 +46,93 @@ ANYONE_CAN_POST_MESSAGE = 'ANYONE_CAN_POST'
 ANYONE_CAN_VIEW_MEMBERSHIP = 'ANYONE_CAN_VIEW'
 
 def get_credentials():
-  """Gets valid user credentials from storage.
+    """Gets valid user credentials from storage.
 
-  If nothing has been stored, or if the stored credentials are invalid,
-  the OAuth2 flow is completed to obtain the new credentials.
+    If nothing has been stored, or if the stored credentials are invalid,
+    the OAuth2 flow is completed to obtain the new credentials.
 
-  Returns:
-      Credentials, the obtained credential.
-  """
-  home_dir = os.path.expanduser('~')
-  credential_dir = os.path.join(home_dir, '.credentials')
-  if not os.path.exists(credential_dir):
-      os.makedirs(credential_dir)
-  credential_path = os.path.join(credential_dir,
-                                 'group-settings-public.json')
-
-  store = Storage(credential_path)
-  credentials = store.get()
-  if not credentials or credentials.invalid:
-      flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-      flow.user_agent = APPLICATION_NAME
-      if flags:
-          credentials = tools.run_flow(flow, store, flags)
-      else: # Needed only for compatibility with Python 2.6
-          credentials = tools.run(flow, store)
-      print('Storing credentials to ' + credential_path)
-  return credentials
+    Returns:
+            Credentials, the obtained credential.
+    """
+    store = Storage('credentials.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    return creds
 
 
-def print_if_external_access_enabled(groupEmail, settings):
-  """
-  Given the group email and its settings, checks some of its settings and prints
-  them if the group has external access.
-  """
-  whoCanViewGroup = settings['whoCanViewGroup']
-  whoCanJoin = settings['whoCanJoin']
-  allowExternalMembers = settings['allowExternalMembers']
-  whoCanPostMessage = settings['whoCanPostMessage']
-  whoCanViewMembership = settings['whoCanViewMembership']
-  if (whoCanViewGroup == ANYONE_CAN_VIEW_GROUP
-      or whoCanJoin == ANYONE_CAN_JOIN_GROUP
-      or allowExternalMembers == EXTERNAL_MEMBERS_CAN_JOIN
-      or whoCanPostMessage == ANYONE_CAN_POST_MESSAGE
-      or whoCanViewMembership == ANYONE_CAN_VIEW_MEMBERSHIP):
-    print(groupEmail)
-    print('    whoCanViewGroup - {0}'.format(whoCanViewGroup))
-    print('    whoCanJoin - {0}'.format(whoCanJoin))
-    print('    allowExternalMembers - {0}'.format(allowExternalMembers))
-    print('    whoCanPostMessage - {0}'.format(whoCanPostMessage))
-    print('    whoCanViewMembership - {0}'.format(whoCanViewMembership))
+def print_group_settings(group_email, settings):
+    """
+    Given the group email and its settings, checks some of its settings and
+    prints them if the group has external access.
+    """
+    who_can_view_group = settings['whoCanViewGroup']
+    who_can_join = settings['whoCanJoin']
+    allow_external_members = settings['allowExternalMembers']
+    who_can_post_message = settings['whoCanPostMessage']
+    who_can_view_membership = settings['whoCanViewMembership']
+    if (who_can_view_group == ANYONE_CAN_VIEW_GROUP
+            or who_can_join == ANYONE_CAN_JOIN_GROUP
+            or allow_external_members == EXTERNAL_MEMBERS_CAN_JOIN
+            or who_can_post_message == ANYONE_CAN_POST_MESSAGE
+            or who_can_view_membership == ANYONE_CAN_VIEW_MEMBERSHIP):
+        print(group_email)
+        print('\twhoCanViewGroup - {0}'.format(who_can_view_group))
+        print('\twhoCanJoin - {0}'.format(who_can_join))
+        print('\tallowExternalMembers - {0}'.format(allow_external_members))
+        print('\twhoCanPostMessage - {0}'.format(who_can_post_message))
+        print('\twhoCanViewMembership - {0}'.format(who_can_view_membership))
 
 
-def get_group_settings(group_settings_service, groupEmail):
-  """
-  Gets the group settings for the given groupEmail and prints the group
-  if it has external access enabled.
-  """
-  try:
-    settings = group_settings_service.groups().get(
-        groupUniqueId=groupEmail).execute()
-    print_if_external_access_enabled(groupEmail, settings)
-  except:
-    print('Unable to read group: {0}'.format(groupEmail))
+def check_group_settings(group_settings_service, group_email):
+    """
+    Gets the group settings for the given group_email and prints the group
+    if it has external access enabled.
+    """
+    try:
+        settings = group_settings_service.groups().get(
+            groupUniqueId=group_email).execute()
+        print_group_settings(group_email, settings)
+    except errors.HttpError:
+        print('Unable to read group: {0}'.format(group_email))
 
 
-def get_groups(group_service, group_settings_service, pageToken):
-  """
-  Gets the groups in the domain, gets group settings for each group and prints
-  the ones which have external access enabled.
+def check_groups(group_service, group_settings_service, page_token):
+    """
+    Gets the groups in the domain, gets group settings for each group and prints
+    the ones which have external access enabled.
 
-  Returns:
-      pageToken to get the next page of groups
-  """
-  results = group_service.groups().list(
-      customer='my_customer', pageToken=pageToken, orderBy='email').execute()
-  groups = results.get('groups', [])
+    Returns:
+            page_token to get the next page of groups
+    """
+    results = group_service.groups().list(customer='my_customer',
+                                          pageToken=page_token,
+                                          orderBy='email').execute()
+    groups = results.get('groups', [])
 
-  if groups:
-    for group in groups:
-      get_group_settings(group_settings_service, group['email'])
-  return results.get('nextPageToken', None)
+    if groups:
+        for group in groups:
+            check_group_settings(group_settings_service, group['email'])
+    return results.get('nextPageToken', None)
 
 
 def main():
-  credentials = get_credentials()
-  http = credentials.authorize(httplib2.Http())
-  group_service = discovery.build('admin', 'directory_v1', http=http)
-  group_settings_service = discovery.build('groupssettings', 'v1', http=http)
+    """
+    Runs the script.
+    """
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    group_service = discovery.build('admin', 'directory_v1', http=http)
+    group_settings_service = discovery.build('groupssettings', 'v1', http=http)
 
-  pageToken = None
-  while True:
-    pageToken = get_groups(group_service=group_service,
-                           group_settings_service=group_settings_service,
-                           pageToken=pageToken)
-    if pageToken is None:
-      break
+    page_token = None
+    while True:
+        page_token = check_groups(group_service=group_service,
+                                  group_settings_service=group_settings_service,
+                                  page_token=page_token)
+        if page_token is None:
+            break
 
 if __name__ == '__main__':
-  main()
+    main()
