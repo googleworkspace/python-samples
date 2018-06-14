@@ -7,9 +7,6 @@ Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 ### Admin SDK
 
 - [Directory Quickstart](https://developers.google.com/admin-sdk/directory/v1/quickstart/python)
-- [Group Migration Quickstart](https://developers.google.com/admin-sdk/groups-migration/v1/quickstart/python)
-- [Group Settings Quickstart](https://developers.google.com/admin-sdk/groups-settings/quickstart/python)
-- [Licensing Quickstart](https://developers.google.com/admin-sdk/licensing/v1/quickstart/python)
 - [Reports Quickstart](https://developers.google.com/admin-sdk/reports/v1/quickstart/python)
 - [Reseller Quickstart](https://developers.google.com/admin-sdk/reseller/v1/quickstart/python)
 
