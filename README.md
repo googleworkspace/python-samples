@@ -44,3 +44,7 @@ Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 ### Tasks
 
 - [Quickstart](https://developers.google.com/google-apps/tasks/quickstart/python)
+
+## Lint
+
+`pylint filename.py`

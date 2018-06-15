@@ -121,6 +121,10 @@ def update_group_to_domain(group_settings_service, group_email):
         print('Unable to read group: {0}'.format(group_email))
 
 def main():
+    """
+    Prompts the user for an email address for the domain Group.
+    Updates group access settings.
+    """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     group_settings_service = discovery.build('groupssettings', 'v1', http=http)
