@@ -23,30 +23,30 @@ class SlidesSnippets:
 
     def create_presentation(self, title):
         slides_service = self.service
-        # [START create_presentation]
+        # [START slides_create_presentation]
         body = {
             'title': title
         }
         presentation = slides_service.presentations().create(body=body).execute()
         print('Created presentation with ID: {0}'.format(presentation.get('presentationId')))
-        # [END create_presentation]
+        # [END slides_create_presentation]
         return presentation
 
     def copy_presentation(self, presentation_id, copy_title):
         drive_service = self.drive_service
-        # [START copy_presentation]
+        # [START slides_copy_presentation]
         body = {
             'name': copy_title
         }
         drive_response = drive_service.files().copy(
             fileId=presentation_id, body=body).execute()
         presentation_copy_id = drive_response.get('id')
-        # [END copy_presentation]
+        # [END slides_copy_presentation]
         return presentation_copy_id
 
     def create_slide(self, presentation_id, page_id):
         slides_service = self.service
-        # [START create_slide]
+        # [START slides_create_slide]
         # Add a slide at index 1 using the predefined 'TITLE_AND_TWO_COLUMNS' layout and
         # the ID page_id.
         requests = [
@@ -72,12 +72,12 @@ class SlidesSnippets:
                                                               body=body).execute()
         create_slide_response = response.get('replies')[0].get('createSlide')
         print('Created slide with ID: {0}'.format(create_slide_response.get('objectId')))
-        # [END create_slide]
+        # [END slides_create_slide]
         return response
 
     def create_textbox_with_text(self, presentation_id, page_id):
         slides_service = self.service
-        # [START create_textbox_with_text]
+        # [START slides_create_textbox_with_text]
         # Create a new square textbox, using the supplied element ID.
         element_id = 'MyTextBox_01'
         pt350 = {
@@ -124,13 +124,13 @@ class SlidesSnippets:
                                                               body=body).execute()
         create_shape_response = response.get('replies')[0].get('createShape')
         print('Created textbox with ID: {0}'.format(create_shape_response.get('objectId')))
-        # [END create_textbox_with_text]
+        # [END slides_create_textbox_with_text]
         return response
 
     def create_image(self, presentation_id, page_id, image_file_path, image_mimetype):
         slides_service = self.service
         drive_service = self.drive_service
-        # [START create_image]
+        # [START slides_create_image]
         # Temporarily upload a local image file to Drive, in order to obtain a URL
         # for the image. Alternatively, you can provide the Slides servcie a URL of
         # an already hosted image.
@@ -182,7 +182,7 @@ class SlidesSnippets:
 
         # Remove the temporary image file from Drive.
         drive_service.files().delete(fileId=file_id).execute()
-        # [END create_image]
+        # [END slides_create_image]
         return response
 
     def text_merging(self, template_presentation_id, data_spreadsheet_id):
@@ -190,7 +190,7 @@ class SlidesSnippets:
         sheets_service = self.sheets_service
         drive_service = self.drive_service
         responses = []
-        # [START text_merging]
+        # [START slides_text_merging]
         # Use the Sheets API to load data, one record per row.
         data_range_notation = 'Customers!A2:M6'
         sheets_response = sheets_service.spreadsheets().values().get(
@@ -259,7 +259,7 @@ class SlidesSnippets:
             print('Created presentation for %s with ID: %s' % (customer_name, presentation_copy_id))
             print('Replaced %d text instances' % num_replacements)
 
-        # [END text_merging]
+        # [END slides_text_merging]
         return responses
 
     def image_merging(self, template_presentation_id, image_url, customer_name):
@@ -268,7 +268,7 @@ class SlidesSnippets:
         logo_url = image_url
         customer_graphic_url = image_url
 
-        # [START image_merging]
+        # [START slides_image_merging]
         # Duplicate the template presentation using the Drive API.
         copy_title = customer_name + ' presentation'
         drive_response = drive_service.files().copy(
@@ -311,12 +311,12 @@ class SlidesSnippets:
             num_replacements += reply.get('replaceAllShapesWithImage').get('occurrencesChanged')
         print('Created merged presentation with ID: {0}'.format(presentation_copy_id))
         print('Replaced %d shapes with images.' % num_replacements)
-        # [END image_merging]
+        # [END slides_image_merging]
         return response
 
     def simple_text_replace(self, presentation_id, shape_id, replacement_text):
         slides_service = self.service
-        # [START simple_text_replace]
+        # [START slides_simple_text_replace]
         # Remove existing text in the shape, then insert new text.
         requests = []
         requests.append({
@@ -342,12 +342,12 @@ class SlidesSnippets:
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print('Replaced text in shape with ID: {0}'.format(shape_id))
-        # [END simple_text_replace]
+        # [END slides_simple_text_replace]
         return response
 
     def text_style_update(self, presentation_id, shape_id):
         slides_service = self.service
-        # [START text_style_update]
+        # [START slides_text_style_update]
         # Update the text style so that the first 5 characters are bolded
         # and italicized, the next 5 are displayed in blue 14 pt Times
         # New Roman font, and the next 5 are hyperlinked.
@@ -419,12 +419,12 @@ class SlidesSnippets:
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print('Updated the text style for shape with ID: {0}'.format(shape_id))
-        # [END text_style_update]
+        # [END slides_text_style_update]
         return response
 
     def create_bulleted_text(self, presentation_id, shape_id):
         slides_service = self.service
-        # [START create_bulleted_text]
+        # [START slides_create_bulleted_text]
         # Add arrow-diamond-disc bullets to all text in the shape.
         requests = [
             {
@@ -445,12 +445,12 @@ class SlidesSnippets:
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print('Added bullets to text in shape with ID: {0}'.format(shape_id))
-        # [END create_bulleted_text]
+        # [END slides_create_bulleted_text]
         return response
 
     def create_sheets_chart(self, presentation_id, page_id, spreadsheet_id, sheet_chart_id):
         slides_service = self.service
-        # [START create_sheets_chart]
+        # [START slides_create_sheets_chart]
         # Embed a Sheets chart (indicated by the spreadsheet_id and sheet_chart_id) onto
         # a page in the presentation. Setting the linking mode as "LINKED" allows the
         # chart to be refreshed if the Sheets version is updated.
@@ -491,12 +491,12 @@ class SlidesSnippets:
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print('Added a linked Sheets chart with ID: {0}'.format(presentation_chart_id))
-        # [END create_sheets_chart]
+        # [END slides_create_sheets_chart]
         return response
 
     def refresh_sheets_chart(self, presentation_id, presentation_chart_id):
         slides_service = self.service
-        # [START refresh_sheets_chart]
+        # [START slides_refresh_sheets_chart]
         # Refresh an existing linked Sheets chart embedded in a presentation.
         requests = [
             {
@@ -513,5 +513,5 @@ class SlidesSnippets:
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print('Refreshed a linked Sheets chart with ID: {0}'.format(presentation_chart_id))
-        # [END refresh_sheets_chart]
+        # [END slides_refresh_sheets_chart]
         return response
