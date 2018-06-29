@@ -20,7 +20,7 @@ class SpreadsheetSnippets:
 
     def create(self, title):
         service = self.service
-        # [START create]
+        # [START sheets_create]
         spreadsheet = {
             'properties': {
                 'title': title
@@ -29,12 +29,12 @@ class SpreadsheetSnippets:
         spreadsheet = service.spreadsheets().create(body=spreadsheet,
                                             fields='spreadsheetId').execute()
         print('Spreadsheet ID: {0}'.format(spreadsheet.get('spreadsheetId')))
-        # [END create]
+        # [END sheets_create]
         return spreadsheet.get('spreadsheetId')
 
     def batch_update(self, spreadsheet_id, title, find, replacement):
         service = self.service
-        # [START batch_update]
+        # [START sheets_batch_update]
         requests = []
         # Change the spreadsheet's title.
         requests.append({
@@ -63,22 +63,22 @@ class SpreadsheetSnippets:
         find_replace_response = response.get('replies')[1].get('findReplace')
         print('{0} replacements made.'.format(
             find_replace_response.get('occurrencesChanged')))
-        # [END batch_update]
+        # [END sheets_batch_update]
         return response
 
     def get_values(self, spreadsheet_id, range_name):
         service = self.service
-        # [START get_values]
+        # [START sheets_get_values]
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
         numRows = result.get('values') if result.get('values')is not None else 0
         print('{0} rows retrieved.'.format(numRows));
-        # [END get_values]
+        # [END sheets_get_values]
         return result
 
     def batch_get_values(self, spreadsheet_id, _range_names):
         service = self.service
-        # [START batch_get_values]
+        # [START sheets_batch_get_values]
         range_names = [
             # Range names ...
         ]
@@ -88,13 +88,13 @@ class SpreadsheetSnippets:
         result = service.spreadsheets().values().batchGet(
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
         print('{0} ranges retrieved.'.format(result.get('valueRanges')));
-        # [END batch_get_values]
+        # [END sheets_batch_get_values]
         return result
 
     def update_values(self, spreadsheet_id, range_name, value_input_option,
                       _values):
         service = self.service
-        # [START update_values]
+        # [START sheets_update_values]
         values = [
             [
                 # Cell values ...
@@ -111,13 +111,13 @@ class SpreadsheetSnippets:
             spreadsheetId=spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
         print('{0} cells updated.'.format(result.get('updatedCells')));
-        # [END update_values]
+        # [END sheets_update_values]
         return result
 
     def batch_update_values(self, spreadsheet_id, range_name,
                             value_input_option, _values):
         service = self.service
-        # [START batch_update_values]
+        # [START sheets_batch_update_values]
         values = [
             [
                 # Cell values ...
@@ -141,13 +141,13 @@ class SpreadsheetSnippets:
         result = service.spreadsheets().values().batchUpdate(
             spreadsheetId=spreadsheet_id, body=body).execute()
         print('{0} cells updated.'.format(result.get('updatedCells')));
-        # [END batch_update_values]
+        # [END sheets_batch_update_values]
         return result
 
     def append_values(self, spreadsheet_id, range_name, value_input_option,
                       _values):
         service = self.service
-        # [START append_values]
+        # [START sheets_append_values]
         values = [
             [
                 # Cell values ...
@@ -166,7 +166,7 @@ class SpreadsheetSnippets:
         print('{0} cells appended.'.format(result \
                                                .get('updates') \
                                                .get('updatedCells')));
-        # [END append_values]
+        # [END sheets_append_values]
         return result
 
     def pivot_tables(self, spreadsheet_id):
@@ -186,7 +186,7 @@ class SpreadsheetSnippets:
         target_sheet_id = batch_update_response.get('replies')[1] \
             .get('addSheet').get('properties').get('sheetId')
         requests = []
-        # [START pivot_tables]
+        # [START sheets_pivot_tables]
         requests.append({
             'updateCells': {
                 'rows': {
@@ -241,13 +241,13 @@ class SpreadsheetSnippets:
         }
         response = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
-        # [END pivot_tables]
+        # [END sheets_pivot_tables]
         return response
 
     def conditional_formatting(self, spreadsheet_id):
         service = self.service
 
-        # [START conditional_formatting]
+        # [START sheets_conditional_formatting]
         my_range = {
             'sheetId': 0,
             'startRowIndex': 1,
@@ -294,5 +294,5 @@ class SpreadsheetSnippets:
         response = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
         print('{0} cells updated.'.format(len(response.get('replies'))));
-        # [END conditional_formatting]
+        # [END sheets_conditional_formatting]
         return response
