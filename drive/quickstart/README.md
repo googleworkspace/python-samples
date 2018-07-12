@@ -8,7 +8,7 @@ makes requests to the Drive V3 API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client
+pip install --upgrade google-api-python-client oauth2client
 ```
 
 ## Run

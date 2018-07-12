@@ -21,12 +21,12 @@ Step 2: Install the Google Client Library
 
 To install the Google API Python Client on a system, you should use the `pip` command.
 
-    pip install --upgrade google-api-python-client
+    pip install --upgrade google-api-python-client oauth2client
 
 Alternatively, if you are using `virtualenv`, create the environment and install the client library.
 
     virtualenv ve
-    ./ve/bin/pip install --upgrade google-api-python-client
+    ./ve/bin/pip install --upgrade google-api-python-client oauth2client
 
 If you need to access the Google API Python Client from a Google App Engine
 project, you can follow the instructions
