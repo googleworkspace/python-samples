@@ -23,10 +23,10 @@ from oauth2client import file, client, tools
 
 # Setup the People API
 SCOPES = 'https://www.googleapis.com/auth/contacts.readonly'
-store = file.Storage('credentials.json')
+store = file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
     creds = tools.run_flow(flow, store)
 service = build('people', 'v1', http=creds.authorize(Http()))
 
