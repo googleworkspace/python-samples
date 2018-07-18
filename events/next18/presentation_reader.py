@@ -22,7 +22,7 @@ title.
 import re
 
 
-class PresentationReader(object):
+class PresentationReader:
 
     def __init__(self, slides_service, presentation_id):
         self._slides_service = slides_service
