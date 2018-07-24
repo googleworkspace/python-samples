@@ -19,6 +19,7 @@ Call the Apps Script API to create a new script project, upload a file to the
 project, and log the script's URL to the user.
 """
 from __future__ import print_function
+from apiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
@@ -35,7 +36,7 @@ service = build('script', 'v1', http=creds.authorize(Http()))
 # Call the Apps Script API
 try:
   # Create a new project
-  request = {'title': 'My Script'}
+  request = {'title2': 'My Script'}
   response = service.projects().create(body=request).execute()
 
   # Upload two files to the project
