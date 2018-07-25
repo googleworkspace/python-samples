@@ -14,11 +14,7 @@
 
 # [START apps_script_execute]
 def main():
-    """Shows basic usage of the Apps Script API.
-
-    Creates a Apps Script API service object and uses it to call an
-    Apps Script function to print out a list of folders in the user's root
-    directory.
+    """Runs the sample.
     """
     SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'
 
@@ -67,6 +63,7 @@ def main():
     except errors.HttpError as e:
         # The API encountered a problem before the script started executing.
         print(e.content)
+
 
 if __name__ == '__main__':
     main()

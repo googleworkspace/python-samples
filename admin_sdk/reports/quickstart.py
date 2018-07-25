@@ -27,9 +27,7 @@ SCOPES = 'https://www.googleapis.com/auth/admin.reports.audit.readonly'
 
 
 def main():
-    """Shows basic usage of the Google Admin SDK Reports API.
-
-    Outputs a list of last 10 login events.
+    """Runs the sample.
     """
     store = file.Storage('token.json')
     creds = store.get()

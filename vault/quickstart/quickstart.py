@@ -22,23 +22,32 @@ from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# Setup the Vault API
+# If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/ediscovery'
-store = file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('vault', 'v1', http=creds.authorize(Http()))
 
-# Call the Vault API
-results = service.matters().list(pageSize=10).execute()
-matters = results.get('matters', [])
 
-if not matters:
-    print('No matters found.')
-else:
-    print('Matters:')
-    for matter in matters:
-        print('{} ({})'.format(matter.get('name'), matter.get('id')))
+def main():
+    """Runs the sample.
+    """
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('vault', 'v1', http=creds.authorize(Http()))
+
+    # Call the Vault API
+    results = service.matters().list(pageSize=10).execute()
+    matters = results.get('matters', [])
+
+    if not matters:
+        print('No matters found.')
+    else:
+        print('Matters:')
+        for matter in matters:
+            print(u'{} ({})'.format(matter.get('name'), matter.get('id')))
+
+
+if __name__ == '__main__':
+    main()
 # [END vault_quickstart]

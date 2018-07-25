@@ -14,7 +14,7 @@
 
 # [START admin_sdk_directory_quickstart]
 """
-Shows basic usage of the Admin SDK Directory API. Lists of first 10 users in
+Shows basic usage of the Admin SDK Directory API. Lists the first 10 users in
 the domain.
 """
 from __future__ import print_function
@@ -27,9 +27,7 @@ SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
 
 
 def main():
-    """Shows basic usage of the Google Admin SDK Directory API.
-
-    Outputs a list of first 10 users in the domain.
+    """Runs the sample.
     """
     store = file.Storage('token.json')
     creds = store.get()

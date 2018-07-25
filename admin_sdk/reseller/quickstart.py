@@ -27,9 +27,7 @@ SCOPES = 'https://www.googleapis.com/auth/admin.reports.audit.readonly'
 
 
 def main():
-    """Shows basic usage of the Google Admin-SDK Reseller API.
-
-    Outputs the first 10 subscriptions you manage.
+    """Runs the sample.
     """
     store = file.Storage('token.json')
     creds = store.get()
