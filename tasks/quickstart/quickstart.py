@@ -13,9 +13,6 @@
 # limitations under the License.
 
 # [START tasks_quickstart]
-"""
-Shows basic usage of the Tasks API. Outputs the first 10 task lists.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -26,7 +23,10 @@ SCOPES = 'https://www.googleapis.com/auth/tasks.readonly'
 
 
 def main():
-    """Runs the sample.
+    """
+    Shows basic usage of the Tasks API.
+
+    Prints the title and ID of the first 10 task lists.
     """
     store = file.Storage('token.json')
     creds = store.get()

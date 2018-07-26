@@ -13,10 +13,6 @@
 # limitations under the License.
 
 # [START calendar_quickstart]
-"""
-Shows basic usage of the Google Calendar API. Creates a Google Calendar API
-service object and outputs a list of the next 10 events on the user's calendar.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -28,7 +24,9 @@ SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 
 
 def main():
-    """Runs the sample.
+    """Shows basic usage of the Google Calendar API.
+
+    Prints the start and name of the next 10 events on the user's calendar.
     """
     store = file.Storage('token.json')
     creds = store.get()

@@ -13,9 +13,6 @@
 # limitations under the License.
 
 # [START people_quickstart]
-"""
-Shows basic usage of the People API. Outputs the name 10 connections.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -26,7 +23,9 @@ SCOPES = 'https://www.googleapis.com/auth/contacts.readonly'
 
 
 def main():
-    """Runs the sample.
+    """Shows basic usage of the People API.
+
+    Prints the name of the first 10 connections.
     """
     store = file.Storage('token.json')
     creds = store.get()

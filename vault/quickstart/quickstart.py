@@ -13,10 +13,6 @@
 # limitations under the License.
 
 # [START vault_quickstart]
-"""
-Shows basic usage of the Vault API. Outputs the names and IDs of the first
-10 matters in Vault.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -27,7 +23,10 @@ SCOPES = 'https://www.googleapis.com/auth/ediscovery'
 
 
 def main():
-    """Runs the sample.
+    """
+    Shows basic usage of the Vault API.
+
+    Prints the names and IDs of the first 10 matters in Vault.
     """
     store = file.Storage('token.json')
     creds = store.get()

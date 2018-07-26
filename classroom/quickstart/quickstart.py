@@ -13,12 +13,6 @@
 # limitations under the License.
 
 # [START classroom_quickstart]
-"""
-Shows basic usage of the Classroom API.
-
-Creates a Classroom API service object and prints the names of the first
-10 courses the user has access to.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -29,7 +23,9 @@ SCOPES = 'https://www.googleapis.com/auth/classroom.courses.readonly'
 
 
 def main():
-    """Runs the sample.
+    """Shows basic usage of the Classroom API.
+
+    Prints the names of the first 10 courses the user has access to.
     """
     store = file.Storage('token.json')
     creds = store.get()

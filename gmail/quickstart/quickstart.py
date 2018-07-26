@@ -13,11 +13,6 @@
 # limitations under the License.
 
 # [START gmail_quickstart]
-"""
-Shows basic usage of the Gmail API.
-
-Lists the user's Gmail labels.
-"""
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
@@ -28,7 +23,9 @@ SCOPES = 'https://www.googleapis.com/auth/gmail.readonly'
 
 
 def main():
-    """Runs the sample.
+    """Shows basic usage of the Gmail API.
+
+    Lists the user's Gmail labels.
     """
     store = file.Storage('token.json')
     creds = store.get()

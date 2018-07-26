@@ -42,7 +42,7 @@ SAMPLE_MANIFEST = '''
 
 
 def main():
-    """Runs the sample.
+    """Calls the Apps Script API.
     """
     store = file.Storage('token.json')
     creds = store.get()

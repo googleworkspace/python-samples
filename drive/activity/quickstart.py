@@ -24,7 +24,9 @@ SCOPES = 'https://www.googleapis.com/auth/activity'
 
 
 def main():
-    """Runs the sample.
+    """Shows basic usage of the Drive Activity API.
+
+    Prints information about the last 10 events that occured the user's Drive.
     """
     store = file.Storage('token.json')
     creds = store.get()
