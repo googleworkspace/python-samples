@@ -5,6 +5,7 @@
 This script uploads a single file to Google Drive.
 """
 
+from __future__ import print_function
 import pprint
 import httplib2
 import apiclient.discovery
@@ -30,7 +31,7 @@ DESCRIPTION = 'A shiny new text document about hello world.'
 flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
-print 'Go to the following link in your browser: ' + authorize_url
+print('Go to the following link in your browser: ' + authorize_url)
 code = raw_input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 

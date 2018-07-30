@@ -97,13 +97,13 @@ class SnippetsTest(BaseTest):
             SnippetsTest.CUSTOMER_NAME)
         presentation_id = response.get('presentationId')
         self.assertIsNotNone(presentation_id, msg=pformat(response))
-        self.assertEquals(2, len(response.get('replies')),
+        self.assertEqual(2, len(response.get('replies')),
             msg=pformat(response))
         num_replacements = 0
         for reply in response.get('replies'):
             num_replacements += reply.get('replaceAllShapesWithImage') \
                 .get('occurrencesChanged')
-        self.assertEquals(2, num_replacements)
+        self.assertEqual(2, num_replacements)
         self.delete_file_on_cleanup(presentation_id)
 
     def test_simple_text_replace(self):
@@ -112,7 +112,7 @@ class SnippetsTest(BaseTest):
         box_id = self.create_test_textbox(presentation_id, page_id)
         response = self.snippets.simple_text_replace(
             presentation_id, box_id, 'MY NEW TEXT')
-        self.assertEquals(2, len(response.get('replies')),
+        self.assertEqual(2, len(response.get('replies')),
             msg=pformat(response))
 
     def test_text_style_update(self):
@@ -120,7 +120,7 @@ class SnippetsTest(BaseTest):
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)
         response = self.snippets.text_style_update(presentation_id, box_id)
-        self.assertEquals(3, len(response.get('replies')),
+        self.assertEqual(3, len(response.get('replies')),
             msg=pformat(response))
 
     def test_create_bulleted_text(self):
@@ -128,7 +128,7 @@ class SnippetsTest(BaseTest):
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)
         response = self.snippets.create_bulleted_text(presentation_id, box_id)
-        self.assertEquals(1, len(response.get('replies')),
+        self.assertEqual(1, len(response.get('replies')),
             msg=pformat(response))
 
     def test_create_sheets_chart(self):
@@ -136,7 +136,7 @@ class SnippetsTest(BaseTest):
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         response = self.snippets.create_sheets_chart(presentation_id,
             page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
-        self.assertEquals(1, len(response.get('replies')),
+        self.assertEqual(1, len(response.get('replies')),
             msg=pformat(response))
         chart_id = response.get('replies')[0].get('createSheetsChart') \
             .get('objectId')
@@ -148,7 +148,7 @@ class SnippetsTest(BaseTest):
         chart_id = self.create_test_sheets_chart(presentation_id,
             page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
         response = self.snippets.refresh_sheets_chart(presentation_id, chart_id)
-        self.assertEquals(1, len(response.get('replies')),
+        self.assertEqual(1, len(response.get('replies')),
             msg=pformat(response))
 
 if __name__ == '__main__':
