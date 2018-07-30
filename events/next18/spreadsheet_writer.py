@@ -25,12 +25,12 @@ def CreateSpreadsheet(sheets_service, title, sheet_titles):
     """
     sheets = []
     for sheet_title in sheet_titles:
-      sheet = {
-          'properties': {
-              'title': sheet_title,
-          },
-      }
-      sheets.append(sheet)
+        sheet = {
+            'properties': {
+                'title': sheet_title,
+             },
+        }
+        sheets.append(sheet)
 
     spreadsheet = {
         'properties': {
@@ -41,7 +41,7 @@ def CreateSpreadsheet(sheets_service, title, sheet_titles):
     return sheets_service.spreadsheets().create(body=spreadsheet).execute()
 
 
-class SpreadsheetWriter:
+class SpreadsheetWriter(object):
     """Queues writes for modifying a spreadsheet.
 
     Call ExecuteBatchUpdate to flush pending writes.
@@ -72,16 +72,16 @@ class SpreadsheetWriter:
         # Populate the column with the values
         rows = []
         for value in values:
-          row_data = {
-              'values': [
-                  {
-                      'userEnteredValue': {
-                          'stringValue': value
-                      }
-                  }
-              ]
-          }
-          rows.append(row_data)
+            row_data = {
+                'values': [
+                    {
+                        'userEnteredValue': {
+                            'stringValue': value
+                        }
+                     }
+                 ]
+            }
+            rows.append(row_data)
 
         update_request = {
             'updateCells': {

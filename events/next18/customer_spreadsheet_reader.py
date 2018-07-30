@@ -19,7 +19,7 @@
 import collections
 
 
-class CustomerSpreadsheetReader:
+class CustomerSpreadsheetReader(object):
 
     def __init__(self, sheets_service, spreadsheet_id):
         self._sheets_service = sheets_service
@@ -51,7 +51,7 @@ class CustomerSpreadsheetReader:
         return customer_spreadsheet
 
 
-class CustomerSpreadsheet:
+class CustomerSpreadsheet(object):
 
     def __init__(self, spreadsheet, data_filters):
         self._spreadsheet = spreadsheet

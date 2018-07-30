@@ -21,7 +21,7 @@ hard coded data. This can be any internal or on-premise data store.
 """
 
 
-class CustomerDataService:
+class CustomerDataService(object):
     _CUSTOMER_DATA = {
         'mars': {
             'customer_name': 'Mars Inc.',
