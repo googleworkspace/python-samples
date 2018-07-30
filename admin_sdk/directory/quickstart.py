@@ -20,11 +20,11 @@ domain.
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import file as oauth_file, client, tools
 
 # Setup the Admin SDK Directory API
 SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-store = file.Storage('token.json')
+store = oauth_file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
@@ -42,5 +42,6 @@ if not users:
 else:
     print('Users:')
     for user in users:
-        print('{0} ({1})'.format(user['primaryEmail'], user['name']['fullName']))
+        print('{0} ({1})'.format(user['primaryEmail'],
+            user['name']['fullName']))
 # [END admin_sdk_directory_quickstart]

@@ -6,7 +6,6 @@ This script uploads a single file to Google Drive.
 """
 
 import pprint
-
 import httplib2
 import apiclient.discovery
 import apiclient.http
@@ -54,5 +53,6 @@ body = {
 }
 
 # Perform the request and print the result.
-new_file = drive_service.files().insert(body=body, media_body=media_body).execute()
+new_file = drive_service.files().insert(
+  body=body, media_body=media_body).execute()
 pprint.pprint(new_file)

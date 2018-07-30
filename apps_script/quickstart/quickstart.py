@@ -22,11 +22,11 @@ from __future__ import print_function
 from apiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import file as oauthfile, client, tools
 
 # Setup the Apps Script API
 SCOPES = 'https://www.googleapis.com/auth/script.projects'
-store = file.Storage('token.json')
+store = oauthfile.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
@@ -35,27 +35,28 @@ service = build('script', 'v1', http=creds.authorize(Http()))
 
 # Call the Apps Script API
 try:
-  # Create a new project
-  request = {'title2': 'My Script'}
-  response = service.projects().create(body=request).execute()
+    # Create a new project
+    request = {'title2': 'My Script'}
+    response = service.projects().create(body=request).execute()
 
-  # Upload two files to the project
-  request = {
-    'files': [{
-      'name': 'hello',
-      'type': 'SERVER_JS',
-      'source': 'function helloWorld() {\n  console.log("Hello, world!");\n}'
-    }, {
-      'name': 'appsscript',
-      'type': 'JSON',
-      'source': '{\"timeZone\":\"America/New_York\",\"exceptionLogging\":' + \
-        '\"CLOUD\"}'
-    }]
-  }
-  response = service.projects().updateContent(body=request,
+    # Upload two files to the project
+    request = {
+        'files': [{
+            'name': 'hello',
+            'type': 'SERVER_JS',
+            'source': 'function helloWorld() {\n ' \
+                'console.log("Hello, world!");\n}'
+        }, {
+            'name': 'appsscript',
+            'type': 'JSON',
+            'source': '{\"timeZone\":\"America/New_York\",' \
+                '\"exceptionLogging\":\"CLOUD\"}'
+        }]
+    }
+    response = service.projects().updateContent(body=request,
       scriptId=response['scriptId']).execute()
-  print('https://script.google.com/d/' + response['scriptId'] + '/edit')
+    print('https://script.google.com/d/' + response['scriptId'] + '/edit')
 except errors.HttpError as e:
-  # The API encountered a problem.
-  print(e.content)
+    # The API encountered a problem.
+    print(e.content)
 # [END apps_script_quickstart]

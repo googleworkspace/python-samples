@@ -14,7 +14,7 @@
 
 from __future__ import print_function
 
-class SlidesSnippets:
+class SlidesSnippets(object):
     def __init__(self, service, drive_service, sheets_service, credentials):
         self.service = service
         self.drive_service = drive_service
@@ -27,8 +27,10 @@ class SlidesSnippets:
         body = {
             'title': title
         }
-        presentation = slides_service.presentations().create(body=body).execute()
-        print('Created presentation with ID: {0}'.format(presentation.get('presentationId')))
+        presentation = slides_service.presentations() \
+            .create(body=body).execute()
+        print('Created presentation with ID: {0}'.format(
+            presentation.get('presentationId')))
         # [END slides_create_presentation]
         return presentation
 
@@ -47,8 +49,8 @@ class SlidesSnippets:
     def create_slide(self, presentation_id, page_id):
         slides_service = self.service
         # [START slides_create_slide]
-        # Add a slide at index 1 using the predefined 'TITLE_AND_TWO_COLUMNS' layout and
-        # the ID page_id.
+        # Add a slide at index 1 using the predefined
+        # 'TITLE_AND_TWO_COLUMNS' layout and the ID page_id.
         requests = [
             {
                 'createSlide': {
@@ -61,17 +63,18 @@ class SlidesSnippets:
             }
         ]
 
-        # If you wish to populate the slide with elements, add element create requests here,
-        # using the page_id.
+        # If you wish to populate the slide with elements,
+        # add element create requests here, using the page_id.
 
         # Execute the request.
         body = {
             'requests': requests
         }
-        response = slides_service.presentations().batchUpdate(presentationId=presentation_id,
-                                                              body=body).execute()
+        response = slides_service.presentations() \
+            .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_slide_response = response.get('replies')[0].get('createSlide')
-        print('Created slide with ID: {0}'.format(create_slide_response.get('objectId')))
+        print('Created slide with ID: {0}'.format(
+            create_slide_response.get('objectId')))
         # [END slides_create_slide]
         return response
 
@@ -120,20 +123,22 @@ class SlidesSnippets:
         body = {
             'requests': requests
         }
-        response = slides_service.presentations().batchUpdate(presentationId=presentation_id,
-                                                              body=body).execute()
+        response = slides_service.presentations() \
+            .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_shape_response = response.get('replies')[0].get('createShape')
-        print('Created textbox with ID: {0}'.format(create_shape_response.get('objectId')))
+        print('Created textbox with ID: {0}'.format(
+            create_shape_response.get('objectId')))
         # [END slides_create_textbox_with_text]
         return response
 
-    def create_image(self, presentation_id, page_id, image_file_path, image_mimetype):
+    def create_image(self, presentation_id, page_id, image_file_path,
+            image_mimetype):
         slides_service = self.service
         drive_service = self.drive_service
         # [START slides_create_image]
-        # Temporarily upload a local image file to Drive, in order to obtain a URL
-        # for the image. Alternatively, you can provide the Slides servcie a URL of
-        # an already hosted image.
+        # Temporarily upload a local image file to Drive, in order to obtain a
+        # URL for the image. Alternatively, you can provide the Slides service
+        # a URL of an already hosted image.
         upload = drive_service.files().create(
             body={'name': 'My Image File', 'mimeType': image_mimetype},
             media_body=image_file_path).execute()
@@ -141,9 +146,11 @@ class SlidesSnippets:
 
         # Obtain a URL for the image.
         image_url = '%s&access_token=%s' % (
-            drive_service.files().get_media(fileId=file_id).uri, self.credentials.access_token)
+            drive_service.files().get_media(
+                fileId=file_id).uri, self.credentials.access_token)
 
-        # Create a new image, using the supplied object ID, with content downloaded from image_url.
+        # Create a new image, using the supplied object ID,
+        # with content downloaded from image_url.
         requests = []
         image_id = 'MyImage_01'
         emu4M = {
@@ -175,10 +182,11 @@ class SlidesSnippets:
         body = {
             'requests': requests
         }
-        response = slides_service.presentations().batchUpdate(presentationId=presentation_id,
-                                                              body=body).execute()
+        response = slides_service.presentations() \
+            .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_image_response = response.get('replies')[0].get('createImage')
-        print('Created image with ID: {0}'.format(create_image_response.get('objectId')))
+        print('Created image with ID: {0}'.format(
+            create_image_response.get('objectId')))
 
         # Remove the temporary image file from Drive.
         drive_service.files().delete(fileId=file_id).execute()
@@ -194,7 +202,8 @@ class SlidesSnippets:
         # Use the Sheets API to load data, one record per row.
         data_range_notation = 'Customers!A2:M6'
         sheets_response = sheets_service.spreadsheets().values().get(
-            spreadsheetId=data_spreadsheet_id, range=data_range_notation).execute()
+            spreadsheetId=data_spreadsheet_id,
+            range=data_range_notation).execute()
         values = sheets_response.get('values')
 
         # For each record, create a new merged presentation.
@@ -212,7 +221,8 @@ class SlidesSnippets:
                 fileId=template_presentation_id, body=body).execute()
             presentation_copy_id = drive_response.get('id')
 
-            # Create the text merge (replaceAllText) requests for this presentation.
+            # Create the text merge (replaceAllText) requests
+            # for this presentation.
             requests = [
                 {
                     'replaceAllText': {
@@ -255,8 +265,10 @@ class SlidesSnippets:
             # Count the total number of replacements made.
             num_replacements = 0
             for reply in response.get('replies'):
-                num_replacements += reply.get('replaceAllText').get('occurrencesChanged')
-            print('Created presentation for %s with ID: %s' % (customer_name, presentation_copy_id))
+                num_replacements += reply.get('replaceAllText') \
+                    .get('occurrencesChanged')
+            print('Created presentation for %s with ID: %s' %
+                (customer_name, presentation_copy_id))
             print('Replaced %d text instances' % num_replacements)
 
         # [END slides_text_merging]
@@ -272,7 +284,8 @@ class SlidesSnippets:
         # Duplicate the template presentation using the Drive API.
         copy_title = customer_name + ' presentation'
         drive_response = drive_service.files().copy(
-            fileId=template_presentation_id, body={'name': copy_title}).execute()
+            fileId=template_presentation_id,
+            body={'name': copy_title}).execute()
         presentation_copy_id = drive_response.get('id')
 
         # Create the image merge (replaceAllShapesWithImage) requests.
@@ -308,8 +321,10 @@ class SlidesSnippets:
         # Count the number of replacements made.
         num_replacements = 0
         for reply in response.get('replies'):
-            num_replacements += reply.get('replaceAllShapesWithImage').get('occurrencesChanged')
-        print('Created merged presentation with ID: {0}'.format(presentation_copy_id))
+            num_replacements += reply.get('replaceAllShapesWithImage') \
+                .get('occurrencesChanged')
+        print('Created merged presentation with ID: {0}' \
+            .format(presentation_copy_id))
         print('Replaced %d shapes with images.' % num_replacements)
         # [END slides_image_merging]
         return response
@@ -448,11 +463,13 @@ class SlidesSnippets:
         # [END slides_create_bulleted_text]
         return response
 
-    def create_sheets_chart(self, presentation_id, page_id, spreadsheet_id, sheet_chart_id):
+    def create_sheets_chart(self, presentation_id, page_id, spreadsheet_id,
+            sheet_chart_id):
         slides_service = self.service
         # [START slides_create_sheets_chart]
-        # Embed a Sheets chart (indicated by the spreadsheet_id and sheet_chart_id) onto
-        # a page in the presentation. Setting the linking mode as "LINKED" allows the
+        # Embed a Sheets chart (indicated by the spreadsheet_id and
+        # sheet_chart_id) onto a page in the presentation.
+        # Setting the linking mode as "LINKED" allows the
         # chart to be refreshed if the Sheets version is updated.
         emu4M = {
             'magnitude': 4000000,
@@ -490,7 +507,8 @@ class SlidesSnippets:
         }
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
-        print('Added a linked Sheets chart with ID: {0}'.format(presentation_chart_id))
+        print('Added a linked Sheets chart with ID: {0}'.format(
+            presentation_chart_id))
         # [END slides_create_sheets_chart]
         return response
 
@@ -512,6 +530,7 @@ class SlidesSnippets:
         }
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
-        print('Refreshed a linked Sheets chart with ID: {0}'.format(presentation_chart_id))
+        print('Refreshed a linked Sheets chart with ID: {0}' \
+            .format(presentation_chart_id))
         # [END slides_refresh_sheets_chart]
         return response

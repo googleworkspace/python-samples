@@ -13,14 +13,14 @@
 # limitations under the License.
 
 import unittest
-from base_test import BaseTest
-from pprint import pprint
 from pprint import pformat
+from base_test import BaseTest
 from slides_snippets import SlidesSnippets
 
 class SnippetsTest(BaseTest):
     IMAGE_FILE_PATH = '../resources/photo.jpg'
-    IMAGE_URL = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'
+    IMAGE_URL = 'https://www.google.com/images/' \
+        'branding/googlelogo/2x/googlelogo_color_272x92dp.png'
     IMAGE_MIMETYPE = 'image/png'
     TEMPLATE_PRESENTATION_ID = '1E7tKQyX8H7zI7F8_v7mNDY5VyHZ3NNcjUQhkGXoITnw'
     DATA_SPREADSHEET_ID = '14KaZMq2aCAGt5acV77zaA_Ps8aDt04G7T0ei4KiXLX8'
@@ -30,13 +30,11 @@ class SnippetsTest(BaseTest):
     @classmethod
     def setUpClass(cls):
         super(SnippetsTest, cls).setUpClass()
-        cls.snippets = SlidesSnippets(cls.service, cls.drive_service, cls.sheets_service, cls.credentials)
-
-    def setUp(self):
-        super(SnippetsTest, self).setUp()
-
-    def tearDown(self):
-        super(SnippetsTest, self).tearDown()
+        cls.snippets = SlidesSnippets(
+            cls.service,
+            cls.drive_service,
+            cls.sheets_service,
+            cls.credentials)
 
     def test_create_presentation(self):
         presentation = self.snippets.create_presentation('Title')
@@ -45,7 +43,8 @@ class SnippetsTest(BaseTest):
 
     def test_copy_presentation(self):
         presentation_id = self.create_test_presentation()
-        copy_id = self.snippets.copy_presentation(presentation_id, 'My Duplicate Presentation')
+        copy_id = self.snippets.copy_presentation(
+            presentation_id, 'My Duplicate Presentation')
         self.assertIsNotNone(copy_id)
         self.delete_file_on_cleanup(copy_id)
 
@@ -60,7 +59,8 @@ class SnippetsTest(BaseTest):
     def test_create_textbox_with_text(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        response = self.snippets.create_textbox_with_text(presentation_id, page_id)
+        response = self.snippets.create_textbox_with_text(
+            presentation_id, page_id)
         self.assertEqual(2, len(response.get('replies')), msg=pformat(response))
         box_id = response.get('replies')[0].get('createShape').get('objectId')
         self.assertIsNotNone(box_id, msg=pformat(response))
@@ -68,23 +68,26 @@ class SnippetsTest(BaseTest):
     def test_create_image(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        response = self.snippets.create_image(
-            presentation_id, page_id, SnippetsTest.IMAGE_FILE_PATH, SnippetsTest.IMAGE_MIMETYPE)
+        response = self.snippets.create_image(presentation_id,
+            page_id, SnippetsTest.IMAGE_FILE_PATH, SnippetsTest.IMAGE_MIMETYPE)
         self.assertEqual(1, len(response.get('replies')), msg=pformat(response))
         image_id = response.get('replies')[0].get('createImage').get('objectId')
         self.assertIsNotNone(image_id, msg=pformat(response))
 
     def test_text_merging(self):
         responses = self.snippets.text_merging(
-            SnippetsTest.TEMPLATE_PRESENTATION_ID, SnippetsTest.DATA_SPREADSHEET_ID)
+            SnippetsTest.TEMPLATE_PRESENTATION_ID,
+            SnippetsTest.DATA_SPREADSHEET_ID)
         for response in responses:
             presentation_id = response.get('presentationId')
             self.assertIsNotNone(presentation_id, msg=pformat(response))
-            self.assertEqual(3, len(response.get('replies')), msg=pformat(response))
+            self.assertEqual(3, len(response.get('replies')),
+                msg=pformat(response))
             num_replacements = 0
             for reply in response.get('replies'):
-                num_replacements += reply.get('replaceAllText').get('occurrencesChanged')
-            self.assertEqual(4, num_replacements, msg=pformat(reply))
+                num_replacements += reply.get('replaceAllText') \
+                    .get('occurrencesChanged')
+                self.assertEqual(4, num_replacements, msg=pformat(reply))
             self.delete_file_on_cleanup(presentation_id)
 
     def test_image_merging(self):
@@ -94,10 +97,12 @@ class SnippetsTest(BaseTest):
             SnippetsTest.CUSTOMER_NAME)
         presentation_id = response.get('presentationId')
         self.assertIsNotNone(presentation_id, msg=pformat(response))
-        self.assertEquals(2, len(response.get('replies')), msg=pformat(response))
+        self.assertEquals(2, len(response.get('replies')),
+            msg=pformat(response))
         num_replacements = 0
         for reply in response.get('replies'):
-            num_replacements += reply.get('replaceAllShapesWithImage').get('occurrencesChanged')
+            num_replacements += reply.get('replaceAllShapesWithImage') \
+                .get('occurrencesChanged')
         self.assertEquals(2, num_replacements)
         self.delete_file_on_cleanup(presentation_id)
 
@@ -105,39 +110,46 @@ class SnippetsTest(BaseTest):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)
-        response = self.snippets.simple_text_replace(presentation_id, box_id, 'MY NEW TEXT')
-        self.assertEquals(2, len(response.get('replies')), msg=pformat(response))
+        response = self.snippets.simple_text_replace(
+            presentation_id, box_id, 'MY NEW TEXT')
+        self.assertEquals(2, len(response.get('replies')),
+            msg=pformat(response))
 
     def test_text_style_update(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)
         response = self.snippets.text_style_update(presentation_id, box_id)
-        self.assertEquals(3, len(response.get('replies')), msg=pformat(response))
+        self.assertEquals(3, len(response.get('replies')),
+            msg=pformat(response))
 
     def test_create_bulleted_text(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)
         response = self.snippets.create_bulleted_text(presentation_id, box_id)
-        self.assertEquals(1, len(response.get('replies')), msg=pformat(response))
+        self.assertEquals(1, len(response.get('replies')),
+            msg=pformat(response))
 
     def test_create_sheets_chart(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        response = self.snippets.create_sheets_chart(
-            presentation_id, page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
-        self.assertEquals(1, len(response.get('replies')), msg=pformat(response))
-        chart_id = response.get('replies')[0].get('createSheetsChart').get('objectId')
+        response = self.snippets.create_sheets_chart(presentation_id,
+            page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
+        self.assertEquals(1, len(response.get('replies')),
+            msg=pformat(response))
+        chart_id = response.get('replies')[0].get('createSheetsChart') \
+            .get('objectId')
         self.assertIsNotNone(chart_id, msg=pformat(response))
 
     def test_refresh_sheets_chart(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        chart_id = self.create_test_sheets_chart(
-            presentation_id, page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
+        chart_id = self.create_test_sheets_chart(presentation_id,
+            page_id, SnippetsTest.DATA_SPREADSHEET_ID, SnippetsTest.CHART_ID)
         response = self.snippets.refresh_sheets_chart(presentation_id, chart_id)
-        self.assertEquals(1, len(response.get('replies')), msg=pformat(response))
+        self.assertEquals(1, len(response.get('replies')),
+            msg=pformat(response))
 
 if __name__ == '__main__':
     unittest.main()

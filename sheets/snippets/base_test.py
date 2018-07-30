@@ -13,10 +13,11 @@
 # limitations under the License.
 
 from __future__ import print_function
-from apiclient import discovery
-from oauth2client.client import GoogleCredentials
 import unittest
 import sys
+from apiclient import discovery
+from oauth2client.client import GoogleCredentials
+from googleapiclient import errors
 import httplib2
 
 class BaseTest(unittest.TestCase):
