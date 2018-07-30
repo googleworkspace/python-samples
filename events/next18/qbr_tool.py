@@ -29,7 +29,7 @@ from apiclient.discovery import build
 import customer_data_service
 import customer_spreadsheet_reader
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import file as oauth_file, client, tools
 import presentation_reader
 import presentation_writer
 import spreadsheet_writer
