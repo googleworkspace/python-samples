@@ -62,8 +62,8 @@ class SpreadsheetWriter:
                    'endIndex': column_index + 1,
                 },
              }
-          }
-          self._requests.append(request)
+        }
+        self._requests.append(request)
 
     def PopulateColumn(self, sheet_id, column_index, column_id, values):
         # Include the column ID in the column values

@@ -38,8 +38,10 @@ class CustomerSpreadsheetReader:
     def ExecuteRead(self):
         filters = list(self._data_filters.values())
         get_body = {'dataFilters': filters}
-        read_fields = ('sheets.properties.sheetId,sheets.data.rowData.' +
-            'values.formattedValue,developerMetadata.metadataValue')
+        read_fields = ','.join([
+            'sheets.properties.sheetId',
+            'sheets.data.rowData.values.formattedValue',
+            'developerMetadata.metadataValue'])
         spreadsheet = self._sheets_service.spreadsheets().getByDataFilter(
             spreadsheetId=self._spreadsheet_id, body=get_body,
             fields=read_fields).execute()
@@ -66,9 +68,7 @@ class CustomerSpreadsheet:
     def GetColumnData(self, column_id):
         index = list(self._data_filters.keys()).index(column_id)
         data = self._spreadsheet.get('sheets')[0].get('data')[index]
-        values = []
-        for row in data.get('rowData'):
-            value = row.get('values')[0].get('formattedValue')
-            values.append(value)
+        values = [row.get('values')[0].get('formattedValue')
+                  for row in data.get('rowData')]
         # Remove the first value which is just the label
         return values[1:]
