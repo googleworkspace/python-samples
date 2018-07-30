@@ -37,7 +37,7 @@ presentation = service.presentations().get(presentationId=PRESENTATION_ID) \
     .execute()
 slides = presentation.get('slides')
 
-print ('The presentation contains {} slides:'.format(len(slides)))
+print('The presentation contains {} slides:'.format(len(slides)))
 for i, slide in enumerate(slides):
     print('- Slide #{} contains {} elements.' \
         .format(i + 1, len(slide.get('pageElements'))))
