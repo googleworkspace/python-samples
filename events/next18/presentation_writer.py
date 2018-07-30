@@ -18,7 +18,7 @@
 """
 
 
-class PresentationWriter:
+class PresentationWriter(object):
     """Queues writes for modifying a presentation.
 
     Call ExecuteBatchUpdate to flush pending writes.
