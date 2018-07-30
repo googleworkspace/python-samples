@@ -28,7 +28,9 @@ $ python qbr_tool.py
 # Create the spreadsheet from the Google Slides template.
 # For example, 13My9SxkotWssCc2F5yaXp2fzGrzoYV6maytr3qAT9GQ
 $ python qbr_tool.py create_sheet --template_id <your template id>;
-Spreadsheet URL: https://docs.google.com/spreadsheets/d/<spreadsheet id>
+
+# Outputs:
+# Spreadsheet URL: https://docs.google.com/spreadsheets/d/<spreadsheet id>
 
 # Add data from the stub customer service
 $ python qbr_tool.py add_customers \
@@ -39,6 +41,8 @@ $ python qbr_tool.py add_customers \
 $ python qbr_tool.py create_presentations
     --spreadsheet_id <spreadsheet id> \
     --customer_id jupiter
-jupiter: https://docs.google.com/presentations/d/<filled in presentation id>
+
+# Outputs:
+# jupiter: https://docs.google.com/presentations/d/<filled in presentation id>
 ```
 
