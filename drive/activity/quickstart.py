@@ -14,85 +14,39 @@
 
 # [START drive_activity_quickstart]
 from __future__ import print_function
-import httplib2
-import os
-
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
-
 import datetime
+from apiclient.discovery import build
+from httplib2 import Http
+from oauth2client import file as oauth_file, client, tools
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
+# Setup the Drive Activity API
+SCOPES = [
+    'https://www.googleapis.com/auth/activity',
+    'https://www.googleapis.com/auth/drive.metadata.readonly'
+]
+store = oauth_file.Storage('token.json')
+creds = store.get()
+if not creds or creds.invalid:
+    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+    creds = tools.run_flow(flow, store)
+service = build('appsactivity', 'v1', http=creds.authorize(Http()))
 
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/appsactivity-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/activity https://www.googleapis.com/auth/drive.metadata.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'G Suite Activity API Python Quickstart'
-
-
-def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'appsactivity-python-quickstart.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
-def main():
-    """Shows basic usage of the G Suite Activity API.
-
-    Creates a G Suite Activity API service object and
-    outputs the recent activity in your Google Drive.
-    """
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('appsactivity', 'v1', http=http)
-
-    results = service.activities().list(source='drive.google.com',
-        drive_ancestorId='root', pageSize=10).execute()
-    activities = results.get('activities', [])
-    if not activities:
-        print('No activity.')
-    else:
-        print('Recent activity:')
-        for activity in activities:
-            event = activity['combinedEvent']
-            user = event.get('user', None)
-            target = event.get('target', None)
-            if user == None or target == None:
-                continue
-            time = datetime.datetime.fromtimestamp(
-                int(event['eventTimeMillis'])/1000)
-            print('{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
-                event['primaryEventType'], target['name'], target['mimeType']))
-
-if __name__ == '__main__':
-    main()
+# Call the Drive Activity API
+results = service.activities().list(source='drive.google.com',
+    drive_ancestorId='root', pageSize=10).execute()
+activities = results.get('activities', [])
+if not activities:
+    print('No activity.')
+else:
+    print('Recent activity:')
+    for activity in activities:
+        event = activity['combinedEvent']
+        user = event.get('user', None)
+        target = event.get('target', None)
+        if user is None or target is None:
+            continue
+        time = datetime.datetime.fromtimestamp(
+            int(event['eventTimeMillis'])/1000)
+        print('{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
+            event['primaryEventType'], target['name'], target['mimeType']))
 # [END drive_activity_quickstart]

@@ -424,3 +424,6 @@ max-public-methods=50
 # Exceptions that will emit a warning when being caught. Defaults to
 # "Exception"
 overgeneral-exceptions=Exception
+
+# Python 2/3 compatibility
+disable=useless-object-inheritance

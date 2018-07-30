@@ -14,7 +14,7 @@
 
 from __future__ import print_function
 
-class SpreadsheetSnippets:
+class SpreadsheetSnippets(object):
     def __init__(self, service):
         self.service = service
 
@@ -58,8 +58,9 @@ class SpreadsheetSnippets:
         body = {
             'requests': requests
         }
-        response = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id,
-                                                       body=body).execute()
+        response = service.spreadsheets().batchUpdate(
+            spreadsheetId=spreadsheet_id,
+            body=body).execute()
         find_replace_response = response.get('replies')[1].get('findReplace')
         print('{0} replacements made.'.format(
             find_replace_response.get('occurrencesChanged')))
@@ -72,7 +73,7 @@ class SpreadsheetSnippets:
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
         numRows = result.get('values') if result.get('values')is not None else 0
-        print('{0} rows retrieved.'.format(numRows));
+        print('{0} rows retrieved.'.format(numRows))
         # [END sheets_get_values]
         return result
 
@@ -87,7 +88,7 @@ class SpreadsheetSnippets:
         # [END_EXCLUDE]
         result = service.spreadsheets().values().batchGet(
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
-        print('{0} ranges retrieved.'.format(result.get('valueRanges')));
+        print('{0} ranges retrieved.'.format(result.get('valueRanges')))
         # [END sheets_batch_get_values]
         return result
 
@@ -110,7 +111,7 @@ class SpreadsheetSnippets:
         result = service.spreadsheets().values().update(
             spreadsheetId=spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
-        print('{0} cells updated.'.format(result.get('updatedCells')));
+        print('{0} cells updated.'.format(result.get('updatedCells')))
         # [END sheets_update_values]
         return result
 
@@ -140,7 +141,7 @@ class SpreadsheetSnippets:
         }
         result = service.spreadsheets().values().batchUpdate(
             spreadsheetId=spreadsheet_id, body=body).execute()
-        print('{0} cells updated.'.format(result.get('updatedCells')));
+        print('{0} cells updated.'.format(result.get('updatedCells')))
         # [END sheets_batch_update_values]
         return result
 
@@ -165,7 +166,7 @@ class SpreadsheetSnippets:
             valueInputOption=value_input_option, body=body).execute()
         print('{0} cells appended.'.format(result \
                                                .get('updates') \
-                                               .get('updatedCells')));
+                                               .get('updatedCells')))
         # [END sheets_append_values]
         return result
 
@@ -258,14 +259,19 @@ class SpreadsheetSnippets:
         requests = [{
             'addConditionalFormatRule': {
                 'rule': {
-                    'ranges': [ my_range ],
+                    'ranges': [my_range],
                     'booleanRule': {
                         'condition': {
                             'type': 'CUSTOM_FORMULA',
-                            'values': [ { 'userEnteredValue': '=GT($D2,median($D$2:$D$11))' } ]
+                            'values': [{
+                                'userEnteredValue':
+                                    '=GT($D2,median($D$2:$D$11))'
+                            }]
                         },
                         'format': {
-                            'textFormat': { 'foregroundColor': { 'red': 0.8 } }
+                            'textFormat': {
+                                'foregroundColor': {'red': 0.8}
+                            }
                         }
                     }
                 },
@@ -274,14 +280,21 @@ class SpreadsheetSnippets:
         }, {
             'addConditionalFormatRule': {
                 'rule': {
-                    'ranges': [ my_range ],
+                    'ranges': [my_range],
                     'booleanRule': {
                         'condition': {
                             'type': 'CUSTOM_FORMULA',
-                            'values': [ { 'userEnteredValue': '=LT($D2,median($D$2:$D$11))' } ]
+                            'values': [{
+                                'userEnteredValue':
+                                    '=LT($D2,median($D$2:$D$11))'
+                            }]
                         },
                         'format': {
-                            'backgroundColor': { 'red': 1, 'green': 0.4, 'blue': 0.4 }
+                            'backgroundColor': {
+                                'red': 1,
+                                'green': 0.4,
+                                'blue': 0.4
+                            }
                         }
                     }
                 },
@@ -293,6 +306,6 @@ class SpreadsheetSnippets:
         }
         response = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
-        print('{0} cells updated.'.format(len(response.get('replies'))));
+        print('{0} cells updated.'.format(len(response.get('replies'))))
         # [END sheets_conditional_formatting]
         return response
