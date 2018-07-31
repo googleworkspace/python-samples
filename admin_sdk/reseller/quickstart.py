@@ -14,33 +14,42 @@
 
 # [START admin_sdk_reseller_quickstart]
 """
-Shows basic usage of the Admin SDK Reports API. Outputs a list of last 10 login
-events.
+Shows basic usage of the Admin SDK Reseller API. Prints the customer ID, SKU ID,
+and plan name of the first 10 subscriptions managed by the domain.
 """
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file as oauth_file, client, tools
 
-# Setup the Admin SDK Reports API
-SCOPES = 'https://www.googleapis.com/auth/admin.reports.audit.readonly'
-store = oauth_file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('admin', 'reports_v1', http=creds.authorize(Http()))
+# If modifying these scopes, delete the file token.json.
+SCOPES = 'https://www.googleapis.com/auth/apps.order'
 
-print('Getting the last 10 login events')
-results = service.activities().list(userKey='all', applicationName='login',
-    maxResults=10).execute()
-activities = results.get('items', [])
 
-if not activities:
-    print('No logins found.')
-else:
-    print('Logins:')
-    for activity in activities:
-        print('{0}: {1} ({2})'.format(activity['id']['time'],
-            activity['actor']['email'], activity['events'][0]['name']))
+def main():
+    """Calls the Admin SDK Reseller API.
+    """
+    store = oauth_file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('reseller', 'v1', http=creds.authorize(Http()))
+
+    print('Getting the first 10 subscriptions')
+    results = service.subscriptions().list(maxResults=10).execute()
+    subscriptions = results.get('subscriptions', [])
+
+    if not subscriptions:
+        print('No subscriptions found.')
+    else:
+        print('Subscriptions:')
+        for subscription in subscriptions:
+            print(u'{0} ({1}, {2})'.format(subscription['customerId'],
+                                           subscription['skuId'],
+                                           subscription['plan']['planName']))
+
+
+if __name__ == '__main__':
+    main()
 # [END admin_sdk_reseller_quickstart]

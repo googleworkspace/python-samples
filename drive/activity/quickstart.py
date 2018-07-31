@@ -19,34 +19,46 @@ from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file as oauth_file, client, tools
 
-# Setup the Drive Activity API
-SCOPES = [
-    'https://www.googleapis.com/auth/activity',
-    'https://www.googleapis.com/auth/drive.metadata.readonly'
-]
-store = oauth_file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('appsactivity', 'v1', http=creds.authorize(Http()))
+# If modifying these scopes, delete the file token.json.
+SCOPES = 'https://www.googleapis.com/auth/activity'
 
-# Call the Drive Activity API
-results = service.activities().list(source='drive.google.com',
-    drive_ancestorId='root', pageSize=10).execute()
-activities = results.get('activities', [])
-if not activities:
-    print('No activity.')
-else:
-    print('Recent activity:')
-    for activity in activities:
-        event = activity['combinedEvent']
-        user = event.get('user', None)
-        target = event.get('target', None)
-        if user is None or target is None:
-            continue
-        time = datetime.datetime.fromtimestamp(
-            int(event['eventTimeMillis'])/1000)
-        print('{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
-            event['primaryEventType'], target['name'], target['mimeType']))
+
+def main():
+    """Shows basic usage of the Drive Activity API.
+
+    Prints information about the last 10 events that occured the user's Drive.
+    """
+    store = oauth_file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('appsactivity', 'v1', http=creds.authorize(Http()))
+
+    # Call the Drive Activity API
+    results = service.activities().list(source='drive.google.com',
+                                        drive_ancestorId='root',
+                                        pageSize=10).execute()
+    activities = results.get('activities', [])
+    if not activities:
+        print('No activity.')
+    else:
+        print('Recent activity:')
+        for activity in activities:
+            event = activity['combinedEvent']
+            user = event.get('user', None)
+            target = event.get('target', None)
+            if user is None or target is None:
+                continue
+            time = datetime.datetime.fromtimestamp(
+                int(event['eventTimeMillis'])/1000)
+            print(u'{0}: {1}, {2}, {3} ({4})'.format(time,
+                                                     user['name'],
+                                                     event['primaryEventType'],
+                                                     target['name'],
+                                                     target['mimeType']))
+
+
+if __name__ == '__main__':
+    main()
 # [END drive_activity_quickstart]
