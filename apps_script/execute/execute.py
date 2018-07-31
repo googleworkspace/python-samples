@@ -13,15 +13,25 @@
 # limitations under the License.
 
 # [START apps_script_execute]
+from __future__ import print_function
+from apiclient import errors
+from apiclient.discovery import build
+from httplib2 import Http
+from oauth2client import file as oauth_file, client, tools
+
 def main():
     """Runs the sample.
     """
     SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'
 
-    # Authorize and create a service object.
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('script', 'v1', http=http)
+    # Setup the Apps Script API
+    SCOPES = 'https://www.googleapis.com/auth/script.projects'
+    store = oauth_file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('script', 'v1', http=creds.authorize(Http()))
 
     # Create an execution request object.
     request = {"function": "getFoldersUnderRoot"}

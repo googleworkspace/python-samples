@@ -16,7 +16,7 @@
 from __future__ import print_function
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import file as oauth_file, client, tools
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/classroom.courses.readonly'
@@ -27,7 +27,7 @@ def main():
 
     Prints the names of the first 10 courses the user has access to.
     """
-    store = file.Storage('token.json')
+    store = oauth_file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)

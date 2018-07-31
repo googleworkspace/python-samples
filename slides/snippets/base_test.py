@@ -13,13 +13,12 @@
 # limitations under the License.
 
 from __future__ import print_function
+import sys
+import unittest
+import httplib2
 from apiclient import discovery
 from oauth2client.client import GoogleCredentials
 from googleapiclient import errors
-import httplib2
-import sys
-import unittest
-from pprint import pprint
 
 class BaseTest(unittest.TestCase):
     @classmethod
@@ -168,7 +167,8 @@ class BaseTest(unittest.TestCase):
         }
         response = self.service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
-        return response.get('replies')[0].get('createSheetsChart').get('objectId')
+        return response.get('replies')[0] \
+            .get('createSheetsChart').get('objectId')
 
 if __name__ == '__main__':
     unittest.main()
