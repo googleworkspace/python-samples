@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START apps_script_execute]
+# [START apps_script_api_execute]
 from __future__ import print_function
 from apiclient import errors
 from apiclient.discovery import build
@@ -77,4 +77,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-# [END apps_script_execute]
+# [END apps_script_api_execute]
