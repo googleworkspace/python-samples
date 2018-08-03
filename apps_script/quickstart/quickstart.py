@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START apps_script_quickstart]
+# [START apps_script_api_quickstart]
 """
 Shows basic usage of the Apps Script API.
 Call the Apps Script API to create a new script project, upload a file to the
@@ -79,4 +79,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-# [END apps_script_quickstart]
+# [END apps_script_api_quickstart]
