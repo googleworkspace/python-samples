@@ -24,39 +24,59 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# Setup the Apps Script API
+# If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/script.projects'
-store = file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('script', 'v1', http=creds.authorize(Http()))
 
-# Call the Apps Script API
-try:
-    # Create a new project
-    request = {'title2': 'My Script'}
-    response = service.projects().create(body=request).execute()
+SAMPLE_CODE = '''
+function helloWorld() {
+  console.log("Hello, world!");
+}
+'''.strip()
 
-    # Upload two files to the project
-    request = {
-        'files': [{
-            'name': 'hello',
-            'type': 'SERVER_JS',
-            'source': 'function helloWorld() {\n ' \
-                'console.log("Hello, world!");\n}'
-        }, {
-            'name': 'appsscript',
-            'type': 'JSON',
-            'source': '{\"timeZone\":\"America/New_York\",' \
-                '\"exceptionLogging\":\"CLOUD\"}'
-        }]
-    }
-    response = service.projects().updateContent(body=request,
-      scriptId=response['scriptId']).execute()
-    print('https://script.google.com/d/' + response['scriptId'] + '/edit')
-except errors.HttpError as e:
-    # The API encountered a problem.
-    print(e.content)
+SAMPLE_MANIFEST = '''
+{
+  "timeZone": "America/New_York",
+  "exceptionLogging": "CLOUD"
+}
+'''.strip()
+
+def main():
+    """Calls the Apps Script API.
+    """
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('script', 'v1', http=creds.authorize(Http()))
+
+    # Call the Apps Script API
+    try:
+        # Create a new project
+        request = {'title': 'My Script'}
+        response = service.projects().create(body=request).execute()
+
+        # Upload two files to the project
+        request = {
+            'files': [{
+                'name': 'hello',
+                'type': 'SERVER_JS',
+                'source': SAMPLE_CODE
+            }, {
+                'name': 'appsscript',
+                'type': 'JSON',
+                'source': SAMPLE_MANIFEST
+            }]
+        }
+        response = service.projects().updateContent(
+            body=request,
+            scriptId=response['scriptId']).execute()
+        print('https://script.google.com/d/' + response['scriptId'] + '/edit')
+    except errors.HttpError as error:
+        # The API encountered a problem.
+        print(error.content)
+
+
+if __name__ == '__main__':
+    main()
 # [END apps_script_quickstart]

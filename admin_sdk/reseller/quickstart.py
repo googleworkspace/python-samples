@@ -13,34 +13,39 @@
 # limitations under the License.
 
 # [START admin_sdk_reseller_quickstart]
-"""
-Shows basic usage of the Admin SDK Reports API. Outputs a list of last 10 login
-events.
-"""
 from __future__ import print_function
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# Setup the Admin SDK Reports API
-SCOPES = 'https://www.googleapis.com/auth/admin.reports.audit.readonly'
-store = file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('admin', 'reports_v1', http=creds.authorize(Http()))
+# If modifying these scopes, delete the file token.json.
+SCOPES = 'https://www.googleapis.com/auth/apps.order'
 
-print('Getting the last 10 login events')
-results = service.activities().list(userKey='all', applicationName='login',
-    maxResults=10).execute()
-activities = results.get('items', [])
+def main():
+    """Calls the Admin SDK Reseller API. Prints the customer ID, SKU ID,
+    and plan name of the first 10 subscriptions managed by the domain.
+    """
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('admin', 'reports_v1', http=creds.authorize(Http()))
 
-if not activities:
-    print('No logins found.')
-else:
-    print('Logins:')
-    for activity in activities:
-        print('{0}: {1} ({2})'.format(activity['id']['time'],
-            activity['actor']['email'], activity['events'][0]['name']))
+    # Call the Admin SDK Reseller API
+    print('Getting the last 10 login events')
+    results = service.activities().list(userKey='all', applicationName='login',
+        maxResults=10).execute()
+    activities = results.get('items', [])
+
+    if not activities:
+        print('No logins found.')
+    else:
+        print('Logins:')
+        for activity in activities:
+            print('{0}: {1} ({2})'.format(activity['id']['time'],
+                activity['actor']['email'], activity['events'][0]['name']))
+
+if __name__ == '__main__':
+    main()
 # [END admin_sdk_reseller_quickstart]

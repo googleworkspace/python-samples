@@ -13,34 +13,39 @@
 # limitations under the License.
 
 # [START admin_sdk_reports_quickstart]
-"""
-Shows basic usage of the Admin SDK Reports API. Outputs a list of last 10 login
-events.
-"""
 from __future__ import print_function
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# Setup the Admin SDK Reports API
+# If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/admin.reports.audit.readonly'
-store = file.Storage('token.json')
-creds = store.get()
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-    creds = tools.run_flow(flow, store)
-service = build('admin', 'reports_v1', http=creds.authorize(Http()))
 
-print('Getting the last 10 login events')
-results = service.activities().list(userKey='all', applicationName='login',
-    maxResults=10).execute()
-activities = results.get('items', [])
+def main():
+    """Shows basic usage of the Admin SDK Reports API.
+    Prints the time, email, and name of the last 10 login events in the domain.
+    """
+    store = file.Storage('token.json')
+    creds = store.get()
+    if not creds or creds.invalid:
+        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        creds = tools.run_flow(flow, store)
+    service = build('admin', 'reports_v1', http=creds.authorize(Http()))
 
-if not activities:
-    print('No logins found.')
-else:
-    print('Logins:')
-    for activity in activities:
-        print('{0}: {1} ({2})'.format(activity['id']['time'],
-            activity['actor']['email'], activity['events'][0]['name']))
+    # Call the Admin SDK Reports API
+    print('Getting the last 10 login events')
+    results = service.activities().list(userKey='all', applicationName='login',
+        maxResults=10).execute()
+    activities = results.get('items', [])
+
+    if not activities:
+        print('No logins found.')
+    else:
+        print('Logins:')
+        for activity in activities:
+            print('{0}: {1} ({2})'.format(activity['id']['time'],
+                activity['actor']['email'], activity['events'][0]['name']))
+
+if __name__ == '__main__':
+    main()
 # [END admin_sdk_reports_quickstart]

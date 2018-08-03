@@ -12,25 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START apps_script_execute]
+# [START apps_script_api_execute]
 from __future__ import print_function
 from apiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file as oauthfile, client, tools
+from oauth2client import file as oauth_file, client, tools
 
 def main():
-    """Shows basic usage of the Apps Script API.
-
-    Creates a Apps Script API service object and uses it to call an
-    Apps Script function to print out a list of folders in the user's root
-    directory.
+    """Runs the sample.
     """
     SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'
 
     # Setup the Apps Script API
     SCOPES = 'https://www.googleapis.com/auth/script.projects'
-    store = oauthfile.Storage('token.json')
+    store = oauth_file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
@@ -78,6 +74,7 @@ def main():
         # The API encountered a problem before the script started executing.
         print(e.content)
 
+
 if __name__ == '__main__':
     main()
-# [END apps_script_execute]
+# [END apps_script_api_execute]
