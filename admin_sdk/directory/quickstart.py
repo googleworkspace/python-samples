@@ -18,13 +18,13 @@ Shows basic usage of the Admin SDK Directory API. Lists of first 10 users in the
 domain.
 """
 from __future__ import print_function
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file as oauth_file, client, tools
+from oauth2client import file, client, tools
 
 # Setup the Admin SDK Directory API
 SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
-store = oauth_file.Storage('token.json')
+store = file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)

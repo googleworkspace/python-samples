@@ -18,13 +18,13 @@ Shows basic usage of the Vault API. Outputs the names and IDs of the first
 10 matters in Vault.
 """
 from __future__ import print_function
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file as oauthfile, client, tools
+from oauth2client import file, client, tools
 
 # Setup the Vault API
 SCOPES = 'https://www.googleapis.com/auth/ediscovery'
-store = oauthfile.Storage('token.json')
+store = file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)

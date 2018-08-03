@@ -15,16 +15,16 @@
 # [START drive_activity_quickstart]
 from __future__ import print_function
 import datetime
-from apiclient.discovery import build
+from googleapiclient.discovery import build
 from httplib2 import Http
-from oauth2client import file as oauth_file, client, tools
+from oauth2client import file, client, tools
 
 # Setup the Drive Activity API
 SCOPES = [
     'https://www.googleapis.com/auth/activity',
     'https://www.googleapis.com/auth/drive.metadata.readonly'
 ]
-store = oauth_file.Storage('token.json')
+store = file.Storage('token.json')
 creds = store.get()
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('credentials.json', SCOPES)

@@ -427,3 +427,5 @@ overgeneral-exceptions=Exception
 
 # Python 2/3 compatibility
 disable=useless-object-inheritance
+
+redefining-builtins-modules=oauth2client # Allow oauth2client to redefine file
