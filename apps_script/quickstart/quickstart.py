@@ -19,7 +19,7 @@ Call the Apps Script API to create a new script project, upload a file to the
 project, and log the script's URL to the user.
 """
 from __future__ import print_function
-from apiclient import errors
+from googleapiclient import errors
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools

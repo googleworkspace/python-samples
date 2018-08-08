@@ -8,8 +8,8 @@ This script uploads a single file to Google Drive.
 from __future__ import print_function
 import pprint
 import httplib2
-import apiclient.discovery
-import apiclient.http
+from googleapiclient.discovery import build
+import googleapiclient.http
 import oauth2client.client
 
 # OAuth 2.0 scope that will be authorized.
@@ -38,11 +38,11 @@ credentials = flow.step2_exchange(code)
 # Create an authorized Drive API client.
 http = httplib2.Http()
 credentials.authorize(http)
-drive_service = apiclient.discovery.build('drive', 'v2', http=http)
+drive_service = build('drive', 'v2', http=http)
 
 # Insert a file. Files are comprised of contents and metadata.
 # MediaFileUpload abstracts uploading file contents from a file on disk.
-media_body = apiclient.http.MediaFileUpload(
+media_body = googleapiclient.http.MediaFileUpload(
     FILENAME,
     mimetype=MIMETYPE,
     resumable=True
