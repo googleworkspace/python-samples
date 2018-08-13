@@ -2,7 +2,7 @@
 
 Complete the steps described in the [quickstart instructions](
 https://developers.google.com/sheets/api/quickstart/python), and in about five
-minutes you'll have a simple Node.js command-line application that makes
+minutes you'll have a simple Python command-line application that makes
 requests to the Google Sheets API.
 
 ## Install
