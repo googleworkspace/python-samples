@@ -25,9 +25,9 @@ from __future__ import print_function
 import argparse
 import re
 
-from apiclient.discovery import build
 import customer_data_service
 import customer_spreadsheet_reader
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file as oauth_file, client, tools
 import presentation_reader
