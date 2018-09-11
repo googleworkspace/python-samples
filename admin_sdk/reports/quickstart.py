@@ -43,7 +43,7 @@ def main():
     else:
         print('Logins:')
         for activity in activities:
-            print('{0}: {1} ({2})'.format(activity['id']['time'],
+            print(u'{0}: {1} ({2})'.format(activity['id']['time'],
                 activity['actor']['email'], activity['events'][0]['name']))
 
 if __name__ == '__main__':

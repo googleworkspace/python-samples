@@ -43,7 +43,7 @@ def main():
     else:
         print('Users:')
         for user in users:
-            print('{0} ({1})'.format(user['primaryEmail'],
+            print(u'{0} ({1})'.format(user['primaryEmail'],
                 user['name']['fullName']))
 
 

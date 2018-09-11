@@ -50,7 +50,7 @@ def main():
                 continue
             time = datetime.datetime.fromtimestamp(
                 int(event['eventTimeMillis'])/1000)
-            print('{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
+            print(u'{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
                 event['primaryEventType'], target['name'], target['mimeType']))
 
 if __name__ == '__main__':
