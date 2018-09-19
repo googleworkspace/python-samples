@@ -30,21 +30,19 @@ def main():
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
         creds = tools.run_flow(flow, store)
-    service = build('admin', 'reports_v1', http=creds.authorize(Http()))
+    service = build('reseller', 'v1', http=creds.authorize(Http()))
 
     # Call the Admin SDK Reseller API
-    print('Getting the last 10 login events')
-    results = service.activities().list(userKey='all', applicationName='login',
-        maxResults=10).execute()
-    activities = results.get('items', [])
-
-    if not activities:
-        print('No logins found.')
+    print('Getting the first 10 subscriptions')
+    results = service.subscriptions().list(maxResults=10).execute()
+    subscriptions = results.get('subscriptions', [])
+    if not subscriptions:
+        print('No subscriptions found.')
     else:
-        print('Logins:')
-        for activity in activities:
-            print(u'{0}: {1} ({2})'.format(activity['id']['time'],
-                activity['actor']['email'], activity['events'][0]['name']))
+        print('Subscriptions:')
+        for subscription in subscriptions:
+            print(u'{0} ({1}, {2})'.format(subscription['customerId'],
+                subscription['skuId'], subscription['plan']['planName']))
 
 if __name__ == '__main__':
     main()
