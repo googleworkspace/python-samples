@@ -25,6 +25,9 @@ def main():
     """Calls the Admin SDK Reseller API. Prints the customer ID, SKU ID,
     and plan name of the first 10 subscriptions managed by the domain.
     """
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:

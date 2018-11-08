@@ -26,6 +26,9 @@ def main():
     """Shows basic usage of the Drive Activity API.
     Prints information about the last 10 events that occured the user's Drive.
     """
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:

@@ -43,6 +43,9 @@ SAMPLE_MANIFEST = '''
 def main():
     """Calls the Apps Script API.
     """
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:

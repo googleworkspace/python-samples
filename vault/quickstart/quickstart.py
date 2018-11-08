@@ -25,6 +25,9 @@ def main():
     """Shows basic usage of the Vault API.
     Prints the names and IDs of the first 10 matters in Vault.
     """
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:

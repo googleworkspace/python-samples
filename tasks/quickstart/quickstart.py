@@ -25,6 +25,9 @@ def main():
     """Shows basic usage of the Tasks API.
     Prints the title and ID of the first 10 task lists.
     """
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
     store = file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
