@@ -7,17 +7,10 @@ This script uploads a single file to Google Drive.
 
 from __future__ import print_function
 import pprint
-import sys
 import httplib2
 from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
-
-
-# Checking Python version to avoid input errors
-if sys.version_info<(3,5,0):
-	sys.stderr.write("You need Python 3.x or later to run this script\n")
-	exit(1)
 
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
@@ -39,6 +32,7 @@ flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
 print('Go to the following link in your browser: ' + authorize_url)
+# If you can't use Python 3.x, please change "input" to "raw_input"
 code = input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 
