@@ -7,16 +7,17 @@ This script uploads a single file to Google Drive.
 
 from __future__ import print_function
 import pprint
+import sys
 import httplib2
 from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
-import sys
+
 
 # Checking Python version to avoid input errors
 if sys.version_info<(3,5,0):
-  sys.stderr.write("You need python 3.x or later to run this script\n")
-  exit(1)
+	sys.stderr.write("You need python 3.x or later to run this script\n")
+	exit(1)
     
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
