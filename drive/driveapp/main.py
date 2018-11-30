@@ -16,9 +16,9 @@ import oauth2client.client
 
 # Checking Python version to avoid input errors
 if sys.version_info<(3,5,0):
-	sys.stderr.write("You need python 3.x or later to run this script\n")
+	sys.stderr.write("You need Python 3.x or later to run this script\n")
 	exit(1)
-    
+
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
 OAUTH2_SCOPE = 'https://www.googleapis.com/auth/drive'
