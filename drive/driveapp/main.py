@@ -32,6 +32,7 @@ flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
 print('Go to the following link in your browser: ' + authorize_url)
+# If you can't use Python 3.x, please change "input" to "raw_input"
 code = input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 
