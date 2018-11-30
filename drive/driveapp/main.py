@@ -11,7 +11,13 @@ import httplib2
 from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
+import sys
 
+# Checking Python version to avoid input errors
+if sys.version_info<(3,5,0):
+  sys.stderr.write("You need python 3.x or later to run this script\n")
+  exit(1)
+    
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
 OAUTH2_SCOPE = 'https://www.googleapis.com/auth/drive'
@@ -32,7 +38,7 @@ flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
 print('Go to the following link in your browser: ' + authorize_url)
-code = raw_input('Enter verification code: ').strip()
+code = input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 
 # Create an authorized Drive API client.
