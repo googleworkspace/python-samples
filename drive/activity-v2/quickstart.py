@@ -47,8 +47,8 @@ def truncated(array, limit=2):
     return u'[{0}{1}]'.format(contents, more)
 
 
-def getOneOf(object):
-    for key in object:
+def getOneOf(obj):
+    for key in obj:
         return key
     return 'unknown'
 
