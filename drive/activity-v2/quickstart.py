@@ -24,10 +24,7 @@ def main():
 
     # Call the Drive Activity API
     results = service.activity().query(body={
-        'pageSize': 10,
-        'consolidationStrategy': {
-            'legacy': {}
-        }
+        'pageSize': 10
     }).execute()
     activities = results.get('activities', [])
 
@@ -47,7 +44,13 @@ def main():
 def truncated(array, limit=2):
     contents = ', '.join(array[:limit])
     more = '' if len(array) <= limit else ', ...'
-    return '[' + contents + more + ']'
+    return u'[{0}{1}]'.format(contents, more)
+
+
+def getOneOf(object):
+    for key in object:
+        return key
+    return 'unknown'
 
 
 def getTimeInfo(activity):
@@ -59,7 +62,7 @@ def getTimeInfo(activity):
 
 
 def getActionInfo(actionDetail):
-    return next(iter(actionDetail))
+    return getOneOf(actionDetail)
 
 
 def getUserInfo(user):
@@ -67,24 +70,27 @@ def getUserInfo(user):
         knownUser = user['knownUser']
         isMe = knownUser.get('isCurrentUser', False)
         return u'people/me' if isMe else knownUser['personName']
-    return next(iter(user))
+    return getOneOf(user)
 
 
 def getActorInfo(actor):
     if 'user' in actor:
         return getUserInfo(actor['user'])
-    return next(iter(actor))
+    return getOneOf(actor)
 
 
 def getTargetInfo(target):
     if 'driveItem' in target:
-        return 'driveItem:"' + target['driveItem'].get('title', 'unknown') + '"'
+        title = target['driveItem'].get('title', 'unknown')
+        return 'driveItem:"{0}"'.format(title)
     if 'teamDrive' in target:
-        return 'teamDrive:"' + target['teamDrive'].get('title', 'unknown') + '"'
+        title = target['teamDrive'].get('title', 'unknown')
+        return 'teamDrive:"{0}"'.format(title)
     if 'fileComment' in target:
         parent = target['fileComment'].get('parent', {})
-        return 'fileComment:"' + parent.get('title', 'unknown') + '"'
-    return next(iter(target))
+        title = parent.get('title', 'unknown')
+        return 'fileComment:"{0}"'.format(title)
+    return '{0}:unknown'.format(getOneOf(target))
 
 
 if __name__ == '__main__':
