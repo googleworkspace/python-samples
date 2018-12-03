@@ -1,3 +1,4 @@
+# [START drive_activity_v2_quickstart]
 from __future__ import print_function
 from googleapiclient.discovery import build
 from httplib2 import Http
@@ -95,3 +96,4 @@ def getTargetInfo(target):
 
 if __name__ == '__main__':
     main()
+# [END drive_activity_v2_quickstart]
