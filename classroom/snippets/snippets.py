@@ -13,8 +13,8 @@
 # limitations under the License.
 
 from __future__ import print_function
-from googleapiclient import errors
 import json
+from googleapiclient import errors
 
 
 class ClassroomSnippets(object):
@@ -53,9 +53,9 @@ class ClassroomSnippets(object):
         try:
             course = service.courses().get(id=course_id).execute()
             print('Course "{%s}" found.', course.get('name'))
-        except errors.HttpError:
+        except errors.HttpError as e:
             error = json.loads(e.content).get('error')
-            if(error.get('code') == 404):
+            if error.get('code') == 404:
                 print('Course with ID "{%s}" not found.', course_id)
             else:
                 raise
@@ -85,6 +85,20 @@ class ClassroomSnippets(object):
             for course in courses:
                 print(course.get('name'), course.get('id'))
         # [END classroom_list_courses]
+
+    def update_course(self):
+        """
+        Updates the section and room of Google Classroom.
+        """
+        service = self.service
+        # [START classroom_update_course]
+        course_id = '123456'
+        course = service.courses().get(id=course_id).execute()
+        course['section'] = 'Period 3'
+        course['room'] = '302'
+        course = service.courses().update(id=course_id, body=course).execute()
+        print('Course %s updated.' % course.get('name'))
+        # [END classroom_update_course]
 
     def add_alias_new(self):
         """
