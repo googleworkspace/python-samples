@@ -18,12 +18,12 @@ class ClassroomSnippets(object):
     def __init__(self, service):
         self.service = service    
 
-    def add_alias_existing(self):
+    def add_alias_new(self):
         """
         Creates a course with alias specification. 
         """
         service = self.service
-        # [START classroom_quickstart]
+        # [START classroom_new_alias]
         alias = 'd:school_math_101'
         course = {
             'id': alias,
@@ -31,30 +31,30 @@ class ClassroomSnippets(object):
             'section': 'Period 2',
             'description': 'Course Description',
             'room': '301',
-            'ownerId': 'teacherId'
+            'ownerId': 'me'
         }
         try:
             course = service.courses().create(
                 body=course).execute()
         except:
             print('Course Creation Failed')
-        # [END classroom_quickstart]
+        # [END classroom_new_alias]
 
-    def add_alias_new(self):
+    def add_alias_existing(self):
         """
         Adds alias to existing course. 
         """
-        # [START classroom_quickstart]
         service = self.service
-        classroomCourseId = '123456'
+        # [START classroom_existing_alias]
+        courseId = '123456'
         alias = 'd:school_math_101'
         courseAlias = {
             'alias': alias
         }
         try:
             courseAlias = service.courses().aliases().create(
-                courseId=classroomCourseId,
+                courseId=courseId,
                 body=courseAlias).execute()
         except:
             print('Alias Creation Failed')
-        # [END classroom_quickstart
+        # [END classroom_existing_alias]
