@@ -13,14 +13,16 @@
 # limitations under the License.
 
 from __future__ import print_function
+from googleapiclient import errors
+
 
 class ClassroomSnippets(object):
     def __init__(self, service):
-        self.service = service    
+        self.service = service
 
     def add_alias_new(self):
         """
-        Creates a course with alias specification. 
+        Creates a course with alias specification.
         """
         service = self.service
         # [START classroom_new_alias]
@@ -36,13 +38,13 @@ class ClassroomSnippets(object):
         try:
             course = service.courses().create(
                 body=course).execute()
-        except:
+        except errors.HttpError:
             print('Course Creation Failed')
         # [END classroom_new_alias]
 
     def add_alias_existing(self):
         """
-        Adds alias to existing course. 
+        Adds alias to existing course.
         """
         service = self.service
         # [START classroom_existing_alias]
@@ -55,6 +57,6 @@ class ClassroomSnippets(object):
             courseAlias = service.courses().aliases().create(
                 courseId=courseId,
                 body=courseAlias).execute()
-        except:
+        except errors.HttpError:
             print('Alias Creation Failed')
         # [END classroom_existing_alias]
