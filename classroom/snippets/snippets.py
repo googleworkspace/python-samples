@@ -14,11 +14,75 @@
 
 from __future__ import print_function
 from googleapiclient import errors
-
+import json
 
 class ClassroomSnippets(object):
     def __init__(self, service):
         self.service = service
+
+    def create_course(self):
+        """
+        Creates a 10th Grade Biology course.
+        """
+        service = self.service
+        # [START classroom_create_course]        
+        course = {
+            'name': '10th Grade Biology',
+            'section': 'Period 2',
+            'descriptionHeading': 'Welcome to 10th Grade Biology',
+            'description': """We'll be learning about about the structure of living
+                         creatures from a combination of textbooks, guest
+                         lectures, and lab work. Expect to be excited!""",
+            'room': '301',
+            'ownerId': 'me',
+            'courseState': 'PROVISIONED'
+        }
+        course = service.courses().create(body=course).execute()
+        print('Course created:', course.get('name'), course.get('id'))
+        # [END classroom_create_course]
+
+    def get_course(self):
+        """
+        Retrieves a classroom course by its id.
+        """
+        service = self.service
+        # [START classroom_get_course] 
+        course_id = '123456'
+        try:
+            course = service.courses().get(id=course_id).execute()
+            print('Course "{%s}" found.', course.get('name'))
+        except errors.HttpError:
+            error = json.loads(e.content).get('error')
+            if(error.get('code') == 404):
+                print('Course with ID "{%s}" not found.', course_id)
+            else:
+                raise
+        # [END classroom_get_course]
+
+    def list_courses(self):
+        """
+        Lists all classroom courses.
+        """
+        service = self.service
+        # [START classroom_list_courses]
+        courses = []
+        page_token = None
+
+        while True:
+            response = service.courses().list(pageToken=page_token,
+                                              pageSize=100).execute()
+            courses.extend(response.get('courses', []))
+            page_token = response.get('nextPageToken', None)
+            if not page_token:
+                break
+
+        if not courses:
+            print('No courses found.')
+        else:
+            print('Courses:')
+            for course in courses:
+                print(course.get('name'), course.get('id'))
+        # [END classroom_list_courses]
 
     def add_alias_new(self):
         """
