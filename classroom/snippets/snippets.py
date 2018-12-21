@@ -16,6 +16,7 @@ from __future__ import print_function
 from googleapiclient import errors
 import json
 
+
 class ClassroomSnippets(object):
     def __init__(self, service):
         self.service = service
@@ -25,14 +26,15 @@ class ClassroomSnippets(object):
         Creates a 10th Grade Biology course.
         """
         service = self.service
-        # [START classroom_create_course]        
+        # [START classroom_create_course]
         course = {
             'name': '10th Grade Biology',
             'section': 'Period 2',
             'descriptionHeading': 'Welcome to 10th Grade Biology',
-            'description': """We'll be learning about about the structure of living
-                         creatures from a combination of textbooks, guest
-                         lectures, and lab work. Expect to be excited!""",
+            'description': """We'll be learning about about the
+                         structure of living creatures from a
+                         combination of textbooks, guest lectures,
+                         and lab work. Expect to be excited!""",
             'room': '301',
             'ownerId': 'me',
             'courseState': 'PROVISIONED'
@@ -46,7 +48,7 @@ class ClassroomSnippets(object):
         Retrieves a classroom course by its id.
         """
         service = self.service
-        # [START classroom_get_course] 
+        # [START classroom_get_course]
         course_id = '123456'
         try:
             course = service.courses().get(id=course_id).execute()
