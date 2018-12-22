@@ -170,14 +170,15 @@ class ClassroomSnippets(object):
                 'userId': teacher_email
             }
             try:
-                teacher = service.courses().teachers().create(courseId=course_id,
-                                                              body=teacher).execute()
+                teachers = service.courses().teachers()
+                teacher = teachers.create(courseId=course_id,
+                                          body=teacher).execute()
                 print('User %s was added as a teacher to the course with ID %s'
                       % (teacher.get('profile').get('name').get('fullName'),
                          course_id))
             except errors.HttpError as e:
                 error = json.loads(e.content).get('error')
-                if(error.get('code') == 409):
+                if error.get('code') == 409:
                     print('User "{%s}" is already a member of this course.'
                           % teacher_email)
                 else:
@@ -200,13 +201,14 @@ class ClassroomSnippets(object):
                     courseId=course_id,
                     enrollmentCode=enrollment_code,
                     body=student).execute()
-                print (
-                    'User {%s} was enrolled as a student in the course with ID "{%s}"'
+                print(
+                    '''User {%s} was enrolled as a student in
+                       the course with ID "{%s}"'''
                     % (student.get('profile').get('name').get('fullName'),
                        course_id))
             except errors.HttpError as e:
                 error = json.loads(e.content).get('error')
-                if(error.get('code') == 409):
+                if error.get('code') == 409:
                     print('You are already a member of this course.')
                 else:
                     raise
