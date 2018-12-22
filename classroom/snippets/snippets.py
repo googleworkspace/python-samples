@@ -213,3 +213,55 @@ class ClassroomSnippets(object):
                 else:
                     raise
             # [END classroom_add_student]
+
+        def create_coursework(self):
+            """
+            Creates a coursework.
+            """
+            service = self.service
+            # [START classroom_create_coursework]
+            courseWork = {
+                'title': 'Ant colonies',
+                'description': '''Read the article about ant colonies
+                                  and complete the quiz.''',
+                'materials': [
+                 {'link': {'url': 'http://example.com/ant-colonies'}},
+                 {'link': {'url': 'http://example.com/ant-quiz'}}
+                ],
+                'workType': 'ASSIGNMENT',
+                'state': 'PUBLISHED',
+            }
+            courseWork = service.courses().courseWork().create(
+                courseId='123456', body=courseWork).execute()
+            print('Assignment created with ID {%s}' % courseWork.get('id'))
+            # [END classroom_create_coursework]
+
+        def list_submissions(self):
+            """
+            Lists all student submissions for a given coursework.
+            """
+            service = self.service
+            # [START classroom_list_submissions]
+            submissions = []
+            page_token = None
+
+            while True:
+                coursework = service.courses().courseWork()
+                response = coursework.studentSubmissions().list(
+                    pageToken=page_token, courseId="123456",
+                    courseWorkId="654321").execute()
+                submissions.extend(response.get('studentSubmissions', []))
+                page_token = response.get('nextPageToken', None)
+                if not page_token:
+                    break
+
+            if not submissions:
+                print('No student submissions found.')
+            else:
+                print('Student Submissions:')
+                for submission in submissions:
+                    print("%s was submitted at %s" %
+                          (submission.get('id'),
+                           submission.get('creationTime')))
+
+            # [END classroom_list_submissions]
