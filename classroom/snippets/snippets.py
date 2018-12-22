@@ -100,6 +100,23 @@ class ClassroomSnippets(object):
         print('Course %s updated.' % course.get('name'))
         # [END classroom_update_course]
 
+    def patch_course(self):
+        """
+        Creates a course with alias specification.
+        """
+        service = self.service
+        # [START classroom_patch_course]
+        course_id = '123456'
+        course = {
+            'section': 'Period 3',
+            'room': '302'
+        }
+        course = service.courses().patch(id=course_id,
+                                         updateMask='section,room',
+                                         body=course).execute()
+        print('Course "%s" updated.' % course.get('name'))
+        # [END classroom_patch_course]
+
     def add_alias_new(self):
         """
         Creates a course with alias specification.
@@ -140,3 +157,57 @@ class ClassroomSnippets(object):
         except errors.HttpError:
             print('Alias Creation Failed')
         # [END classroom_existing_alias]
+
+        def add_teacher(self):
+            """
+            Adds a teacher to a course.
+            """
+            service = self.service
+            # [START classroom_add_teacher]
+            course_id = '123456'
+            teacher_email = 'alice@example.edu'
+            teacher = {
+                'userId': teacher_email
+            }
+            try:
+                teacher = service.courses().teachers().create(courseId=course_id,
+                                                              body=teacher).execute()
+                print('User %s was added as a teacher to the course with ID %s'
+                      % (teacher.get('profile').get('name').get('fullName'),
+                         course_id))
+            except errors.HttpError as e:
+                error = json.loads(e.content).get('error')
+                if(error.get('code') == 409):
+                    print('User "{%s}" is already a member of this course.'
+                          % teacher_email)
+                else:
+                    raise
+            # [END classroom_add_teacher]
+
+        def add_student(self):
+            """
+            Adds a student to a course.
+            """
+            service = self.service
+            # [START classroom_add_student]
+            course_id = '123456'
+            enrollment_code = 'abcdef'
+            student = {
+                'userId': 'me'
+            }
+            try:
+                student = service.courses().students().create(
+                    courseId=course_id,
+                    enrollmentCode=enrollment_code,
+                    body=student).execute()
+                print (
+                    'User {%s} was enrolled as a student in the course with ID "{%s}"'
+                    % (student.get('profile').get('name').get('fullName'),
+                       course_id))
+            except errors.HttpError as e:
+                error = json.loads(e.content).get('error')
+                if(error.get('code') == 409):
+                    print('You are already a member of this course.')
+                else:
+                    raise
+            # [END classroom_add_student]
