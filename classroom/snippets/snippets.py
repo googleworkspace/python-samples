@@ -248,7 +248,8 @@ class ClassroomSnippets(object):
             while True:
                 coursework = service.courses().courseWork()
                 response = coursework.studentSubmissions().list(
-                    pageToken=page_token, courseId="123456",
+                    pageToken=page_token,
+                    courseId="123456",
                     courseWorkId="654321").execute()
                 submissions.extend(response.get('studentSubmissions', []))
                 page_token = response.get('nextPageToken', None)
@@ -263,5 +264,66 @@ class ClassroomSnippets(object):
                     print("%s was submitted at %s" %
                           (submission.get('id'),
                            submission.get('creationTime')))
+            # [END classroom_list_submissions]
 
+        def list_student_submissions(self):
+            """
+            Lists all coursework submissions for a given student.
+            """
+            service = self.service
+            # [START classroom_list_student_submissions]
+            submissions = []
+            page_token = None
+
+            while True:
+                coursework = service.courses().courseWork()
+                response = coursework.studentSubmissions().list(
+                    pageToken=page_token,
+                    courseId="123456",
+                    courseWorkId="123456",
+                    userId="123456").execute()
+                submissions.extend(response.get('studentSubmissions', []))
+                page_token = response.get('nextPageToken', None)
+                if not page_token:
+                    break
+
+            if not submissions:
+                print('No student submissions found.')
+            else:
+                print('Student Submissions:')
+                for submission in submissions:
+                    print("%s was submitted at %s" %
+                          (submission.get('id'),
+                           submission.get('creationTime')))
+            # [END classroom_list_student_submissions]
+
+        def list_all_submissions(self):
+            """
+            Lists all coursework submissions for a given student.
+            """
+            service = self.service
+            # [START classroom_list_submissions]
+            submissions = []
+            page_token = None
+
+            while True:
+                coursework = service.courses().courseWork()
+                response = coursework.studentSubmissions().list(
+                    pageToken=page_token,
+                    courseId="123456",
+                    courseWorkId="-",
+                    userId="123456").execute()
+                submissions.extend(response.get('studentSubmissions', []))
+                page_token = response.get('nextPageToken', None)
+                if not page_token:
+                    break
+
+            if not submissions:
+                print('No student submissions found.')
+            else:
+                print('Complete list of student Submissions:')
+                for submission in submissions:
+                    print("%s was submitted at %s" %
+                          (submission.get('id'),
+                           submission.get('creationTime')))
             # [END classroom_list_submissions]
