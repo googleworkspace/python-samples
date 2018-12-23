@@ -327,3 +327,23 @@ class ClassroomSnippets(object):
                           (submission.get('id'),
                            submission.get('creationTime')))
             # [END classroom_list_submissions]
+
+        def add_attachment(self):
+            """
+            Adds an attachment to a student submission.
+            """
+            service = self.service
+            # [START classroom_add_attachment]
+            request = {
+              'addAttachments': [
+                {'link': { 'url': 'http://example.com/quiz-results' }},
+                {'link': { 'url': 'http://example.com/quiz-reading' }}
+              ]
+            }
+            coursework = service.courses().courseWork()
+            coursework.studentSubmissions().modifyAttachments(
+                courseId="5466309168",
+                courseWorkId="28421824532",
+                id="CgwI1Jy-rhQQlMDK8Gk",
+                body=request).execute()
+            # [END classroom_add_attachment]
