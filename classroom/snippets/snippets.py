@@ -336,8 +336,8 @@ class ClassroomSnippets(object):
             # [START classroom_add_attachment]
             request = {
               'addAttachments': [
-                {'link': { 'url': 'http://example.com/quiz-results' }},
-                {'link': { 'url': 'http://example.com/quiz-reading' }}
+                {'link': {'url': 'http://example.com/quiz-results'}},
+                {'link': {'url': 'http://example.com/quiz-reading'}}
               ]
             }
             coursework = service.courses().courseWork()
@@ -347,3 +347,20 @@ class ClassroomSnippets(object):
                 id="CgwI1Jy-rhQQlMDK8Gk",
                 body=request).execute()
             # [END classroom_add_attachment]
+
+        def invite_guardian(self):
+            """
+            Send an invite to a guardian
+            """
+            service = self.service
+            # [START classroom_add_attachment]
+            guardianInvitation = {
+                'invitedEmailAddress': 'guardian@gmail.com',
+            }
+            guardianInvitations = service.userProfiles().guardianInvitations()
+            guardianInvitation = guardianInvitations.create(
+                # You can use a user ID or an email address.
+                studentId='student@mydomain.edu',
+                body=guardianInvitation).execute()
+            print("Invitation created with id: {%s}"
+                  % guardianInvitation.get('invitationId'))
