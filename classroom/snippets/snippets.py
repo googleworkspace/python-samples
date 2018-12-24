@@ -342,9 +342,9 @@ class ClassroomSnippets(object):
             }
             coursework = service.courses().courseWork()
             coursework.studentSubmissions().modifyAttachments(
-                courseId="5466309168",
-                courseWorkId="28421824532",
-                id="CgwI1Jy-rhQQlMDK8Gk",
+                courseId="123456",
+                courseWorkId="123456",
+                id="123456",
                 body=request).execute()
             # [END classroom_add_attachment]
 
