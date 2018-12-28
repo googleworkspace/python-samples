@@ -38,7 +38,7 @@ class ClassroomSnippets(object):
             'courseState': 'PROVISIONED'
         }
         course = service.courses().create(body=course).execute()
-        print('Course created:', course.get('name'), course.get('id'))
+        print('Course created: %s, %s' % (course.get('name'), course.get('id')))
         # [END classroom_create_course]
         return course
 
@@ -48,9 +48,9 @@ class ClassroomSnippets(object):
         # [START classroom_get_course]
         try:
             course = service.courses().get(id=course_id).execute()
-            print('Course "{%s}" found.', course.get('name'))
+            print('Course "{%s}" found.' % course.get('name'))
         except errors.HttpError as error:
-            print('Course with ID "{%s}" not found.', course_id)
+            print('Course with ID "{%s}" not found.' % course_id)
         # [END classroom_get_course]
             return error
         return course
