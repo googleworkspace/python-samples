@@ -28,7 +28,7 @@ class SnippetsTest(BaseTest):
     def test_create_course(self):
         course = self.snippets.create_course()
         self.assertIsNotNone(course)
-        # delete course as part of cleanup
+        self.delete_course_on_cleanup(course.get('id'))
 
 
 if __name__ == '__main__':

@@ -16,6 +16,7 @@ from __future__ import print_function
 import sys
 import unittest
 import httplib2
+from googleapiclient import errors
 from googleapiclient.discovery import build
 from oauth2client import file, client, tools
 
@@ -45,6 +46,20 @@ class BaseTest(unittest.TestCase):
             flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
             credentials = tools.run_flow(flow, store)
         return credentials
+
+    def setUp(self):
+        self.courses_to_delete = []
+        print("Meow" + str(self.courses_to_delete))
+
+    def tearDown(self):
+        for course_id in self.courses_to_delete:
+            try:
+                self.service.courses().delete(id=course_id).execute()
+            except errors.HttpError:
+                print('Unable to delete file %s' % course_id)
+
+    def delete_course_on_cleanup(self, course_id):
+        self.courses_to_delete.append(course_id)
 
 
 if __name__ == '__main__':
