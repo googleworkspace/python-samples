@@ -49,8 +49,8 @@ class ClassroomSnippets(object):
         try:
             course = service.courses().get(id=course_id).execute()
             print('Course "{%s}" found.', course.get('name'))
-        except errors.HttpError as e:
-            error = json.loads(e.content).get('error')
+        except errors.HttpError as error:
+            error = json.loads(error.content).get('error')
             if error.get('code') == 404:
                 print('Course with ID "{%s}" not found.', course_id)
             else:
@@ -130,13 +130,13 @@ class ClassroomSnippets(object):
         service = self.service
         # [START classroom_existing_alias]
         alias = 'd:school_math_101'
-        courseAlias = {
+        course_alias = {
             'alias': alias
         }
         try:
-            courseAlias = service.courses().aliases().create(
+            course_alias = service.courses().aliases().create(
                 courseId=course_id,
-                body=courseAlias).execute()
+                body=course_alias).execute()
         except errors.HttpError:
             print('Alias Creation Failed')
         # [END classroom_existing_alias]
@@ -156,8 +156,8 @@ class ClassroomSnippets(object):
             print('User %s was added as a teacher to the course with ID %s'
                   % (teacher.get('profile').get('name').get('fullName'),
                      course_id))
-        except errors.HttpError as e:
-            error = json.loads(e.content).get('error')
+        except errors.HttpError as error:
+            error = json.loads(error.content).get('error')
             if error.get('code') == 409:
                 print('User "{%s}" is already a member of this course.'
                       % teacher_email)
@@ -183,8 +183,8 @@ class ClassroomSnippets(object):
                    the course with ID "{%s}"'''
                 % (student.get('profile').get('name').get('fullName'),
                    course_id))
-        except errors.HttpError as e:
-            error = json.loads(e.content).get('error')
+        except errors.HttpError as error:
+            error = json.loads(error.content).get('error')
             if error.get('code') == 409:
                 print('You are already a member of this course.')
             else:
@@ -195,20 +195,20 @@ class ClassroomSnippets(object):
         """ Creates a coursework. """
         service = self.service
         # [START classroom_create_coursework]
-        courseWork = {
+        coursework = {
             'title': 'Ant colonies',
             'description': '''Read the article about ant colonies
                               and complete the quiz.''',
             'materials': [
-             {'link': {'url': 'http://example.com/ant-colonies'}},
-             {'link': {'url': 'http://example.com/ant-quiz'}}
+                {'link': {'url': 'http://example.com/ant-colonies'}},
+                {'link': {'url': 'http://example.com/ant-quiz'}}
             ],
             'workType': 'ASSIGNMENT',
             'state': 'PUBLISHED',
         }
-        courseWork = service.courses().courseWork().create(
-            courseId=course_id, body=courseWork).execute()
-        print('Assignment created with ID {%s}' % courseWork.get('id'))
+        coursework = service.courses().courseWork().create(
+            courseId=course_id, body=coursework).execute()
+        print('Assignment created with ID {%s}' % coursework.get('id'))
         # [END classroom_create_coursework]
 
     def list_submissions(self, course_id, coursework_id):
@@ -302,10 +302,10 @@ class ClassroomSnippets(object):
         service = self.service
         # [START classroom_add_attachment]
         request = {
-          'addAttachments': [
-            {'link': {'url': 'http://example.com/quiz-results'}},
-            {'link': {'url': 'http://example.com/quiz-reading'}}
-          ]
+            'addAttachments': [
+                {'link': {'url': 'http://example.com/quiz-results'}},
+                {'link': {'url': 'http://example.com/quiz-reading'}}
+            ]
         }
         coursework = service.courses().courseWork()
         coursework.studentSubmissions().modifyAttachments(
@@ -319,13 +319,13 @@ class ClassroomSnippets(object):
         """ Send an invite to a guardian. """
         service = self.service
         # [START classroom_add_attachment]
-        guardianInvitation = {
+        guardian_invitation = {
             'invitedEmailAddress': 'guardian@gmail.com',
         }
-        guardianInvitations = service.userProfiles().guardianInvitations()
-        guardianInvitation = guardianInvitations.create(
+        guardian_invitations = service.userProfiles().guardianInvitations()
+        guardian_invitation = guardian_invitations.create(
             # You can use a user ID or an email address.
             studentId='student@mydomain.edu',
-            body=guardianInvitation).execute()
+            body=guardian_invitation).execute()
         print("Invitation created with id: {%s}"
-              % guardianInvitation.get('invitationId'))
+              % guardian_invitation.get('invitationId'))

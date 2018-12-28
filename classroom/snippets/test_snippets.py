@@ -14,7 +14,6 @@
 # limitations under the License.
 
 import unittest
-from pprint import pformat
 from base_test import BaseTest
 from classroom_snippets import ClassroomSnippets
 
