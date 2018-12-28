@@ -40,6 +40,7 @@ class ClassroomSnippets(object):
         course = service.courses().create(body=course).execute()
         print('Course created:', course.get('name'), course.get('id'))
         # [END classroom_create_course]
+        return course
 
     def get_course(self, course_id):
         """ Retrieves a classroom course by its id. """
@@ -134,7 +135,7 @@ class ClassroomSnippets(object):
         }
         try:
             courseAlias = service.courses().aliases().create(
-                courseId=courseId,
+                courseId=course_id,
                 body=courseAlias).execute()
         except errors.HttpError:
             print('Alias Creation Failed')
