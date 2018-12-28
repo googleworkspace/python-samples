@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from __future__ import print_function
-import json
 from googleapiclient import errors
 
 
@@ -38,7 +37,7 @@ class ClassroomSnippets(object):
             'courseState': 'PROVISIONED'
         }
         course = service.courses().create(body=course).execute()
-        print('Course created: %s, %s' % (course.get('name'), course.get('id')))
+        print('Course created: %s %s' % (course.get('name'), course.get('id')))
         # [END classroom_create_course]
         return course
 
@@ -180,12 +179,10 @@ class ClassroomSnippets(object):
                 % (student.get('profile').get('name').get('fullName'),
                    course_id))
         except errors.HttpError as error:
-            error = json.loads(error.content).get('error')
-            if error.get('code') == 409:
-                print('You are already a member of this course.')
-            else:
-                raise
+            print('You are already a member of this course.')
         # [END classroom_add_student]
+            return error
+        return student
 
     def create_coursework(self, course_id):
         """ Creates a coursework. """
