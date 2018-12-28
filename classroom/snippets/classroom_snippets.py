@@ -50,12 +50,10 @@ class ClassroomSnippets(object):
             course = service.courses().get(id=course_id).execute()
             print('Course "{%s}" found.', course.get('name'))
         except errors.HttpError as error:
-            error = json.loads(error.content).get('error')
-            if error.get('code') == 404:
-                print('Course with ID "{%s}" not found.', course_id)
-            else:
-                raise
+            print('Course with ID "{%s}" not found.', course_id)
         # [END classroom_get_course]
+            return error
+        return course
 
     def list_courses(self):
         """ Lists all classroom courses. """
@@ -157,13 +155,11 @@ class ClassroomSnippets(object):
                   % (teacher.get('profile').get('name').get('fullName'),
                      course_id))
         except errors.HttpError as error:
-            error = json.loads(error.content).get('error')
-            if error.get('code') == 409:
-                print('User "{%s}" is already a member of this course.'
-                      % teacher_email)
-            else:
-                raise
+            print('User "{%s}" is already a member of this course.'
+                  % teacher_email)
         # [END classroom_add_teacher]
+            return error
+        return teachers
 
     def add_student(self, course_id):
         """ Adds a student to a course. """
