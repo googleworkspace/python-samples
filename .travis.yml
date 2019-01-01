@@ -6,5 +6,5 @@ install:
 - pip install pylint
 # - pip install -r requirements.txt
 script:
-- find . -iname "*.py" | xargs pylint
+- find . -iname "*.py"
 # - pytest
