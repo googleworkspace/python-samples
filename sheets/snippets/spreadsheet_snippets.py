@@ -309,3 +309,83 @@ class SpreadsheetSnippets(object):
         print('{0} cells updated.'.format(len(response.get('replies'))))
         # [END sheets_conditional_formatting]
         return response
+
+    def filter_views(self, spreadsheet_id):
+        service = self.service
+
+        # [START filter_views]
+        my_range = {
+            'sheetId': 0,
+            'startRowIndex': 0,
+            'startColumnIndex': 0,
+        }
+        addFilterViewRequest = {
+            'addFilterView': {
+                'filter': {
+                    'title': 'Sample Filter',
+                    'range': my_range,
+                    'sortSpecs': [{
+                        'dimensionIndex': 3,
+                        'sortOrder': 'DESCENDING'
+                    }],
+                    'criteria': {
+                        0: {
+                            'hiddenValues': ['Panel']
+                        },
+                        6: {
+                            'condition': {
+                                'type': 'DATE_BEFORE',
+                                'values': {
+                                    'userEnteredValue': '4/30/2016'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        body = {'requests': [addFilterViewRequest]}
+        addFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+
+        duplicateFilterViewRequest = {
+            'duplicateFilterView': {
+            'filterId':
+                addFilterViewResponse['replies'][0]['addFilterView']['filter']
+                    ['filterViewId']
+            }
+        }
+
+        body = {'requests': [duplicateFilterViewRequest]}
+        duplicateFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+
+        updateFilterViewRequest = {
+            'updateFilterView': {
+                'filter': {
+                    'filterViewId': duplicateFilterViewResponse['replies'][0]
+                        ['duplicateFilterView']['filter']['filterViewId'],
+                    'title': 'Updated Filter',
+                    'criteria': {
+                        0: {},
+                        3: {
+                            'condition': {
+                                'type': 'NUMBER_GREATER',
+                                'values': {
+                                    'userEnteredValue': '5'
+                                }
+                            }
+                        }
+                    }
+                },
+                'fields': {
+                    'paths': ['criteria', 'title']
+                }
+            }
+        }
+
+        body = {'requests': [updateFilterViewRequest]}
+        updateFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+        # [END filter_views]
