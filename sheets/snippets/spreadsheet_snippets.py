@@ -198,12 +198,12 @@ class SpreadsheetSnippets(object):
                                     'sheetId': source_sheet_id,
                                     'startRowIndex': 0,
                                     'startColumnIndex': 0,
-                                    'endRowIndex': 101,
-                                    'endColumnIndex': 8
+                                    'endRowIndex': 20,
+                                    'endColumnIndex': 7
                                 },
                                 'rows': [
                                     {
-                                        'sourceColumnOffset': 6,
+                                        'sourceColumnOffset': 1,
                                         'showTotals': True,
                                         'sortOrder': 'ASCENDING',
 
@@ -212,7 +212,7 @@ class SpreadsheetSnippets(object):
                                 ],
                                 'columns': [
                                     {
-                                        'sourceColumnOffset': 3,
+                                        'sourceColumnOffset': 4,
                                         'sortOrder': 'ASCENDING',
                                         'showTotals': True,
 
@@ -221,7 +221,7 @@ class SpreadsheetSnippets(object):
                                 'values': [
                                     {
                                         'summarizeFunction': 'COUNTA',
-                                        'sourceColumnOffset': 3
+                                        'sourceColumnOffset': 4
                                     }
                                 ],
                                 'valueLayout': 'HORIZONTAL'
