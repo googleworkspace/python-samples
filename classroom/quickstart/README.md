@@ -8,7 +8,7 @@ makes requests to the Google Classroom API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pickle
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
 ## Run
