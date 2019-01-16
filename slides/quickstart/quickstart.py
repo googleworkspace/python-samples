@@ -21,7 +21,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = 'https://www.googleapis.com/auth/presentations.readonly'
+SCOPES = ['https://www.googleapis.com/auth/presentations.readonly']
 
 # The ID of a sample presentation.
 PRESENTATION_ID = '1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc'

@@ -21,7 +21,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = 'https://www.googleapis.com/auth/apps.order'
+SCOPES = ['https://www.googleapis.com/auth/apps.order']
 
 def main():
     """Calls the Admin SDK Reseller API. Prints the customer ID, SKU ID,

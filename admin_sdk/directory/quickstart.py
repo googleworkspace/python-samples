@@ -21,7 +21,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = 'https://www.googleapis.com/auth/admin.directory.user'
+SCOPES = ['https://www.googleapis.com/auth/admin.directory.user']
 
 def main():
     """Shows basic usage of the Admin SDK Directory API.

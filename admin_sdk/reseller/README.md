@@ -8,7 +8,7 @@ that makes requests to the Google Admin SDK Reseller API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pickle
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 ```
 
 ## Run
