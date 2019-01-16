@@ -19,12 +19,14 @@ Call the Apps Script API to create a new script project, upload a file to the
 project, and log the script's URL to the user.
 """
 from __future__ import print_function
+import pickle
+import os.path
 from googleapiclient import errors
 from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
-# If modifying these scopes, delete the file token.json.
+# If modifying these scopes, delete the file token.pickle.
 SCOPES = 'https://www.googleapis.com/auth/script.projects'
 
 SAMPLE_CODE = '''
@@ -43,15 +45,26 @@ SAMPLE_MANIFEST = '''
 def main():
     """Calls the Apps Script API.
     """
-    # The file token.json stores the user's access and refresh tokens, and is
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    store = file.Storage('token.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('script', 'v1', http=creds.authorize(Http()))
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server()
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('script', 'v1', credentials=creds)
 
     # Call the Apps Script API
     try:

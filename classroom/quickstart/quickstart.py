@@ -14,26 +14,39 @@
 
 # [START classroom_quickstart]
 from __future__ import print_function
+import pickle
+import os.path
 from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
-# If modifying these scopes, delete the file token.json.
+# If modifying these scopes, delete the file token.pickle.
 SCOPES = 'https://www.googleapis.com/auth/classroom.courses.readonly'
 
 def main():
     """Shows basic usage of the Classroom API.
     Prints the names of the first 10 courses the user has access to.
     """
-    # The file token.json stores the user's access and refresh tokens, and is
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    store = file.Storage('token.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('classroom', 'v1', http=creds.authorize(Http()))
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server()
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('classroom', 'v1', credentials=creds)
 
     # Call the Classroom API
     results = service.courses().list(pageSize=10).execute()

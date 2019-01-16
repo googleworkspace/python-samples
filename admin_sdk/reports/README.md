@@ -8,7 +8,7 @@ that makes requests to the Google Admin SDK Reports API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client oauth2client
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib pickle
 ```
 
 ## Run
