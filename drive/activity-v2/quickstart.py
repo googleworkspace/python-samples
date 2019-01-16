@@ -1,4 +1,4 @@
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,18 +69,21 @@ def main():
                                                truncated(targets)))
 
 
+# Returns a string representation of the first elements in a list.
 def truncated(array, limit=2):
     contents = ', '.join(array[:limit])
     more = '' if len(array) <= limit else ', ...'
     return u'[{0}{1}]'.format(contents, more)
 
 
+# Returns the name of a set property in an object, or else "unknown".
 def getOneOf(obj):
     for key in obj:
         return key
     return 'unknown'
 
 
+# Returns a time associated with an activity.
 def getTimeInfo(activity):
     if 'timestamp' in activity:
         return activity['timestamp']
@@ -89,10 +92,12 @@ def getTimeInfo(activity):
     return 'unknown'
 
 
+# Returns the type of action.
 def getActionInfo(actionDetail):
     return getOneOf(actionDetail)
 
 
+# Returns user information, or the type of user if not a known user.
 def getUserInfo(user):
     if 'knownUser' in user:
         knownUser = user['knownUser']
@@ -101,12 +106,14 @@ def getUserInfo(user):
     return getOneOf(user)
 
 
+# Returns actor information, or the type of actor if not a user.
 def getActorInfo(actor):
     if 'user' in actor:
         return getUserInfo(actor['user'])
     return getOneOf(actor)
 
 
+# Returns the type of a target and an associated title.
 def getTargetInfo(target):
     if 'driveItem' in target:
         title = target['driveItem'].get('title', 'unknown')
