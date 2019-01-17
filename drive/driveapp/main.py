@@ -6,12 +6,12 @@ This script uploads a single file to Google Drive.
 """
 
 from __future__ import print_function
-import six
 import pprint
 import httplib2
 from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
+from builtins import input
 
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
@@ -33,8 +33,8 @@ flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
 print('Go to the following link in your browser: ' + authorize_url)
-# Add user input support for both Python2 and Python3
-code = six.moves.input('Enter verification code: ').strip()
+# Should support both Python2 and Python3 with 'from builtins import input'
+code = input('Enter verification code: ').strip()
 credentials = flow.step2_exchange(code)
 
 # Create an authorized Drive API client.
