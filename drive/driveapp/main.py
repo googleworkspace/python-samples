@@ -7,8 +7,8 @@ This script uploads a single file to Google Drive.
 
 from __future__ import print_function
 import pprint
-import httplib2
 import six
+import httplib2
 from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
