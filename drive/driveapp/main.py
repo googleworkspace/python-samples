@@ -12,6 +12,10 @@ from googleapiclient.discovery import build
 import googleapiclient.http
 import oauth2client.client
 
+# Support user input for both Python 2 and 3
+if hasattr(__builtins__, 'raw_input'):
+    input = raw_input
+
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
 OAUTH2_SCOPE = 'https://www.googleapis.com/auth/drive'
