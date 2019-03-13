@@ -50,9 +50,9 @@ def get_http_client():
     return creds.authorize(Http())
 
 # create service endpoints to the 3 APIs
-HTTP  = get_http_client()
-DRIVE  = discovery.build('drive',  'v3', http=HTTP)
-DOCS   = discovery.build('docs',   'v1', http=HTTP)
+HTTP = get_http_client()
+DRIVE = discovery.build('drive', 'v3', http=HTTP)
+DOCS = discovery.build('docs', 'v1', http=HTTP)
 SHEETS = discovery.build('sheets', 'v4', http=HTTP)
 
 # plain text data source
@@ -79,7 +79,8 @@ def get_data(source='text', output=True):
     """Gets mail merge data from chosen data source.
     """
     if source not in {'sheets', 'text'}:
-        raise ValueError('ERROR: unsupported source %r; must be "sheets" or "text"' % source)
+        raise ValueError('ERROR: unsupported source %r; choose %r' % (
+            source, SOURCES))
     func = SAFE_DISPATCH[source]
     return dict(zip(COLUMNS, func(output=output)))
 
@@ -99,7 +100,7 @@ def _get_sheets_data(service=SHEETS, output=False):
     """
     if output:
         print(' - Using data from Google Sheets')
-    return SHEETS.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
+    return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
             range='Sheet1').execute().get('values')[0] # one row only
 
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
@@ -132,8 +133,7 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
                     'matchCase': True,
                 },
                 'replaceText': value,
-            }} for key, value in (merge.iteritems() \
-                    if hasattr({}, 'iteritems') else merge.items())]
+            }} for key, value in (merge.iteritems() if hasattr({}, 'iteritems') else merge.items())]
 
     # Use the Docs API to merge the data in the new copied document.
     DOCS.documents().batchUpdate(body={'requests': reqs},
@@ -144,6 +144,6 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
 if __name__ == '__main__':
     if SOURCE in SOURCES:
         merge.update(get_data(SOURCE, OUTPUT))
-        file_id = merge_template(source=SOURCE, output=OUTPUT)
+        fid = merge_template(source=SOURCE, output=OUTPUT)
         if OUTPUT:
-            print(' - New merged letter: docs.google.com/document/d/%s/edit' % file_id)
+            print(' - Merged letter: docs.google.com/document/d/%s/edit' % fid)

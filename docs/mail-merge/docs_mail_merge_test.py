@@ -23,11 +23,12 @@ docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
 
 import os
 import unittest
+
 from googleapiclient import discovery
-from docs_mail_merge import (CREDS_FILE, get_data, get_http_client,
-    merge_template, _copy_template)
+from docs_mail_merge import CREDS_FILE, get_data, get_http_client, _copy_template
 
 class TestDocsMailMerge(unittest.TestCase):
+    'Unit tests for Mail Merge sample'
     def test_project(self):
         self.assertTrue(project_test())
     def test_oauth2(self):
@@ -61,8 +62,8 @@ def oauth2_test():
 def gapis_test():
     'Tests whether project can connect to all 3 APIs used in the sample.'
     HTTP = get_http_client()
-    discovery.build('drive',  'v3', http=HTTP)
-    discovery.build('docs',   'v1', http=HTTP)
+    discovery.build('drive', 'v3', http=HTTP)
+    discovery.build('docs', 'v1', http=HTTP)
     discovery.build('sheets', 'v4', http=HTTP)
     return True
 
