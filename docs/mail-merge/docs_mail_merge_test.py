@@ -25,7 +25,8 @@ import os
 import unittest
 
 from googleapiclient import discovery
-from docs_mail_merge import CREDS_FILE, get_data, get_http_client, _copy_template
+from docs_mail_merge import (
+        CREDS_FILE, get_data, get_http_client, _copy_template)
 
 class TestDocsMailMerge(unittest.TestCase):
     'Unit tests for Mail Merge sample'

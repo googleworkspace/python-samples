@@ -127,13 +127,16 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
     # Build the requests to make all substitutions in the mail merge.
     if output:
         print(' - Replacing placeholder variables')
+
+    # Get key-value pairs (prefer iterators) and merge template values
+    context = merge.iteritems() if hasattr({}, 'iteritems') else merge.items()
     reqs = [{'replaceAllText': {
                 'containsText': {
                     'text': '{{%s}}' % key.upper(),
                     'matchCase': True,
                 },
                 'replaceText': value,
-            }} for key, value in (merge.iteritems() if hasattr({}, 'iteritems') else merge.items())]
+            }} for key, value in context]
 
     # Use the Docs API to merge the data in the new copied document.
     DOCS.documents().batchUpdate(body={'requests': reqs},
