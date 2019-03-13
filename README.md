@@ -22,6 +22,11 @@ Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 
 - [Quickstart](https://developers.google.com/classroom/quickstart/python)
 
+### Docs
+
+- [Quickstart](https://developers.google.com/docs/api/quickstart/python)
+- [Mail Merge](docs/mail-merge): Mail merge sample using the Drive, Sheets, and Docs APIs
+
 ### Drive V3
 
 - [Quickstart](https://developers.google.com/drive/v3/web/quickstart/python)
