@@ -25,7 +25,6 @@ Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 ### Docs
 
 - [Quickstart](https://developers.google.com/docs/api/quickstart/python)
-- [Mail Merge](docs/mail-merge): Mail merge sample using the Drive, Sheets, and Docs APIs
 
 ### Drive V3
 
