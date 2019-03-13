@@ -24,7 +24,7 @@ docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
 import os
 import unittest
 from googleapiclient import discovery
-from docs_mail_merge5 import (CREDS_FILE, get_data, get_http_client,
+from docs_mail_merge import (CREDS_FILE, get_data, get_http_client,
     merge_template, _copy_template)
 
 class TestDocsMailMerge(unittest.TestCase):
@@ -54,7 +54,8 @@ def project_test():
 
 def oauth2_test():
     'Tests whether project credentials can be used to call Google APIs.'
-    discovery.build('oauth2', 'v2', http=get_http_client()).userinfo().get().execute()
+    discovery.build('oauth2', 'v2',
+            http=get_http_client()).userinfo().get().execute()
     return True
 
 def gapis_test():

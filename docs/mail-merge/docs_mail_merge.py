@@ -25,8 +25,8 @@ from httplib2 import Http
 from oauth2client import file, client, tools
 
 # fill-in your template file ID
-DOCS_FILE_ID = YOUR_TMPL_DOC_FILE_ID      # Docs template
-SHEETS_FILE_ID = YOUR_SHEET_DATA_FILE_ID  # Sheets data source
+DOCS_FILE_ID = 'YOUR_TMPL_DOC_FILE_ID'      # Docs template
+SHEETS_FILE_ID = 'YOUR_SHEET_DATA_FILE_ID'  # Sheets data source
 CREDS_FILE = 'credentials.json'
 SCOPES = (  # iterable or space-delimited string
     'https://www.googleapis.com/auth/drive',
@@ -35,6 +35,7 @@ SCOPES = (  # iterable or space-delimited string
 )
 COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
 OUTPUT = True # change to False to suppress output
+SOURCES = ('text', 'sheets')
 SOURCE = 'text' # or 'sheets' to change data source
 
 def get_http_client():
@@ -56,7 +57,8 @@ SHEETS = discovery.build('sheets', 'v4', http=HTTP)
 
 # plain text data source
 TARGET_TEXT = [
-    'Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\nNew York, NY  10011-5201',
+    'Ms. Lara Brown', 'Googler', 'Google NYC',
+    '111 8th Ave\nNew York, NY  10011-5201'
 ]
 
 # fill-in your data to merge into document template variables
@@ -68,15 +70,17 @@ merge = {
     # - - - - - - - - - - - - - - - - - - - - - - - - - -
     'date': time.ctime(),
     # - - - - - - - - - - - - - - - - - - - - - - - - - -
-    'body': 'Google, headquartered in Mountain View, unveiled the new Android phone at the Consumer Electronics Show. CEO Sundar Pichai said in his keynote that users love their new Android phones.'
+    'body': 'Google, headquartered in Mountain View, unveiled the new Android '
+            'phone at the Consumer Electronics Show. CEO Sundar Pichai said '
+            'in his keynote that users love their new Android phones.'
 }
 
 def get_data(source='text', output=True):
     """Gets mail merge data from chosen data source.
     """
     if source not in {'sheets', 'text'}:
-        raise ValueError('ERROR: unsupported data type %r... must be "sheets" or "text"' % source)
-    func = eval('_get_%s_data' % source)
+        raise ValueError('ERROR: unsupported source %r; must be "sheets" or "text"' % source)
+    func = SAFE_DISPATCH[source]
     return dict(zip(COLUMNS, func(output=output)))
 
 def _get_text_data(output=False):
@@ -97,6 +101,8 @@ def _get_sheets_data(service=SHEETS, output=False):
         print(' - Using data from Google Sheets')
     return SHEETS.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
             range='Sheet1').execute().get('values')[0] # one row only
+
+SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
 
 def _copy_template(tmpl_id, source, service=DRIVE, output=False):
     """Private function that copies the letter template document then
@@ -136,7 +142,8 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
 
 
 if __name__ == '__main__':
-    merge.update(get_data(SOURCE, OUTPUT))
-    file_id = merge_template(source=SOURCE, output=OUTPUT)
-    if OUTPUT:
-        print(' - New merged letter: docs.google.com/document/d/%s/edit' % file_id)
+    if SOURCE in SOURCES:
+        merge.update(get_data(SOURCE, OUTPUT))
+        file_id = merge_template(source=SOURCE, output=OUTPUT)
+        if OUTPUT:
+            print(' - New merged letter: docs.google.com/document/d/%s/edit' % file_id)
