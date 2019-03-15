@@ -24,42 +24,40 @@ from googleapiclient import discovery
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-# fill-in your template file ID
-DOCS_FILE_ID = 'YOUR_TMPL_DOC_FILE_ID'      # Docs template
-SHEETS_FILE_ID = 'YOUR_SHEET_DATA_FILE_ID'  # Sheets data source
-CREDS_FILE = 'credentials.json'
+# Fill-in IDs of your Docs template & any Sheets data source
+DOCS_FILE_ID = 'YOUR_TMPL_DOC_FILE_ID'
+SHEETS_FILE_ID = 'YOUR_SHEET_DATA_FILE_ID'
+
+# authorization constants
+CLIENT_ID_FILE = 'credentials.json'
+TOKEN_STORE_FILE = 'token.json'
 SCOPES = (  # iterable or space-delimited string
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/documents',
     'https://www.googleapis.com/auth/spreadsheets.readonly',
 )
-COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
-OUTPUT = True # change to False to suppress output
+
+# application constants
 SOURCES = ('text', 'sheets')
-SOURCE = 'text' # or 'sheets' to change data source
+SOURCE = 'text' # Choose one of the data SOURCES
+COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
 
 def get_http_client():
-    """Manage OAuth tokens in 'token.json' file given the downloaded
-       'credentials.json' file along with requested OAuth2 scopes.
+    """Uses project credentials in CLIENT_ID_FILE along with requested OAuth2
+        scopes for authorization, and caches API tokens in TOKEN_STORE_FILE.
     """
-    store = file.Storage('token.json')
+    store = file.Storage(TOKEN_STORE_FILE)
     creds = store.get()
     if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets(CREDS_FILE, SCOPES)
+        flow = client.flow_from_clientsecrets(CLIENT_ID_FILE, SCOPES)
         creds = tools.run_flow(flow, store)
     return creds.authorize(Http())
 
-# create service endpoints to the 3 APIs
+# service endpoints to Google APIs
 HTTP = get_http_client()
 DRIVE = discovery.build('drive', 'v3', http=HTTP)
 DOCS = discovery.build('docs', 'v1', http=HTTP)
 SHEETS = discovery.build('sheets', 'v4', http=HTTP)
-
-# plain text data source
-TARGET_TEXT = [
-    'Ms. Lara Brown', 'Googler', 'Google NYC',
-    '111 8th Ave\nNew York, NY  10011-5201'
-]
 
 # fill-in your data to merge into document template variables
 merge = {
@@ -75,70 +73,61 @@ merge = {
             'in his keynote that users love their new Android phones.'
 }
 
-def get_data(source='text', output=True):
+def get_data(source='text'):
     """Gets mail merge data from chosen data source.
     """
     if source not in {'sheets', 'text'}:
-        raise ValueError('ERROR: unsupported source %r; choose %r' % (
+        raise ValueError('ERROR: unsupported source %r; choose from %r' % (
             source, SOURCES))
     func = SAFE_DISPATCH[source]
-    return dict(zip(COLUMNS, func(output=output)))
+    return dict(zip(COLUMNS, func()))
 
-def _get_text_data(output=False):
-    """Private function that returns data from plain text source.
+def _get_text_data():
+    """(private) Returns plain text data.
     """
-    if output:
-        print(' - Using static text data')
-    return TARGET_TEXT
+    return [
+        'Ms. Lara Brown', 'Googler', 'Google NYC',
+        '111 8th Ave\nNew York, NY  10011-5201'
+    ]
 
-def _get_sheets_data(service=SHEETS, output=False):
-    """Private function that returns data from Google Sheets source.
-        Note: this sample code gets all cells in 'Sheet1', the first
-        default Sheet in a spreadsheet. Use any desired data range
-        you need (in standard A1 notation). Sample returns only 1 row.
-        The 'output' flag toggles verbose output.
+def _get_sheets_data(service=SHEETS):
+    """(private) Returns data from Google Sheets source. NOTE: this sample
+        code gets all cells in 'Sheet1', the first default Sheet in a
+        spreadsheet. Use any desired data range (in standard A1 notation).
+        This sample app is coded to return only the 2nd row (the data).
     """
-    if output:
-        print(' - Using data from Google Sheets')
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
-            range='Sheet1').execute().get('values')[0] # one row only
+            range='Sheet1!2:2').execute().get('values')[0] # 2nd row only
 
+# data source dispatch table [better alternative to using eval()]
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
 
-def _copy_template(tmpl_id, source, service=DRIVE, output=False):
-    """Private function that copies the letter template document then
-       returns the new file ID. The 'output' flag toggles verbose output.
+def _copy_template(tmpl_id, source, service=DRIVE):
+    """(private) Copies letter template document using Drive API then
+        returns file ID of (new) copy.
     """
     body = {'name': 'Merged form letter (%s)' % source}
-    if output:
-        print(' - Copying template document as %r' % body['name'])
-
-    # Call the Drive API to copy the template document.
     return service.files().copy(body=body, fileId=tmpl_id,
             fields='id').execute().get('id')
 
-def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
-    """Merge the new letter template copy and return its file ID.
-       The 'output' flag toggles verbose output.
+def merge_template(tmpl_id=DOCS_FILE_ID, source='text'):
+    """Copies template document and merges data into newly-minted copy then
+        returns its file ID.
     """
-    # Copy the template and get the file ID of the new copy.
-    copy_id = _copy_template(tmpl_id, source, DRIVE, output)
-
-    # Build the requests to make all substitutions in the mail merge.
-    if output:
-        print(' - Replacing placeholder variables')
-
-    # Get key-value pairs (prefer iterators) and merge template values
+    # copy template and set context data struct for merging template values
+    copy_id = _copy_template(tmpl_id, source, DRIVE)
     context = merge.iteritems() if hasattr({}, 'iteritems') else merge.items()
+
+    # "search & replace" API requests for mail merge substitutions
     reqs = [{'replaceAllText': {
                 'containsText': {
-                    'text': '{{%s}}' % key.upper(),
+                    'text': '{{%s}}' % key.upper(), # {{VARS}} are uppercase
                     'matchCase': True,
                 },
                 'replaceText': value,
             }} for key, value in context]
 
-    # Use the Docs API to merge the data in the new copied document.
+    # send requests to Docs API to do actual merge
     DOCS.documents().batchUpdate(body={'requests': reqs},
             documentId=copy_id, fields='').execute()
     return copy_id
@@ -146,7 +135,6 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text', output=False):
 
 if __name__ == '__main__':
     if SOURCE in SOURCES:
-        merge.update(get_data(SOURCE, OUTPUT))
-        fid = merge_template(source=SOURCE, output=OUTPUT)
-        if OUTPUT:
-            print(' - Merged letter: docs.google.com/document/d/%s/edit' % fid)
+        merge.update(get_data(SOURCE))
+        fid = merge_template(source=SOURCE)
+        print('Merged letter: docs.google.com/document/d/%s/edit' % fid)
