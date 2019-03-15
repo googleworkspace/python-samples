@@ -42,7 +42,7 @@ Replace `YOUR_TMPL_DOC_FILE_ID` in the `docs_mail_merge.py` source file with thi
 
 ## Data source
 
-The application currently supports two different sources of data, plain text and Google Sheets. By default, the sample uses plain text via the `TARGET_TEXT` variable. A better option is to use a Google Sheet. Enable the API for your project in the developers console, and change the `source` variable at the bottom to `'sheets'`. Be sure you create a Sheet structured like the one below. Here is one [example Sheet](https://docs.google.com/spreadsheets/d/1vaoqPYGL1cJvkogV36nu3AKQ5rUacXj9TV-zqTvXuMU/edit) you can model yours on. Ensure you then set the `SHEETS_FILE_ID` variable to the file ID of your Google Sheet.
+The application currently supports two different sources of data, plain text and Google Sheets. By default, the sample uses plain text via the `TARGET_TEXT` variable. A better option is to use a Google Sheet. Enable the API for your project in the developers console, and change the `source` variable at the bottom to `'sheets'`. Be sure you create a Sheet structured like the one below. Here is one [example Sheet](https://docs.google.com/spreadsheets/d/1vaoqPYGL1cJvkogV36nu3AKQ5rUacXj9TV-zqTvXuMU/edit) you can model yours with. Ensure you then set the `SHEETS_FILE_ID` variable to the file ID of your Google Sheet.
 
 ![sample Sheets data source](https://user-images.githubusercontent.com/1102504/54064578-62e6c180-41ca-11e9-86f6-9d147ac17200.png "sample Sheets data source")
 
@@ -69,3 +69,4 @@ The unit-test script is `docs_mail_merge_test.py`; see the file for a list of th
     - [New Google APIs project setup](https://goo.gl/RbyTFD) (6:54)
     - [Common Python boilerplate code review](https://goo.gl/KMfbeK) (3:48)
     - [REST APIs intro (Drive API)](https://goo.gl/ZIgf8k) (6:20)
+    - [Introducing the Docs API](https://youtu.be/jeU-tWKeb6g) (2:57)
