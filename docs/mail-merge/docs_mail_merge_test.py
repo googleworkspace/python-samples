@@ -25,14 +25,12 @@ import unittest
 
 from googleapiclient import discovery
 from docs_mail_merge6 import (CLIENT_ID_FILE, get_data, get_http_client,
-        merge_template, _copy_template)
+        _copy_template)
 
 class TestDocsMailMerge(unittest.TestCase):
     'Unit tests for Mail Merge sample'
     def test_project(self):
         self.assertTrue(project_test())
-    def test_oauth2(self):
-        self.assertTrue(oauth2_test())
     def test_gapis(self):
         self.assertTrue(gapis_test())
     def test_create_doc(self):
