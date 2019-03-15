@@ -9,7 +9,7 @@
 
 ## Description
 
-Before getting started, create a new project (or reuse an existing one) at <https://console.developers.google.com> with Google Drive and Docs APIs enabled. (See the videos listed below if you're new to Google APIs.) Then install the Google APIs Client Library for Python if you haven't already: `pip{,3} install -U google-api-python-client`
+Before getting started, create a new project (or reuse an existing one) at <https://console.developers.google.com> with Google Drive, Sheets, and Docs APIs enabled. (See the videos listed below if you're new to Google APIs.) Then install the Google APIs Client Library for Python if you haven't already: `pip{,3} install -U google-api-python-client`
 
 This sample app requires you to [create a new Google Docs file](https://docs.google.com). Choose the template you wish to use, but we suggest using Letter/Spearmint to keep things simple. Replace the contact information in the Doc with template variables that we can merge with desired data.
 
@@ -42,7 +42,7 @@ Replace `YOUR_TMPL_DOC_FILE_ID` in the `docs_mail_merge.py` source file with thi
 
 ## Data source
 
-The application currently supports two different sources of data, plain text and Google Sheets. By default, the sample uses plain text via the `TARGET_TEXT` variable. A better option is to use a Google Sheet. Enable the API for your project in the developers console, and change the `source` variable at the bottom to `'sheets'`. Be sure you create a Sheet which looks like the below and set the `SHEETS_FILE_ID` variable to its file ID.
+The application currently supports two different sources of data, plain text and Google Sheets. By default, the sample uses plain text via the `TARGET_TEXT` variable. A better option is to use a Google Sheet. Enable the API for your project in the developers console, and change the `source` variable at the bottom to `'sheets'`. Be sure you create a Sheet structured like the one below. Here is one [example Sheet](https://docs.google.com/spreadsheets/d/1vaoqPYGL1cJvkogV36nu3AKQ5rUacXj9TV-zqTvXuMU/edit) you can model yours on. Ensure you then set the `SHEETS_FILE_ID` variable to the file ID of your Google Sheet.
 
 ![sample Sheets data source](https://user-images.githubusercontent.com/1102504/54064578-62e6c180-41ca-11e9-86f6-9d147ac17200.png "sample Sheets data source")
 
