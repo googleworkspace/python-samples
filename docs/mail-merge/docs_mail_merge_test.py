@@ -13,20 +13,19 @@
 """
 docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
     1. test credentials file availability
-    2. test whether project can authorize OAuth2 credentials
-    3. test whether project can connect to all 3 APIs
-    4. test creation (and deletion) of Google Docs file
-    5. test copying (and deletion) of Google Docs file
-    6. test getting plain text data
-    7. test getting data from Google Sheets spreadsheet
+    2. test whether project can connect to all 3 APIs
+    3. test creation (and deletion) of Google Docs file
+    4. test copying (and deletion) of Google Docs file
+    5. test getting plain text data
+    6. test getting data from Google Sheets spreadsheet
 """
 
 import os
 import unittest
 
 from googleapiclient import discovery
-from docs_mail_merge import (
-        CREDS_FILE, get_data, get_http_client, _copy_template)
+from docs_mail_merge6 import (CLIENT_ID_FILE, get_data, get_http_client,
+        merge_template, _copy_template)
 
 class TestDocsMailMerge(unittest.TestCase):
     'Unit tests for Mail Merge sample'
@@ -47,18 +46,12 @@ class TestDocsMailMerge(unittest.TestCase):
 
 def project_test():
     'Tests whether project credentials file was downloaded from project.'
-    if os.path.exists(CREDS_FILE):
+    if os.path.exists(CLIENT_ID_FILE):
         return True
     raise IOError('''\
         ERROR: Must create a Google APIs project, enable both
         the Drive and Docs REST APIs, create and download OAuth2
-        client credentials as %r before unit test can run.''' % CREDS_FILE)
-
-def oauth2_test():
-    'Tests whether project credentials can be used to call Google APIs.'
-    discovery.build('oauth2', 'v2',
-            http=get_http_client()).userinfo().get().execute()
-    return True
+        client credentials as %r before unit test can run.''' % CLIENT_ID_FILE)
 
 def gapis_test():
     'Tests whether project can connect to all 3 APIs used in the sample.'
@@ -89,11 +82,11 @@ def copy_doc_test():
 
 def get_text_data_test():
     'Tests reading plain text data.'
-    return get_data(output=False)
+    return get_data()
 
 def get_sheets_data_test():
     'Tests reading Google Sheets data.'
-    return get_data(source='sheets', output=False)
+    return get_data(source='sheets')
 
 if __name__ == '__main__':
     unittest.main()

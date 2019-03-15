@@ -41,6 +41,10 @@ SCOPES = (  # iterable or space-delimited string
 SOURCES = ('text', 'sheets')
 SOURCE = 'text' # Choose one of the data SOURCES
 COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
+TEXT_SOURCE_DATA = [
+    'Ms. Lara Brown', 'Googler', 'Google NYC',
+    '111 8th Ave\nNew York, NY  10011-5201'
+]
 
 def get_http_client():
     """Uses project credentials in CLIENT_ID_FILE along with requested OAuth2
@@ -73,7 +77,7 @@ merge = {
             'in his keynote that users love their new Android phones.'
 }
 
-def get_data(source='text'):
+def get_data(source):
     """Gets mail merge data from chosen data source.
     """
     if source not in {'sheets', 'text'}:
@@ -83,12 +87,9 @@ def get_data(source='text'):
     return dict(zip(COLUMNS, func()))
 
 def _get_text_data():
-    """(private) Returns plain text data.
+    """(private) Returns plain text data; can alter to read from CSV file.
     """
-    return [
-        'Ms. Lara Brown', 'Googler', 'Google NYC',
-        '111 8th Ave\nNew York, NY  10011-5201'
-    ]
+    return TEXT_SOURCE_DATA
 
 def _get_sheets_data(service=SHEETS):
     """(private) Returns data from Google Sheets source. NOTE: this sample
@@ -102,7 +103,7 @@ def _get_sheets_data(service=SHEETS):
 # data source dispatch table [better alternative to using eval()]
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
 
-def _copy_template(tmpl_id, source, service=DRIVE):
+def _copy_template(tmpl_id, source, service):
     """(private) Copies letter template document using Drive API then
         returns file ID of (new) copy.
     """
@@ -110,12 +111,12 @@ def _copy_template(tmpl_id, source, service=DRIVE):
     return service.files().copy(body=body, fileId=tmpl_id,
             fields='id').execute().get('id')
 
-def merge_template(tmpl_id=DOCS_FILE_ID, source='text'):
+def merge_template(tmpl_id, source, service):
     """Copies template document and merges data into newly-minted copy then
         returns its file ID.
     """
     # copy template and set context data struct for merging template values
-    copy_id = _copy_template(tmpl_id, source, DRIVE)
+    copy_id = _copy_template(tmpl_id, source, service)
     context = merge.iteritems() if hasattr({}, 'iteritems') else merge.items()
 
     # "search & replace" API requests for mail merge substitutions
@@ -136,5 +137,5 @@ def merge_template(tmpl_id=DOCS_FILE_ID, source='text'):
 if __name__ == '__main__':
     if SOURCE in SOURCES:
         merge.update(get_data(SOURCE))
-        fid = merge_template(source=SOURCE)
+        fid = merge_template(DOCS_FILE_ID, SOURCE, DRIVE)
         print('Merged letter: docs.google.com/document/d/%s/edit' % fid)
