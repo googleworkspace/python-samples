@@ -43,8 +43,10 @@ SOURCES = ('text', 'sheets')
 SOURCE = 'text' # Choose one of the data SOURCES
 COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
 TEXT_SOURCE_DATA = (
-    ('Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\nNew York, NY  10011-5201'),
-    ('Mr. Jeff Erson', 'Googler', 'Google NYC', '76 9th Ave\nNew York, NY  10011-4962'),
+    ('Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\n'
+                                                'New York, NY  10011-5201'),
+    ('Mr. Jeff Erson', 'Googler', 'Google NYC', '76 9th Ave\n'
+                                                'New York, NY  10011-4962'),
 )
 
 def get_http_client():
