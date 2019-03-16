@@ -13,10 +13,11 @@
 # limitations under the License.
 
 """
-docs-mail-merge.py (2.x or 3.x)
+docs-mail-merge.py (Python 2.x or 3.x)
 
 Google Docs (REST) API mail-merge sample app
 """
+# [START mail_merge_python]
 from __future__ import print_function
 import time
 
@@ -41,10 +42,10 @@ SCOPES = (  # iterable or space-delimited string
 SOURCES = ('text', 'sheets')
 SOURCE = 'text' # Choose one of the data SOURCES
 COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
-TEXT_SOURCE_DATA = [
-    'Ms. Lara Brown', 'Googler', 'Google NYC',
-    '111 8th Ave\nNew York, NY  10011-5201'
-]
+TEXT_SOURCE_DATA = (
+    ('Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\nNew York, NY  10011-5201'),
+    ('Mr. Jeff Erson', 'Googler', 'Google NYC', '76 9th Ave\nNew York, NY  10011-4962'),
+)
 
 def get_http_client():
     """Uses project credentials in CLIENT_ID_FILE along with requested OAuth2
@@ -63,28 +64,13 @@ DRIVE = discovery.build('drive', 'v3', http=HTTP)
 DOCS = discovery.build('docs', 'v1', http=HTTP)
 SHEETS = discovery.build('sheets', 'v4', http=HTTP)
 
-# fill-in your data to merge into document template variables
-merge = {
-    'my_name': 'Mr. Jeff Erson',
-    'my_address': '76 9th Ave\nNew York, NY  10011-4962',
-    'my_email': 'http://google.com',
-    'my_phone': '+1-212-565-0000',
-    # - - - - - - - - - - - - - - - - - - - - - - - - - -
-    'date': time.ctime(),
-    # - - - - - - - - - - - - - - - - - - - - - - - - - -
-    'body': 'Google, headquartered in Mountain View, unveiled the new Android '
-            'phone at the Consumer Electronics Show. CEO Sundar Pichai said '
-            'in his keynote that users love their new Android phones.'
-}
-
 def get_data(source):
     """Gets mail merge data from chosen data source.
     """
     if source not in {'sheets', 'text'}:
         raise ValueError('ERROR: unsupported source %r; choose from %r' % (
             source, SOURCES))
-    func = SAFE_DISPATCH[source]
-    return dict(zip(COLUMNS, func()))
+    return SAFE_DISPATCH[source]()
 
 def _get_text_data():
     """(private) Returns plain text data; can alter to read from CSV file.
@@ -98,9 +84,9 @@ def _get_sheets_data(service=SHEETS):
         This sample app is coded to return only the 2nd row (the data).
     """
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
-            range='Sheet1!2:2').execute().get('values')[0] # 2nd row only
+            range='Sheet1').execute().get('values')[1:] # skip header row
 
-# data source dispatch table [better alternative to using eval()]
+# data source dispatch table [better alternative vs. eval()]
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
 
 def _copy_template(tmpl_id, source, service):
@@ -135,7 +121,32 @@ def merge_template(tmpl_id, source, service):
 
 
 if __name__ == '__main__':
-    if SOURCE in SOURCES:
-        merge.update(get_data(SOURCE))
-        fid = merge_template(DOCS_FILE_ID, SOURCE, DRIVE)
-        print('Merged letter: docs.google.com/document/d/%s/edit' % fid)
+    # fill-in your data to merge into document template variables
+    merge = {
+        # sender data
+        'my_name': 'Ayme A. Coder',
+        'my_address': '1600 Amphitheatre Pkwy\n'
+                      'Mountain View, CA  94043-1351',
+        'my_email': 'http://google.com',
+        'my_phone': '+1-650-253-0000',
+        # - - - - - - - - - - - - - - - - - - - - - - - - - -
+        # recipient data (supplied by 'text' or 'sheets' data source)
+        'to_name': None,
+        'to_title': None,
+        'to_company': None,
+        'to_address': None,
+        # - - - - - - - - - - - - - - - - - - - - - - - - - -
+        'date': time.strftime('%Y %B %d'),
+        # - - - - - - - - - - - - - - - - - - - - - - - - - -
+        'body': 'Google, headquartered in Mountain View, unveiled the new '
+                'Android phone at the Consumer Electronics Show. CEO Sundar '
+                'Pichai said in his keynote that users love their new phones.'
+    }
+
+    # get row data, then loop through & process each form letter
+    data = get_data(SOURCE) # get data from data source
+    for i, row in enumerate(data):
+        merge.update(dict(zip(COLUMNS, row)))
+        print('Merged letter %d: docs.google.com/document/d/%s/edit' % (
+                i+1, merge_template(DOCS_FILE_ID, SOURCE, DRIVE)))
+# [END mail_merge_python]
