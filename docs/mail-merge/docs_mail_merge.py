@@ -78,10 +78,9 @@ def _get_text_data():
     return TEXT_SOURCE_DATA
 
 def _get_sheets_data(service=SHEETS):
-    """(private) Returns data from Google Sheets source. NOTE: this sample
-        code gets all cells in 'Sheet1', the first default Sheet in a
-        spreadsheet. Use any desired data range (in standard A1 notation).
-        This sample app is coded to return only the 2nd row (the data).
+    """(private) Returns data from Google Sheets source. It gets all rows of
+        'Sheet1' (the default Sheet in a new spreadsheet), but drops the first
+        (header) row. Use any desired data range (in standard A1 notation).
     """
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
             range='Sheet1').execute().get('values')[1:] # skip header row

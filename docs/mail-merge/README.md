@@ -63,7 +63,6 @@ The unit-test script is `docs_mail_merge_test.py`; see the file for a list of th
     - [Support channels](https://developers.google.com/drive/api/v3/support/)
 - Google Docs API
     - [API documentation](https://developers.google.com/docs/)
-    - [Python quickstart](https://developers.google.com/docs/api/quickstart/python/)
     - [Support channels](https://developers.google.com/docs/api/support/)
 - Google Sheets API
     - [API documentation](https://developers.google.com/sheets/)
@@ -77,3 +76,12 @@ The unit-test script is `docs_mail_merge_test.py`; see the file for a list of th
     - [Common OAuth2 boilerplate code (Python)](https://goo.gl/KMfbeK) (3:48)
     - [REST APIs intro (Drive API)](https://goo.gl/ZIgf8k) (6:20)
     - [Introducing the Docs API](https://youtu.be/jeU-tWKeb6g) (2:57)
+
+## Enhancements
+
+Here are some recommendations on how you can enhance this application:
+
+1. Adapt this sample for your mail merge use case
+1. Support exporting merged letters as PDF (HINT: Drive API)
+1. Support importing data from other data sources, i.e., [https://cloud.google.com/sql/](Cloud SQL), Salesforce, etc.
+1. Augment the plain text data support to include processing data from CSV files
