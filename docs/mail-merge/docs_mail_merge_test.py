@@ -1,4 +1,6 @@
-# Copyright 2018-2019 Google LLC
+# -*- coding: utf-8 -*-
+#
+# Copyright ©2018-2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +26,7 @@ import os
 import unittest
 
 from googleapiclient import discovery
-from docs_mail_merge6 import (CLIENT_ID_FILE, get_data, get_http_client,
+from docs_mail_merge import (CLIENT_ID_FILE, get_data, get_http_client,
         _copy_template)
 
 class TestDocsMailMerge(unittest.TestCase):
@@ -73,18 +75,18 @@ def create_doc_test():
 def copy_doc_test():
     'Tests whether project can copy and delete a Google Docs file.'
     DRIVE = discovery.build('drive', 'v3', http=get_http_client())
-    DOCS_FILE_ID = '1Rr7eKm3tvUgRKRoOYVSMF69IVAHIOPS72-l0CzsPmfM'
-    doc_id = _copy_template(DOCS_FILE_ID, 'text')
+    DOCS_FILE_ID = '1Xycxuuv7OhEQUuzbt_Mw0TPMq02MseSD1vZdBJ3nLjk'
+    doc_id = _copy_template(DOCS_FILE_ID, 'text', DRIVE)
     DRIVE.files().delete(fileId=doc_id, fields='').execute()
     return True
 
 def get_text_data_test():
     'Tests reading plain text data.'
-    return get_data()
+    return get_data('text')
 
 def get_sheets_data_test():
     'Tests reading Google Sheets data.'
-    return get_data(source='sheets')
+    return get_data('sheets')
 
 if __name__ == '__main__':
     unittest.main()
