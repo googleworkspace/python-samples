@@ -18,19 +18,21 @@ Google Docs (REST) API output-json sample app
 """
 # [START output_json_python]
 from __future__ import print_function
+import json
 from apiclient import discovery
 from httplib2 import Http
 from oauth2client import client
 from oauth2client import file
 from oauth2client import tools
-import json
 
 # Set doc ID, as found at `https://docs.google.com/document/d/YOUR_DOC_ID/edit`
-DOCUMENT_ID=YOUR_DOC_ID
+DOCUMENT_ID = 'YOUR_DOC_ID'
 
 # Set the scopes and discovery info
 SCOPES = 'https://www.googleapis.com/auth/documents.readonly'
-DISCOVERY_DOC = 'https://docs.googleapis.com/$discovery/rest?version=v1&key=<YOUR_API_KEY>'
+DISCOVERY_DOC = ('https://docs.googleapis.com/$discovery/rest?'
+                 'version=v1'
+                 '&key=<YOUR_API_KEY>')
 
 # Initialize credentials and instantiate Docs API service
 store = file.Storage('token.json')
