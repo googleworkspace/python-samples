@@ -118,9 +118,9 @@ def getTargetInfo(target):
     if 'driveItem' in target:
         title = target['driveItem'].get('title', 'unknown')
         return 'driveItem:"{0}"'.format(title)
-    if 'teamDrive' in target:
-        title = target['teamDrive'].get('title', 'unknown')
-        return 'teamDrive:"{0}"'.format(title)
+    if 'drive' in target:
+        title = target['drive'].get('title', 'unknown')
+        return 'drive:"{0}"'.format(title)
     if 'fileComment' in target:
         parent = target['fileComment'].get('parent', {})
         title = parent.get('title', 'unknown')
