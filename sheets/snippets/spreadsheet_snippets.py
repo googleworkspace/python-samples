@@ -89,7 +89,7 @@ class SpreadsheetSnippets(object):
         result = service.spreadsheets().values().batchGet(
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
         numRanges = len(result.get('valueRanges')) if result.get('valueRanges') is not None else 0
-        print('{0} ranges retrieved.'.format(numRanges)
+        print('{0} ranges retrieved.'.format(numRanges))
         # [END sheets_batch_get_values]
         return result
 
