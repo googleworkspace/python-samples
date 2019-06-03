@@ -72,7 +72,7 @@ class SpreadsheetSnippets(object):
         # [START sheets_get_values]
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
-        numRows = result.get('values') if result.get('values')is not None else 0
+        numRows = len(result.get('values')) if result.get('values') is not None else 0
         print('{0} rows retrieved.'.format(numRows))
         # [END sheets_get_values]
         return result
@@ -88,7 +88,8 @@ class SpreadsheetSnippets(object):
         # [END_EXCLUDE]
         result = service.spreadsheets().values().batchGet(
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
-        print('{0} ranges retrieved.'.format(result.get('valueRanges')))
+        numRanges = len(result.get('valueRanges')) if result.get('valueRanges') is not None else 0
+        print('{0} ranges retrieved.'.format(numRanges)
         # [END sheets_batch_get_values]
         return result
 
@@ -141,7 +142,7 @@ class SpreadsheetSnippets(object):
         }
         result = service.spreadsheets().values().batchUpdate(
             spreadsheetId=spreadsheet_id, body=body).execute()
-        print('{0} cells updated.'.format(result.get('updatedCells')))
+        print('{0} cells updated.'.format(result.get('totalUpdatedCells')))
         # [END sheets_batch_update_values]
         return result
 
