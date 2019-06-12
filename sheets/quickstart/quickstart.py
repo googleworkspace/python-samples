@@ -15,7 +15,7 @@
 # [START sheets_quickstart]
 from __future__ import print_function
 import pickle
-import sys
+from sys import exit
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -54,7 +54,7 @@ def main():
                 ' download the \'credentials.json\' file here: \n\n'
                 'https://developers.google.com/sheets/api/quickstart/'
                 'python#step_1_turn_on_the\n')
-                sys.exit()
+                exit()
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
