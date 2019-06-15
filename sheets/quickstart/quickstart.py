@@ -47,7 +47,8 @@ def main():
                 'credentials.json', SCOPES)
             try:
                 creds = flow.run_local_server()
-            except:
+            except OSError as e:
+                print(e)
                 creds = flow.run_console()
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
