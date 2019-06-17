@@ -141,8 +141,8 @@ class SlidesSnippets(object):
         # a URL of an already hosted image.
         #
         # We will use an existing image under the variable: IMAGE_URL.
-        IMAGE_URL = 'https://www.google.com/images/branding/' +
-            'googlelogo/2x/googlelogo_color_272x92dp.png'
+        IMAGE_URL = ('https://www.google.com/images/branding/'
+                     'googlelogo/2x/googlelogo_color_272x92dp.png')
 
         # Create a new image, using the supplied object ID,
         # with content downloaded from image_url.
