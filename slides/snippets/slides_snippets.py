@@ -133,6 +133,7 @@ class SlidesSnippets(object):
 
     def create_image(self, presentation_id, page_id, image_file_path,
             image_mimetype):
+        drive_service = self.drive_service
         slides_service = self.service
         # [START slides_create_image]
         # Temporarily upload a local image file to Drive, in order to obtain a
@@ -140,7 +141,8 @@ class SlidesSnippets(object):
         # a URL of an already hosted image.
         #
         # We will use an existing image under the variable: IMAGE_URL.
-        IMAGE_URL = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'
+        IMAGE_URL = 'https://www.google.com/images/branding/' +
+            'googlelogo/2x/googlelogo_color_272x92dp.png'
 
         # Create a new image, using the supplied object ID,
         # with content downloaded from image_url.
@@ -181,8 +183,6 @@ class SlidesSnippets(object):
         print('Created image with ID: {0}'.format(
             create_image_response.get('objectId')))
 
-        # Remove the temporary image file from Drive.
-        drive_service.files().delete(fileId=file_id).execute()
         # [END slides_create_image]
         return response
 
