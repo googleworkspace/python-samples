@@ -314,7 +314,7 @@ class SpreadsheetSnippets(object):
     def filter_views(self, spreadsheet_id):
         service = self.service
 
-        # [START filter_views]
+        # [START sheets_filter_views]
         my_range = {
             'sheetId': 0,
             'startRowIndex': 0,
@@ -389,4 +389,4 @@ class SpreadsheetSnippets(object):
         body = {'requests': [updateFilterViewRequest]}
         updateFilterViewResponse = service.spreadsheets() \
            .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
-        # [END filter_views]
+        # [END sheets_filter_views]
