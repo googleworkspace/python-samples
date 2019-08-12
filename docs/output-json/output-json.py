@@ -31,8 +31,7 @@ DOCUMENT_ID = 'YOUR_DOC_ID'
 # Set the scopes and discovery info
 SCOPES = 'https://www.googleapis.com/auth/documents.readonly'
 DISCOVERY_DOC = ('https://docs.googleapis.com/$discovery/rest?'
-                 'version=v1'
-                 '&key=<YOUR_API_KEY>')
+                 'version=v1')
 
 # Initialize credentials and instantiate Docs API service
 store = file.Storage('token.json')
