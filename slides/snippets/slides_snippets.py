@@ -131,9 +131,7 @@ class SlidesSnippets(object):
         # [END slides_create_textbox_with_text]
         return response
 
-    def create_image(self, presentation_id, page_id, image_file_path,
-            image_mimetype):
-        drive_service = self.drive_service
+    def create_image(self, presentation_id, page_id):
         slides_service = self.service
         # [START slides_create_image]
         # Create a new image, using the supplied object ID,
