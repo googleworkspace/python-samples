@@ -131,21 +131,13 @@ class SlidesSnippets(object):
         # [END slides_create_textbox_with_text]
         return response
 
-    def create_image(self, presentation_id, page_id, image_file_path,
-            image_mimetype):
-        drive_service = self.drive_service
+    def create_image(self, presentation_id, page_id):
         slides_service = self.service
         # [START slides_create_image]
-        # Temporarily upload a local image file to Drive, in order to obtain a
-        # URL for the image. Alternatively, you can provide the Slides service
-        # a URL of an already hosted image.
-        #
-        # We will use an existing image under the variable: IMAGE_URL.
+        # Create a new image, using the supplied object ID,
+        # with content downloaded from IMAGE_URL.
         IMAGE_URL = ('https://www.google.com/images/branding/'
                      'googlelogo/2x/googlelogo_color_272x92dp.png')
-
-        # Create a new image, using the supplied object ID,
-        # with content downloaded from image_url.
         requests = []
         image_id = 'MyImage_01'
         emu4M = {
