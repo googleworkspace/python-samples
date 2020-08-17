@@ -18,10 +18,8 @@ from base_test import BaseTest
 from slides_snippets import SlidesSnippets
 
 class SnippetsTest(BaseTest):
-    IMAGE_FILE_PATH = '../resources/photo.jpg'
     IMAGE_URL = 'https://www.google.com/images/' \
         'branding/googlelogo/2x/googlelogo_color_272x92dp.png'
-    IMAGE_MIMETYPE = 'image/png'
     TEMPLATE_PRESENTATION_ID = '1E7tKQyX8H7zI7F8_v7mNDY5VyHZ3NNcjUQhkGXoITnw'
     DATA_SPREADSHEET_ID = '14KaZMq2aCAGt5acV77zaA_Ps8aDt04G7T0ei4KiXLX8'
     CHART_ID = 1107320627
@@ -68,8 +66,7 @@ class SnippetsTest(BaseTest):
     def test_create_image(self):
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        response = self.snippets.create_image(presentation_id,
-            page_id, SnippetsTest.IMAGE_FILE_PATH, SnippetsTest.IMAGE_MIMETYPE)
+        response = self.snippets.create_image(presentation_id, page_id)
         self.assertEqual(1, len(response.get('replies')), msg=pformat(response))
         image_id = response.get('replies')[0].get('createImage').get('objectId')
         self.assertIsNotNone(image_id, msg=pformat(response))

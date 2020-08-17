@@ -72,8 +72,8 @@ class SpreadsheetSnippets(object):
         # [START sheets_get_values]
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
-        numRows = result.get('values') if result.get('values')is not None else 0
-        print('{0} rows retrieved.'.format(numRows))
+        rows = result.get('values', [])
+        print('{0} rows retrieved.'.format(len(rows)))
         # [END sheets_get_values]
         return result
 
@@ -88,7 +88,8 @@ class SpreadsheetSnippets(object):
         # [END_EXCLUDE]
         result = service.spreadsheets().values().batchGet(
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
-        print('{0} ranges retrieved.'.format(result.get('valueRanges')))
+        ranges = result.get('valueRanges', [])
+        print('{0} ranges retrieved.'.format(len(ranges)))
         # [END sheets_batch_get_values]
         return result
 
@@ -141,7 +142,7 @@ class SpreadsheetSnippets(object):
         }
         result = service.spreadsheets().values().batchUpdate(
             spreadsheetId=spreadsheet_id, body=body).execute()
-        print('{0} cells updated.'.format(result.get('updatedCells')))
+        print('{0} cells updated.'.format(result.get('totalUpdatedCells')))
         # [END sheets_batch_update_values]
         return result
 
@@ -198,12 +199,12 @@ class SpreadsheetSnippets(object):
                                     'sheetId': source_sheet_id,
                                     'startRowIndex': 0,
                                     'startColumnIndex': 0,
-                                    'endRowIndex': 101,
-                                    'endColumnIndex': 8
+                                    'endRowIndex': 20,
+                                    'endColumnIndex': 7
                                 },
                                 'rows': [
                                     {
-                                        'sourceColumnOffset': 6,
+                                        'sourceColumnOffset': 1,
                                         'showTotals': True,
                                         'sortOrder': 'ASCENDING',
 
@@ -212,7 +213,7 @@ class SpreadsheetSnippets(object):
                                 ],
                                 'columns': [
                                     {
-                                        'sourceColumnOffset': 3,
+                                        'sourceColumnOffset': 4,
                                         'sortOrder': 'ASCENDING',
                                         'showTotals': True,
 
@@ -221,7 +222,7 @@ class SpreadsheetSnippets(object):
                                 'values': [
                                     {
                                         'summarizeFunction': 'COUNTA',
-                                        'sourceColumnOffset': 3
+                                        'sourceColumnOffset': 4
                                     }
                                 ],
                                 'valueLayout': 'HORIZONTAL'
@@ -309,3 +310,83 @@ class SpreadsheetSnippets(object):
         print('{0} cells updated.'.format(len(response.get('replies'))))
         # [END sheets_conditional_formatting]
         return response
+
+    def filter_views(self, spreadsheet_id):
+        service = self.service
+
+        # [START sheets_filter_views]
+        my_range = {
+            'sheetId': 0,
+            'startRowIndex': 0,
+            'startColumnIndex': 0,
+        }
+        addFilterViewRequest = {
+            'addFilterView': {
+                'filter': {
+                    'title': 'Sample Filter',
+                    'range': my_range,
+                    'sortSpecs': [{
+                        'dimensionIndex': 3,
+                        'sortOrder': 'DESCENDING'
+                    }],
+                    'criteria': {
+                        0: {
+                            'hiddenValues': ['Panel']
+                        },
+                        6: {
+                            'condition': {
+                                'type': 'DATE_BEFORE',
+                                'values': {
+                                    'userEnteredValue': '4/30/2016'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        body = {'requests': [addFilterViewRequest]}
+        addFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+
+        duplicateFilterViewRequest = {
+            'duplicateFilterView': {
+            'filterId':
+                addFilterViewResponse['replies'][0]['addFilterView']['filter']
+                    ['filterViewId']
+            }
+        }
+
+        body = {'requests': [duplicateFilterViewRequest]}
+        duplicateFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+
+        updateFilterViewRequest = {
+            'updateFilterView': {
+                'filter': {
+                    'filterViewId': duplicateFilterViewResponse['replies'][0]
+                        ['duplicateFilterView']['filter']['filterViewId'],
+                    'title': 'Updated Filter',
+                    'criteria': {
+                        0: {},
+                        3: {
+                            'condition': {
+                                'type': 'NUMBER_GREATER',
+                                'values': {
+                                    'userEnteredValue': '5'
+                                }
+                            }
+                        }
+                    }
+                },
+                'fields': {
+                    'paths': ['criteria', 'title']
+                }
+            }
+        }
+
+        body = {'requests': [updateFilterViewRequest]}
+        updateFilterViewResponse = service.spreadsheets() \
+           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+        # [END sheets_filter_views]

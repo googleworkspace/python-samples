@@ -115,5 +115,10 @@ class SpreadsheetSnippetsTest(BaseTest):
         response = self.snippets.conditional_formatting(spreadsheet_id)
         self.assertEqual(2, len(response.get('replies')))
 
+    def test_filter_views(self):
+        spreadsheet_id = self.create_test_spreadsheet()
+        self.populate_values(spreadsheet_id)
+        self.snippets.filter_views(spreadsheet_id)
+
 if __name__ == '__main__':
     unittest.main()

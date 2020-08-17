@@ -8,7 +8,7 @@ that makes requests to the Google Admin SDK Reseller API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client oauth2client
+pip install -r requirements.txt
 ```
 
 ## Run

@@ -8,7 +8,7 @@ requests to the Google People API.
 ## Install
 
 ```
-pip install --upgrade google-api-python-client oauth2client
+pip install -r requirements.txt
 ```
 
 ## Run

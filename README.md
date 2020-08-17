@@ -22,6 +22,16 @@ Python samples for [G Suite API](https://developers.google.com/gsuite/) docs.
 
 - [Quickstart](https://developers.google.com/classroom/quickstart/python)
 
+### Docs
+
+- [Quickstart](https://developers.google.com/docs/api/quickstart/python)
+- [Output Doc as JSON](https://developers.google.com/docs/api/samples/output-json):
+Dump the contents of a Google Doc as formatted JSON
+- [Extract text](https://developers.google.com/docs/api/samples/extract-text):
+Extract only the text of a Google Doc
+- [Mail merge](https://developers.google.com/docs/api/samples/mail-merge):
+Perform mail merges from plain text or Google Sheets data sources
+
 ### Drive V3
 
 - [Quickstart](https://developers.google.com/drive/v3/web/quickstart/python)
