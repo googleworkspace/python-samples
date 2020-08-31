@@ -216,7 +216,7 @@ class ClassroomSnippets(object):
             response = coursework.studentSubmissions().list(
                 pageToken=page_token,
                 courseId=course_id,
-                courseWorkId=coursework_id
+                courseWorkId=coursework_id,
                 pageSize=10).execute()
             submissions.extend(response.get('studentSubmissions', []))
             page_token = response.get('nextPageToken', None)
