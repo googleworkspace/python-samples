@@ -24,14 +24,17 @@ def main():
     """
     SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'
 
-    # Setup the Apps Script API
-    SCOPES = 'https://www.googleapis.com/auth/script.projects'
+    # Set up the Apps Script API
+    SCOPES = [
+        'https://www.googleapis.com/auth/script.scriptapp',
+        'https://www.googleapis.com/auth/drive.readonly',
+    ]
     store = oauth_file.Storage('token.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
         creds = tools.run_flow(flow, store)
-    service = build('script', 'v1', http=creds.authorize(Http()))
+    service = build('script', 'v1', credentials=creds)
 
     # Create an execution request object.
     request = {"function": "getFoldersUnderRoot"}
@@ -67,7 +70,7 @@ def main():
                 print('No folders returned!')
             else:
                 print('Folders under your root folder:')
-                for (folderId, folder) in folderSet.iteritems():
+                for (folderId, folder) in folderSet.items():
                     print("\t{0} ({1})".format(folder, folderId))
 
     except errors.HttpError as e:
