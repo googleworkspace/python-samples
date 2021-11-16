@@ -28,9 +28,9 @@ class SpreadsheetSnippets(object):
         }
         spreadsheet = service.spreadsheets().create(body=spreadsheet,
                                             fields='spreadsheetId').execute()
-        print('Spreadsheet ID: {0}'.format(spreadsheet.get('spreadsheetId')))
+        print('Spreadsheet ID: {0}'.format(sheet.get('spreadsheetId')))
         # [END sheets_create]
-        return spreadsheet.get('spreadsheetId')
+        return sheet.get('spreadsheetId')
 
     def batch_update(self, spreadsheet_id, title, find, replacement):
         service = self.service
