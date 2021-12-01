@@ -1,3 +1,6 @@
+# Act secrets files
+.secrets
+
 # Google API Secrets
 client_secret.json
 application_credentials.json
