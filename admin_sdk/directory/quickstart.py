@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/admin.directory.user']
 
+
 def main():
     """Shows basic usage of the Admin SDK Directory API.
     Prints the emails and names of the first 10 users in the domain.
@@ -50,7 +51,7 @@ def main():
     # Call the Admin SDK Directory API
     print('Getting the first 10 users in the domain')
     results = service.users().list(customer='my_customer', maxResults=10,
-                                orderBy='email').execute()
+                                   orderBy='email').execute()
     users = results.get('users', [])
 
     if not users:
@@ -59,7 +60,7 @@ def main():
         print('Users:')
         for user in users:
             print(u'{0} ({1})'.format(user['primaryEmail'],
-                user['name']['fullName']))
+                                      user['name']['fullName']))
 
 
 if __name__ == '__main__':

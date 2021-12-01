@@ -26,32 +26,37 @@ import os
 import unittest
 
 from googleapiclient import discovery
+import google.auth
 from docs_mail_merge import (CLIENT_ID_FILE, get_data, get_http_client,
-        _copy_template)
+                             _copy_template)
+
 
 class TestDocsMailMerge(unittest.TestCase):
     'Unit tests for Mail Merge sample'
+
     def test_project(self):
         self.assertTrue(project_test())
+
     def test_gapis(self):
         self.assertTrue(gapis_test())
+
     def test_create_doc(self):
         self.assertTrue(create_doc_test())
+
     def test_copy_doc(self):
         self.assertTrue(copy_doc_test())
+
     def test_get_text_data(self):
         self.assertTrue(bool(get_text_data_test()))
+
     def test_get_sheets_data(self):
         self.assertTrue(bool(get_sheets_data_test()))
 
+
 def project_test():
     'Tests whether project credentials file was downloaded from project.'
-    if os.path.exists(CLIENT_ID_FILE):
-        return True
-    raise IOError('''\
-        ERROR: Must create a Google APIs project, enable both
-        the Drive and Docs REST APIs, create and download OAuth2
-        client credentials as %r before unit test can run.''' % CLIENT_ID_FILE)
+    credentials, project = google.auth.default()
+
 
 def gapis_test():
     'Tests whether project can connect to all 3 APIs used in the sample.'
@@ -60,6 +65,7 @@ def gapis_test():
     discovery.build('docs', 'v1', http=HTTP)
     discovery.build('sheets', 'v4', http=HTTP)
     return True
+
 
 def create_doc_test():
     'Tests whether project can create and delete a Google Docs file.'
@@ -72,6 +78,7 @@ def create_doc_test():
     DRIVE.files().delete(fileId=doc_id, fields='').execute()
     return True
 
+
 def copy_doc_test():
     'Tests whether project can copy and delete a Google Docs file.'
     DRIVE = discovery.build('drive', 'v3', http=get_http_client())
@@ -80,13 +87,16 @@ def copy_doc_test():
     DRIVE.files().delete(fileId=doc_id, fields='').execute()
     return True
 
+
 def get_text_data_test():
     'Tests reading plain text data.'
     return get_data('text')
 
+
 def get_sheets_data_test():
     'Tests reading Google Sheets data.'
     return get_data('sheets')
+
 
 if __name__ == '__main__':
     unittest.main()
