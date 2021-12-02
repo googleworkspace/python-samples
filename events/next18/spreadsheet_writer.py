@@ -28,7 +28,7 @@ def CreateSpreadsheet(sheets_service, title, sheet_titles):
         sheet = {
             'properties': {
                 'title': sheet_title,
-             },
+            },
         }
         sheets.append(sheet)
 
@@ -56,12 +56,12 @@ class SpreadsheetWriter(object):
         request = {
             'insertDimension': {
                 'range': {
-                   'sheetId': sheet_id,
-                   'dimension': 'COLUMNS',
-                   'startIndex': column_index,
-                   'endIndex': column_index + 1,
+                    'sheetId': sheet_id,
+                    'dimension': 'COLUMNS',
+                    'startIndex': column_index,
+                    'endIndex': column_index + 1,
                 },
-             }
+            }
         }
         self._requests.append(request)
 
@@ -78,8 +78,8 @@ class SpreadsheetWriter(object):
                         'userEnteredValue': {
                             'stringValue': value
                         }
-                     }
-                 ]
+                    }
+                ]
             }
             rows.append(row_data)
 
@@ -126,7 +126,7 @@ class SpreadsheetWriter(object):
                     'location': {
                         'spreadsheet': True
                     },
-                   'visibility': 'DOCUMENT',
+                    'visibility': 'DOCUMENT',
                 }
             }
         }

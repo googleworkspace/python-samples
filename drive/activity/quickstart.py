@@ -24,6 +24,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/activity']
 
+
 def main():
     """Shows basic usage of the Drive Activity API.
     Prints information about the last 10 events that occured the user's Drive.
@@ -50,7 +51,7 @@ def main():
 
     # Call the Drive Activity API
     results = service.activities().list(source='drive.google.com',
-        drive_ancestorId='root', pageSize=10).execute()
+                                        drive_ancestorId='root', pageSize=10).execute()
     activities = results.get('activities', [])
 
     if not activities:
@@ -64,9 +65,10 @@ def main():
             if user is None or target is None:
                 continue
             time = datetime.datetime.fromtimestamp(
-                int(event['eventTimeMillis'])/1000)
+                int(event['eventTimeMillis']) / 1000)
             print(u'{0}: {1}, {2}, {3} ({4})'.format(time, user['name'],
-                event['primaryEventType'], target['name'], target['mimeType']))
+                                                     event['primaryEventType'], target['name'], target['mimeType']))
+
 
 if __name__ == '__main__':
     main()

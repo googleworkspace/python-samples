@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/admin.reports.audit.readonly']
 
+
 def main():
     """Shows basic usage of the Admin SDK Reports API.
     Prints the time, email, and name of the last 10 login events in the domain.
@@ -50,7 +51,7 @@ def main():
     # Call the Admin SDK Reports API
     print('Getting the last 10 login events')
     results = service.activities().list(userKey='all', applicationName='login',
-        maxResults=10).execute()
+                                        maxResults=10).execute()
     activities = results.get('items', [])
 
     if not activities:
@@ -59,7 +60,8 @@ def main():
         print('Logins:')
         for activity in activities:
             print(u'{0}: {1} ({2})'.format(activity['id']['time'],
-                activity['actor']['email'], activity['events'][0]['name']))
+                                           activity['actor']['email'], activity['events'][0]['name']))
+
 
 if __name__ == '__main__':
     main()

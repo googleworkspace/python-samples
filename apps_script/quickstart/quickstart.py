@@ -42,6 +42,7 @@ SAMPLE_MANIFEST = '''
 }
 '''.strip()
 
+
 def main():
     """Calls the Apps Script API.
     """

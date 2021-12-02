@@ -1,11 +1,11 @@
 # Copyright 2021 Google LLC
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     https://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ from google.oauth2.credentials import Credentials
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/drive']
+
 
 def main():
     """Shows copy file example in Drive v3 API.
@@ -45,11 +46,12 @@ def main():
     service = build('drive', 'v3', credentials=creds)
 
     # Call the Drive v3 API
-    origin_file_id = '1ox-6vHFeKpC6mon-tL5ygBC8zpbTnTp76JCZdIg80hA' # example ID
+    origin_file_id = '1ox-6vHFeKpC6mon-tL5ygBC8zpbTnTp76JCZdIg80hA'  # example ID
     copied_file = {'title': 'my_copy'}
     results = service.files().copy(
         fileId=origin_file_id, body=copied_file).execute()
     print(results)
+
 
 if __name__ == '__main__':
     main()
