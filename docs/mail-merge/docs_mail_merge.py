@@ -40,7 +40,7 @@ SCOPES = (  # iterable or space-delimited string
 
 # application constants
 SOURCES = ('text', 'sheets')
-SOURCE = 'text' # Choose one of the data SOURCES
+SOURCE = 'text'  # Choose one of the data SOURCES
 COLUMNS = ['to_name', 'to_title', 'to_company', 'to_address']
 TEXT_SOURCE_DATA = (
     ('Ms. Lara Brown', 'Googler', 'Google NYC', '111 8th Ave\n'
@@ -48,6 +48,7 @@ TEXT_SOURCE_DATA = (
     ('Mr. Jeff Erson', 'Googler', 'Google NYC', '76 9th Ave\n'
                                                 'New York, NY  10011-4962'),
 )
+
 
 def get_http_client():
     """Uses project credentials in CLIENT_ID_FILE along with requested OAuth2
@@ -60,11 +61,13 @@ def get_http_client():
         creds = tools.run_flow(flow, store)
     return creds.authorize(Http())
 
+
 # service endpoints to Google APIs
 HTTP = get_http_client()
 DRIVE = discovery.build('drive', 'v3', http=HTTP)
 DOCS = discovery.build('docs', 'v1', http=HTTP)
 SHEETS = discovery.build('sheets', 'v4', http=HTTP)
+
 
 def get_data(source):
     """Gets mail merge data from chosen data source.
@@ -74,10 +77,12 @@ def get_data(source):
             source, SOURCES))
     return SAFE_DISPATCH[source]()
 
+
 def _get_text_data():
     """(private) Returns plain text data; can alter to read from CSV file.
     """
     return TEXT_SOURCE_DATA
+
 
 def _get_sheets_data(service=SHEETS):
     """(private) Returns data from Google Sheets source. It gets all rows of
@@ -85,10 +90,12 @@ def _get_sheets_data(service=SHEETS):
         (header) row. Use any desired data range (in standard A1 notation).
     """
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
-            range='Sheet1').execute().get('values')[1:] # skip header row
+                                               range='Sheet1').execute().get('values')[1:]  # skip header row
+
 
 # data source dispatch table [better alternative vs. eval()]
 SAFE_DISPATCH = {k: globals().get('_get_%s_data' % k) for k in SOURCES}
+
 
 def _copy_template(tmpl_id, source, service):
     """(private) Copies letter template document using Drive API then
@@ -96,7 +103,8 @@ def _copy_template(tmpl_id, source, service):
     """
     body = {'name': 'Merged form letter (%s)' % source}
     return service.files().copy(body=body, fileId=tmpl_id,
-            fields='id').execute().get('id')
+                                fields='id').execute().get('id')
+
 
 def merge_template(tmpl_id, source, service):
     """Copies template document and merges data into newly-minted copy then
@@ -108,16 +116,16 @@ def merge_template(tmpl_id, source, service):
 
     # "search & replace" API requests for mail merge substitutions
     reqs = [{'replaceAllText': {
-                'containsText': {
-                    'text': '{{%s}}' % key.upper(), # {{VARS}} are uppercase
+        'containsText': {
+            'text': '{{%s}}' % key.upper(),  # {{VARS}} are uppercase
                     'matchCase': True,
-                },
-                'replaceText': value,
-            }} for key, value in context]
+        },
+        'replaceText': value,
+    }} for key, value in context]
 
     # send requests to Docs API to do actual merge
     DOCS.documents().batchUpdate(body={'requests': reqs},
-            documentId=copy_id, fields='').execute()
+                                 documentId=copy_id, fields='').execute()
     return copy_id
 
 
@@ -145,9 +153,9 @@ if __name__ == '__main__':
     }
 
     # get row data, then loop through & process each form letter
-    data = get_data(SOURCE) # get data from data source
+    data = get_data(SOURCE)  # get data from data source
     for i, row in enumerate(data):
         merge.update(dict(zip(COLUMNS, row)))
         print('Merged letter %d: docs.google.com/document/d/%s/edit' % (
-                i+1, merge_template(DOCS_FILE_ID, SOURCE, DRIVE)))
+            i + 1, merge_template(DOCS_FILE_ID, SOURCE, DRIVE)))
 # [END mail_merge_python]

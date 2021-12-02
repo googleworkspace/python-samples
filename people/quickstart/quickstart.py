@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/contacts.readonly']
 
+
 def main():
     """Shows basic usage of the People API.
     Prints the name of the first 10 connections.
@@ -60,6 +61,7 @@ def main():
         if names:
             name = names[0].get('displayName')
             print(name)
+
 
 if __name__ == '__main__':
     main()

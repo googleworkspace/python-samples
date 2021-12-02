@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+      - name: Lint with pylint
+        run: ./.github/scripts/lint.sh
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # TODO - expand matrix once stable
+        python-version: [3.6]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+      - name: Write test credentials
+        run: |
+          mkdir $HOME/secrets
+          echo "$DEFAULT_CREDENTIALS" > $HOME/secrets/default_credentials.json
+          echo "$CLIENT_ID_FILE" > $HOME/secrets/client_id.json
+        env:
+          DEFAULT_CREDENTIALS: ${{secrets.SNIPPETS_DEFAULT_CREDENTIALS}}
+          CLIENT_ID_FILE: ${{secrets.SNIPPETS_CLIENT_ID_FILE}}
+      - name: Run tests
+        run: ./.github/scripts/test.sh

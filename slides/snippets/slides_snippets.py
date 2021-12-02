@@ -14,6 +14,7 @@
 
 from __future__ import print_function
 
+
 class SlidesSnippets(object):
     def __init__(self, service, drive_service, sheets_service, credentials):
         self.service = service
@@ -253,13 +254,14 @@ class SlidesSnippets(object):
                 num_replacements += reply.get('replaceAllText') \
                     .get('occurrencesChanged')
             print('Created presentation for %s with ID: %s' %
-                (customer_name, presentation_copy_id))
+                  (customer_name, presentation_copy_id))
             print('Replaced %d text instances' % num_replacements)
 
         # [END slides_text_merging]
         return responses
 
-    def image_merging(self, template_presentation_id, image_url, customer_name):
+    def image_merging(self, template_presentation_id,
+                      image_url, customer_name):
         slides_service = self.service
         drive_service = self.drive_service
         logo_url = image_url
@@ -308,8 +310,8 @@ class SlidesSnippets(object):
         for reply in response.get('replies'):
             num_replacements += reply.get('replaceAllShapesWithImage') \
                 .get('occurrencesChanged')
-        print('Created merged presentation with ID: {0}' \
-            .format(presentation_copy_id))
+        print('Created merged presentation with ID: {0}'
+              .format(presentation_copy_id))
         print('Replaced %d shapes with images.' % num_replacements)
         # [END slides_image_merging]
         return response
@@ -449,7 +451,7 @@ class SlidesSnippets(object):
         return response
 
     def create_sheets_chart(self, presentation_id, page_id, spreadsheet_id,
-            sheet_chart_id):
+                            sheet_chart_id):
         slides_service = self.service
         # [START slides_create_sheets_chart]
         # Embed a Sheets chart (indicated by the spreadsheet_id and
@@ -515,7 +517,7 @@ class SlidesSnippets(object):
         }
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
-        print('Refreshed a linked Sheets chart with ID: {0}' \
-            .format(presentation_chart_id))
+        print('Refreshed a linked Sheets chart with ID: {0}'
+              .format(presentation_chart_id))
         # [END slides_refresh_sheets_chart]
         return response

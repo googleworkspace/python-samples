@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/ediscovery']
 
+
 def main():
     """Shows basic usage of the Vault API.
     Prints the names and IDs of the first 10 matters in Vault.
@@ -57,6 +58,7 @@ def main():
         print('Matters:')
         for matter in matters:
             print(u'{} ({})'.format(matter.get('name'), matter.get('id')))
+
 
 if __name__ == '__main__':
     main()

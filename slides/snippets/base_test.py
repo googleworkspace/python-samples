@@ -133,7 +133,7 @@ class BaseTest(unittest.TestCase):
         return response.get('replies')[0].get('createShape').get('objectId')
 
     def create_test_sheets_chart(
-        self, presentation_id, page_id, spreadsheet_id, sheet_chart_id):
+            self, presentation_id, page_id, spreadsheet_id, sheet_chart_id):
         chart_id = 'MyChart_01'
         emu4M = {
             'magnitude': 4000000,
@@ -170,6 +170,7 @@ class BaseTest(unittest.TestCase):
             presentationId=presentation_id, body=body).execute()
         return response.get('replies')[0] \
             .get('createSheetsChart').get('objectId')
+
 
 if __name__ == '__main__':
     unittest.main()

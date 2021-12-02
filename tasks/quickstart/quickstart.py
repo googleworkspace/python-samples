@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/tasks.readonly']
 
+
 def main():
     """Shows basic usage of the Tasks API.
     Prints the title and ID of the first 10 task lists.
@@ -57,6 +58,7 @@ def main():
         print('Task lists:')
         for item in items:
             print(u'{0} ({1})'.format(item['title'], item['id']))
+
 
 if __name__ == '__main__':
     main()

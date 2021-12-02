@@ -66,9 +66,6 @@ def main():
             # Print labels' name
             print(label['name'])
 
-
-
-
 if __name__ == '__main__':
     main()
 # [END gmail_quickstart]

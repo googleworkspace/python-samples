@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/apps.order']
 
+
 def main():
     """Calls the Admin SDK Reseller API. Prints the customer ID, SKU ID,
     and plan name of the first 10 subscriptions managed by the domain.
@@ -57,7 +58,8 @@ def main():
         print('Subscriptions:')
         for subscription in subscriptions:
             print(u'{0} ({1}, {2})'.format(subscription['customerId'],
-                subscription['skuId'], subscription['plan']['planName']))
+                                           subscription['skuId'], subscription['plan']['planName']))
+
 
 if __name__ == '__main__':
     main()

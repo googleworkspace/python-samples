@@ -26,6 +26,7 @@ SCOPES = ['https://www.googleapis.com/auth/presentations.readonly']
 # The ID of a sample presentation.
 PRESENTATION_ID = '1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc'
 
+
 def main():
     """Shows basic usage of the Slides API.
     Prints the number of slides and elments in a sample presentation.

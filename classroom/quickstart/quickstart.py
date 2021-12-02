@@ -23,6 +23,7 @@ from google.oauth2.credentials import Credentials
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
 
+
 def main():
     """Shows basic usage of the Classroom API.
     Prints the names of the first 10 courses the user has access to.
@@ -57,6 +58,7 @@ def main():
         print('Courses:')
         for course in courses:
             print(course['name'])
+
 
 if __name__ == '__main__':
     main()

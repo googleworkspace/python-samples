@@ -14,6 +14,7 @@
 
 from __future__ import print_function
 
+
 class SpreadsheetSnippets(object):
     def __init__(self, service):
         self.service = service
@@ -27,7 +28,7 @@ class SpreadsheetSnippets(object):
             }
         }
         spreadsheet = service.spreadsheets().create(body=spreadsheet,
-                                            fields='spreadsheetId').execute()
+                                                    fields='spreadsheetId').execute()
         print('Spreadsheet ID: {0}'.format(spreadsheet.get('spreadsheetId')))
         # [END sheets_create]
         return spreadsheet.get('spreadsheetId')
@@ -165,9 +166,9 @@ class SpreadsheetSnippets(object):
         result = service.spreadsheets().values().append(
             spreadsheetId=spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
-        print('{0} cells appended.'.format(result \
-                                               .get('updates') \
-                                               .get('updatedCells')))
+        print('{0} cells appended.'.format(result
+                                           .get('updates')
+                                           .get('updatedCells')))
         # [END sheets_append_values]
         return result
 
@@ -348,25 +349,25 @@ class SpreadsheetSnippets(object):
 
         body = {'requests': [addFilterViewRequest]}
         addFilterViewResponse = service.spreadsheets() \
-           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+            .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
 
         duplicateFilterViewRequest = {
             'duplicateFilterView': {
-            'filterId':
+                'filterId':
                 addFilterViewResponse['replies'][0]['addFilterView']['filter']
-                    ['filterViewId']
+                ['filterViewId']
             }
         }
 
         body = {'requests': [duplicateFilterViewRequest]}
         duplicateFilterViewResponse = service.spreadsheets() \
-           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+            .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
 
         updateFilterViewRequest = {
             'updateFilterView': {
                 'filter': {
                     'filterViewId': duplicateFilterViewResponse['replies'][0]
-                        ['duplicateFilterView']['filter']['filterViewId'],
+                    ['duplicateFilterView']['filter']['filterViewId'],
                     'title': 'Updated Filter',
                     'criteria': {
                         0: {},
@@ -388,5 +389,5 @@ class SpreadsheetSnippets(object):
 
         body = {'requests': [updateFilterViewRequest]}
         updateFilterViewResponse = service.spreadsheets() \
-           .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+            .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
         # [END sheets_filter_views]
