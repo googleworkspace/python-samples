@@ -18,4 +18,9 @@ set -e
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-find . -iname "*.py" | xargs pylint
+if [ -f "${HOME}/changed_files.txt" ]; then
+  # TODO - Check for .pylintrc changes
+  cat "${HOME}/changed_files.txt" | grep ".py$" | xargs pylint
+else
+  find . -iname "*.py" | xargs pylint
+fi

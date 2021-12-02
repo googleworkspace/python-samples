@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Fetch and Diff PR with base from which it was cloned
+        if: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch origin main ${{ github.event.pull_request.base.sha }}
+          git diff  --diff-filter=ACM --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > $HOME/changed_files.txt
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -29,6 +34,11 @@ jobs:
         python-version: [3.6]
     steps:
       - uses: actions/checkout@v2
+      - name: Fetch and Diff PR with base from which it was cloned
+        if: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch origin main ${{ github.event.pull_request.base.sha }}
+          git diff  --diff-filter=ACM --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > $HOME/changed_files.txt
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
