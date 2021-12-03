@@ -28,6 +28,8 @@ jobs:
         run: ./.github/scripts/lint.sh
   test:
     runs-on: ubuntu-latest
+    # Only run for internal PRs or after a merge
+    if: ${{ github.event.push || github.event.pull_request.head.repo.full_name == github.repository }}
     strategy:
       matrix:
         # TODO - expand matrix once stable
