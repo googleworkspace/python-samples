@@ -18,17 +18,18 @@ export LANG=C.UTF-8
 export PIPENV_PYTHON="${PYENV_ROOT}/shims/python"
 export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/secrets/default_credentials.json"
 
+dirs=()
+
 if [ -f "requirements.txt" ]; then
   pipenv install -r "requirements.txt"
 fi
 
-TEST_DIRS=`find . -name '*_test.py' -exec dirname '{}' \;| sort -u`
+IFS=$'\n' read -r -d '' -a dirs < <( find . -name '*_test.py' -exec dirname '{}' \; | sort -u )
 
 exit_code=0
 
-for DIR in ${TEST_DIRS[@]}; do
-  pushd "${DIR}"
-  echo $DIR
+for dir in "${dirs[@]}"; do
+  pushd "${dir}" || exit
   if [ -f "requirements.txt" ]; then
     # If requirements.txt present, create a new isolated environment
     touch Pipfile
@@ -39,7 +40,7 @@ for DIR in ${TEST_DIRS[@]}; do
   if [ $status -ne 0 ]; then 
     exit_code=$status
   fi
-  popd
+  popd || exit
 done
 
 if [ $exit_code -ne 0 ]; then

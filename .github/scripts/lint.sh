@@ -21,7 +21,7 @@ export LANG=C.UTF-8
 CL_FILE="${HOME}/changed_files.txt"
 
 if [ -f "${CL_FILE}" ] && ! grep -q .pylintrc "${CL_FILE}"; then
-  cat "${HOME}/changed_files.txt" | grep ".py$" | xargs pylint
+  grep ".py$" "${HOME}/changed_files.txt"| xargs pylint
 else
-  find . -iname "*.py" | xargs pylint
+  find . -iname "*.py" -print0 | xargs pylint
 fi

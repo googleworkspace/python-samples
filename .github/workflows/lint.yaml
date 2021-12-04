@@ -23,5 +23,7 @@ jobs:
       - uses: github/super-linter/slim@v4.8.4
         env:
           ERROR_ON_MISSING_EXEC_BIT: true
+          VALIDATE_JSCPD: false
+          VALIDATE_PYTHON_BLACK: false
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
