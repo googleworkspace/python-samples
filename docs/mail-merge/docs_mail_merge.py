@@ -24,7 +24,7 @@ import time
 
 from googleapiclient import discovery
 from httplib2 import Http
-from oauth2client import file, client, tools
+from oauth2client import client, file, tools
 
 # Fill-in IDs of your Docs template & any Sheets data source
 DOCS_FILE_ID = 'YOUR_TMPL_DOC_FILE_ID'

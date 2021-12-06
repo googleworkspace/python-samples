@@ -88,7 +88,7 @@ class BaseTest(unittest.TestCase):
         body = {
             'requests': requests
         }
-        response = self.service.presentations().batchUpdate(
+        self.service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         return slide_ids
 

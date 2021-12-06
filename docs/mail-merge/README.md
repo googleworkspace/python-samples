@@ -80,23 +80,23 @@ The unit-test script is `docs_mail_merge_test.py`; see the file for a list of th
 ## Reference
 
 - Google Drive API
-    - [API documentation](https://developers.google.com/drive/)
-    - [Support channels](https://developers.google.com/drive/api/v3/support/)
+  - [API documentation](https://developers.google.com/drive/)
+  - [Support channels](https://developers.google.com/drive/api/v3/support/)
 - Google Docs API
-    - [API documentation](https://developers.google.com/docs/)
-    - [Support channels](https://developers.google.com/docs/api/support/)
+  - [API documentation](https://developers.google.com/docs/)
+  - [Support channels](https://developers.google.com/docs/api/support/)
 - Google Sheets API
-    - [API documentation](https://developers.google.com/sheets/)
-    - [Support channels](https://developers.google.com/sheets/api/support/)
+  - [API documentation](https://developers.google.com/sheets/)
+  - [Support channels](https://developers.google.com/sheets/api/support/)
 - G Suite APIs
-    - [G Suite developer overview &amp; video](https://developers.google.com/gsuite/)
-    - [G Suite (REST) APIs intro codelab](https://g.co/codelabs/gsuite-apis-intro/) (30 mins)
-    - [Google APIs client libraries](https://developers.google.com/api-client-library/)
+  - [G Suite developer overview &amp; video](https://developers.google.com/gsuite/)
+  - [G Suite (REST) APIs intro codelab](https://g.co/codelabs/gsuite-apis-intro/) (30 mins)
+  - [Google APIs client libraries](https://developers.google.com/api-client-library/)
 - Introductory videos
-    - [New Google APIs project setup](https://goo.gl/RbyTFD) (6:54)
-    - [Common OAuth2 boilerplate code (Python)](https://goo.gl/KMfbeK) (3:48)
-    - [REST APIs intro (Drive API)](https://goo.gl/ZIgf8k) (6:20)
-    - [Introducing the Docs API](https://youtu.be/jeU-tWKeb6g) (2:57)
+  - [New Google APIs project setup](https://goo.gl/RbyTFD) (6:54)
+  - [Common OAuth2 boilerplate code (Python)](https://goo.gl/KMfbeK) (3:48)
+  - [REST APIs intro (Drive API)](https://goo.gl/ZIgf8k) (6:20)
+  - [Introducing the Docs API](https://youtu.be/jeU-tWKeb6g) (2:57)
 
 ## Enhancements
 

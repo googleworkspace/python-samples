@@ -17,7 +17,9 @@ from __future__ import print_function
 
 from googleapiclient import errors
 from googleapiclient.discovery import build
-from oauth2client import file as oauth_file, client, tools
+from oauth2client import client
+from oauth2client import file as oauth_file
+from oauth2client import tools
 
 
 def main():
