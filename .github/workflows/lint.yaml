@@ -12,11 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: Lint
-
-on: [push, pull_request]
-
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
   lint:
+    concurrency:
+      group: ${{ github.head_ref || github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2.4.0
