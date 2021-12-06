@@ -19,6 +19,7 @@ Google Docs (REST) API mail-merge sample app
 """
 # [START mail_merge_python]
 from __future__ import print_function
+
 import time
 
 from googleapiclient import discovery

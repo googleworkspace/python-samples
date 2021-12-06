@@ -25,15 +25,15 @@ from __future__ import print_function
 import argparse
 import re
 
-import customer_data_service
-import customer_spreadsheet_reader
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file as oauth_file, client, tools
+
+import customer_data_service
+import customer_spreadsheet_reader
 import presentation_reader
 import presentation_writer
 import spreadsheet_writer
-
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 store = oauth_file.Storage('token.json')

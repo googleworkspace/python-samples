@@ -14,6 +14,7 @@
 
 # [START forms_renew_watch]
 from __future__ import print_function
+
 from apiclient import discovery
 from httplib2 import Http
 from oauth2client import client
@@ -35,6 +36,6 @@ form_id = '<YOUR_FORM_ID>'
 watch_id = '<YOUR_WATCH_ID>'
 
 # Print JSON response after renewing a form watch
-result = service.forms().watches().renew(formId=form_id,watchId=watch_id).execute()
+result = service.forms().watches().renew(formId=form_id, watchId=watch_id).execute()
 print(result)
 # [END forms_renew_watch]

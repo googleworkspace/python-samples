@@ -18,7 +18,9 @@ Google Docs (REST) API output-json sample app
 """
 # [START output_json_python]
 from __future__ import print_function
+
 import json
+
 from apiclient import discovery
 from httplib2 import Http
 from oauth2client import client

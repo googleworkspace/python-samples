@@ -22,7 +22,6 @@ docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
     6. test getting data from Google Sheets spreadsheet
 """
 
-import os
 import unittest
 
 from googleapiclient import discovery
