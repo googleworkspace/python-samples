@@ -19,7 +19,6 @@ import httplib2
 from googleapiclient import errors
 from oauth2client.client import GoogleCredentials
 from googleapiclient.discovery import build
-from oauth2client import file, client, tools
 
 SCOPES = 'https://www.googleapis.com/auth/classroom.courses'
 

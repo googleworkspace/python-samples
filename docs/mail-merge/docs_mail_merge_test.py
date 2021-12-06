@@ -27,8 +27,7 @@ import unittest
 
 from googleapiclient import discovery
 import google.auth
-from docs_mail_merge import (CLIENT_ID_FILE, get_data, get_http_client,
-                             _copy_template)
+from docs_mail_merge import (get_data, get_http_client, _copy_template)
 
 
 class TestDocsMailMerge(unittest.TestCase):

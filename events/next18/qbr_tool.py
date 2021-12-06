@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=E1102,W0141
+# pylint: disable=E1102
 # python3
 """Tool for generating quarterly business reviews.
 

@@ -2,7 +2,7 @@
 
 This sample was created for a talk for Google Cloud NEXT'18 entitled "Building
 on the Docs Editors: APIs and Apps Script". It is the implementation of a
-commandline tool that:
+command-line tool that:
 
 * Extracts template variables out of a Google Slides template presentation
 * Writes those variables to a Google Sheets spreadsheet
