@@ -64,9 +64,14 @@ def main():
             action = getActionInfo(activity['primaryActionDetail'])
             actors = map(getActorInfo, activity['actors'])
             targets = map(getTargetInfo, activity['targets'])
-            print(u'{0}: {1}, {2}, {3}'.format(time, truncated(actors), action,
-                                               truncated(targets)))
-
+            action_str = ""
+            actors_str = ""
+            targets_str = ""
+            action_name = action_str.join(action)
+            actor_name = actors_str.join(actors)
+            target_name = targets_str.join(targets)
+            # Print the action occured on drive with actor, target item and timestamp
+            print(f"{time} ,Action = {action_name}, Actor = {actor_name}, targer = {target_name}")
 
 # Returns a string representation of the first elements in a list.
 def truncated(array, limit=2):
