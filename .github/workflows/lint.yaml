@@ -19,7 +19,7 @@ jobs:
   lint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
       - uses: github/super-linter/slim@v4.8.4
         env:
           ERROR_ON_MISSING_EXEC_BIT: true
