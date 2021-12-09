@@ -50,29 +50,30 @@ def main():
     service = build('driveactivity', 'v2', credentials=creds)
 
     # Call the Drive Activity API
-    results = service.activity().query(body={
-        'pageSize': 10
-    }).execute()
-    activities = results.get('activities', [])
+    try:
+        results = service.activity().query(body={
+            'pageSize': 10
+        }).execute()
+        activities = results.get('activities', [])
 
-    if not activities:
-        print('No activity.')
-    else:
-        print('Recent activity:')
-        for activity in activities:
-            time = getTimeInfo(activity)
-            action = getActionInfo(activity['primaryActionDetail'])
-            actors = map(getActorInfo, activity['actors'])
-            targets = map(getTargetInfo, activity['targets'])
-            print(u'{0}: {1}, {2}, {3}'.format(time, truncated(actors), action,
-                                               truncated(targets)))
+        if not activities:
+            print('No activity.')
+        else:
+            print('Recent activity:')
+            for activity in activities:
+                time = getTimeInfo(activity)
+                action = getActionInfo(activity['primaryActionDetail'])
+                actors = map(getActorInfo, activity['actors'])
+                targets = map(getTargetInfo, activity['targets'])
+                actors_str, targets_str = "", ""
+                actor_name = actors_str.join(actors)
+                target_name = targets_str.join(targets)
 
+                # Print the action occurred on drive with actor, target item and timestamp
+                print(u'{0}: {1}, {2}, {3}'.format(time, action, actor_name, target_name))
 
-# Returns a string representation of the first elements in a list.
-def truncated(array, limit=2):
-    contents = ', '.join(array[:limit])
-    more = '' if len(array) <= limit else ', ...'
-    return u'[{0}{1}]'.format(contents, more)
+    except Exception as error:
+        print('An error occurred: %s' % error)
 
 
 # Returns the name of a set property in an object, or else "unknown".
