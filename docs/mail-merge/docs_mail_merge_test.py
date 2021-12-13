@@ -22,13 +22,11 @@ docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
     6. test getting data from Google Sheets spreadsheet
 """
 
-import os
 import unittest
 
-from googleapiclient import discovery
 import google.auth
-from docs_mail_merge import (CLIENT_ID_FILE, get_data, get_http_client,
-                             _copy_template)
+from docs_mail_merge import _copy_template, get_data, get_http_client
+from googleapiclient import discovery
 
 
 class TestDocsMailMerge(unittest.TestCase):
