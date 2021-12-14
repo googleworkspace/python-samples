@@ -16,6 +16,7 @@
 from __future__ import print_function
 import os.path
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -72,8 +73,9 @@ def main():
                 # Print the action occurred on drive with actor, target item and timestamp
                 print(u'{0}: {1}, {2}, {3}'.format(time, action, actor_name, target_name))
 
-    except Exception as error:
-        print('An error occurred: %s' % error)
+    except HttpError as error:
+        # TODO(developer) - Handleerrors from drive activity API.
+        print(f'An error occurred: {error}')
 
 
 # Returns the name of a set property in an object, or else "unknown".
