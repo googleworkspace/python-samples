@@ -7,12 +7,12 @@ that makes requests to the Google Admin SDK Reseller API.
 
 ## Install
 
-```
+```shell
 pip install -r requirements.txt
 ```
 
 ## Run
 
-```
+```shell
 python quickstart.py
 ```

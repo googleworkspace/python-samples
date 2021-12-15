@@ -7,7 +7,7 @@ requests to the Google People API.
 
 ## Install
 
-```
+```shell
 pip install -r requirements.txt
 ```
 
@@ -15,6 +15,6 @@ pip install -r requirements.txt
 
 After following the quickstart setup instructions, run the sample:
 
-```
+```shell
 python quickstart.py
 ```

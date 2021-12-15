@@ -13,12 +13,14 @@
 # limitations under the License.
 
 from __future__ import print_function
-import unittest
+
 import sys
-from oauth2client.client import GoogleCredentials
+import unittest
+
+import httplib2
 from googleapiclient import errors
 from googleapiclient.discovery import build
-import httplib2
+from oauth2client.client import GoogleCredentials
 
 
 class BaseTest(unittest.TestCase):

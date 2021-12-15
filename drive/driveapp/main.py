@@ -6,12 +6,14 @@ This script uploads a single file to Google Drive.
 """
 
 from __future__ import print_function
-import six
-import httplib2
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+
+import pprint
+
 import googleapiclient.http
+import httplib2
 import oauth2client.client
+import six
+from googleapiclient.discovery import build
 
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
