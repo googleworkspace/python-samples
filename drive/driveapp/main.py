@@ -7,13 +7,12 @@ This script uploads a single file to Google Drive.
 
 from __future__ import print_function
 
-import pprint
-
 import googleapiclient.http
 import httplib2
 import oauth2client.client
 import six
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # OAuth 2.0 scope that will be authorized.
 # Check https://developers.google.com/drive/scopes for all available scopes.
@@ -69,5 +68,5 @@ try:
         print(f"File is uploaded \nTitle : {file_title}  \nDescription : {file_desc}")
 
 except HttpError as error:
-    # TODO(developer) - Handleerrors from drive API.
+    # TODO(developer) - Handle errors from drive API.
     print(f'An error occurred: {error}')
