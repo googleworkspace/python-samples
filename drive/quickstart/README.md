@@ -7,12 +7,12 @@ makes requests to the Drive V3 API.
 
 ## Install
 
-```
+```shell
 pip install -r requirements.txt
 ```
 
 ## Run
 
-```
+```shell
 python quickstart.py
 ```

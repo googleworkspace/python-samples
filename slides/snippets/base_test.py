@@ -13,12 +13,14 @@
 # limitations under the License.
 
 from __future__ import print_function
+
 import sys
 import unittest
+
 import httplib2
-from oauth2client.client import GoogleCredentials
 from googleapiclient import errors
 from googleapiclient.discovery import build
+from oauth2client.client import GoogleCredentials
 
 
 class BaseTest(unittest.TestCase):
@@ -86,7 +88,7 @@ class BaseTest(unittest.TestCase):
         body = {
             'requests': requests
         }
-        response = self.service.presentations().batchUpdate(
+        self.service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         return slide_ids
 

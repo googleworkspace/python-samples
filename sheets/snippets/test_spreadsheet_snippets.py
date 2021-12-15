@@ -13,8 +13,9 @@
 # limitations under the License.
 
 import unittest
-from spreadsheet_snippets import SpreadsheetSnippets
+
 from base_test import BaseTest
+from spreadsheet_snippets import SpreadsheetSnippets
 
 
 class SpreadsheetSnippetsTest(BaseTest):

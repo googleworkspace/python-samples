@@ -7,12 +7,12 @@ makes requests to the Gmail API.
 
 ## Install
 
-```
+```shell
 pip install -r requirements.txt
 ```
 
 ## Run
 
-```
+```shell
 python quickstart.py
 ```

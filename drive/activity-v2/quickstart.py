@@ -14,11 +14,14 @@
 
 # [START drive_activity_v2_quickstart]
 from __future__ import print_function
+
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/drive.activity.readonly']
@@ -50,29 +53,31 @@ def main():
     service = build('driveactivity', 'v2', credentials=creds)
 
     # Call the Drive Activity API
-    results = service.activity().query(body={
-        'pageSize': 10
-    }).execute()
-    activities = results.get('activities', [])
+    try:
+        results = service.activity().query(body={
+            'pageSize': 10
+        }).execute()
+        activities = results.get('activities', [])
 
-    if not activities:
-        print('No activity.')
-    else:
-        print('Recent activity:')
-        for activity in activities:
-            time = getTimeInfo(activity)
-            action = getActionInfo(activity['primaryActionDetail'])
-            actors = map(getActorInfo, activity['actors'])
-            targets = map(getTargetInfo, activity['targets'])
-            print(u'{0}: {1}, {2}, {3}'.format(time, truncated(actors), action,
-                                               truncated(targets)))
+        if not activities:
+            print('No activity.')
+        else:
+            print('Recent activity:')
+            for activity in activities:
+                time = getTimeInfo(activity)
+                action = getActionInfo(activity['primaryActionDetail'])
+                actors = map(getActorInfo, activity['actors'])
+                targets = map(getTargetInfo, activity['targets'])
+                actors_str, targets_str = "", ""
+                actor_name = actors_str.join(actors)
+                target_name = targets_str.join(targets)
 
+                # Print the action occurred on drive with actor, target item and timestamp
+                print(u'{0}: {1}, {2}, {3}'.format(time, action, actor_name, target_name))
 
-# Returns a string representation of the first elements in a list.
-def truncated(array, limit=2):
-    contents = ', '.join(array[:limit])
-    more = '' if len(array) <= limit else ', ...'
-    return u'[{0}{1}]'.format(contents, more)
+    except HttpError as error:
+        # TODO(developer) - Handleerrors from drive activity API.
+        print(f'An error occurred: {error}')
 
 
 # Returns the name of a set property in an object, or else "unknown".

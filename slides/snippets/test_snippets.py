@@ -14,6 +14,7 @@
 
 import unittest
 from pprint import pformat
+
 from base_test import BaseTest
 from slides_snippets import SlidesSnippets
 
