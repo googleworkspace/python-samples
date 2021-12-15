@@ -59,6 +59,7 @@ def main():
         if not courses:
             print('No courses found.')
             return
+        # Prints the names of the first 10 courses.
         print('Courses:')
         for course in courses:
             print(course['name'])
