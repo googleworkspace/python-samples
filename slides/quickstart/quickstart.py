@@ -21,6 +21,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/presentations.readonly']
@@ -51,17 +52,20 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    service = build('slides', 'v1', credentials=creds)
+    try:
+        service = build('slides', 'v1', credentials=creds)
 
-    # Call the Slides API
-    presentation = service.presentations().get(
-        presentationId=PRESENTATION_ID).execute()
-    slides = presentation.get('slides')
+        # Call the Slides API
+        presentation = service.presentations().get(
+            presentationId=PRESENTATION_ID).execute()
+        slides = presentation.get('slides')
 
-    print('The presentation contains {} slides:'.format(len(slides)))
-    for i, slide in enumerate(slides):
-        print('- Slide #{} contains {} elements.'.format(
-            i + 1, len(slide.get('pageElements'))))
+        print('The presentation contains {} slides:'.format(len(slides)))
+        for i, slide in enumerate(slides):
+            print('- Slide #{} contains {} elements.'.format(
+                i + 1, len(slide.get('pageElements'))))
+    except HttpError as err:
+        print(err)
 
 
 if __name__ == '__main__':

@@ -21,6 +21,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/contacts.readonly']
@@ -48,21 +49,24 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    service = build('people', 'v1', credentials=creds)
+    try:
+        service = build('people', 'v1', credentials=creds)
 
-    # Call the People API
-    print('List 10 connection names')
-    results = service.people().connections().list(
-        resourceName='people/me',
-        pageSize=10,
-        personFields='names,emailAddresses').execute()
-    connections = results.get('connections', [])
+        # Call the People API
+        print('List 10 connection names')
+        results = service.people().connections().list(
+            resourceName='people/me',
+            pageSize=10,
+            personFields='names,emailAddresses').execute()
+        connections = results.get('connections', [])
 
-    for person in connections:
-        names = person.get('names', [])
-        if names:
-            name = names[0].get('displayName')
-            print(name)
+        for person in connections:
+            names = person.get('names', [])
+            if names:
+                name = names[0].get('displayName')
+                print(name)
+    except HttpError as err:
+        print(err)
 
 
 if __name__ == '__main__':

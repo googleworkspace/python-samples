@@ -66,10 +66,10 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    service = build('script', 'v1', credentials=creds)
-
-    # Call the Apps Script API
     try:
+        service = build('script', 'v1', credentials=creds)
+
+        # Call the Apps Script API
         # Create a new project
         request = {'title': 'My Script'}
         response = service.projects().create(body=request).execute()

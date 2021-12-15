@@ -61,9 +61,11 @@ def main():
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])
 
-        # Prints the start and name of the next 10 events
         if not events:
             print('No upcoming events found.')
+            return
+
+        # Prints the start and name of the next 10 events
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
             print(start, event['summary'])

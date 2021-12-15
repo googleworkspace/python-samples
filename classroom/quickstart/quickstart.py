@@ -48,6 +48,7 @@ def main():
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+
     try:
         service = build('classroom', 'v1', credentials=creds)
 
@@ -55,13 +56,13 @@ def main():
         results = service.courses().list(pageSize=10).execute()
         courses = results.get('courses', [])
 
-        # Prints the names of the first 10 courses.
         if not courses:
             print('No courses found.')
-        else:
-            print('Courses:')
-            for course in courses:
-                print(course['name'])
+            return
+        # Prints the names of the first 10 courses.
+        print('Courses:')
+        for course in courses:
+            print(course['name'])
 
     except HttpError as error:
         print('An error occurred: %s' % error)
