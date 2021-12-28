@@ -37,9 +37,10 @@ def gmailCreateDraft():
     try:
         service = build('gmail', 'v1', credentials=creds)
 
-        user_id = 'anurag@workspacesamples.dev'
+        user_id = 'gduser1@workspacesamples.dev'
+        subject = 'sample'
         message_body = 'hello , this is sample mail'
-        message = {'message': create_message(subject='auto', message_text=message_body)}
+        message = {'message': create_message(subject=subject, message_text=message_body)}
         draft = service.users().drafts().create(userId=user_id, body=message).execute()
 
         print('Draft id: %s\nDraft message: %s' % (draft['id'], draft['message']))
