@@ -18,12 +18,12 @@ Google Docs (REST) API output-json sample app
 """
 # [START output_json_python]
 from __future__ import print_function
+
 import json
+
 from apiclient import discovery
 from httplib2 import Http
-from oauth2client import client
-from oauth2client import file
-from oauth2client import tools
+from oauth2client import client, file, tools
 
 # Set doc ID, as found at `https://docs.google.com/document/d/YOUR_DOC_ID/edit`
 DOCUMENT_ID = 'YOUR_DOC_ID'

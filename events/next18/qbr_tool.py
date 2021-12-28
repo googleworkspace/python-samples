@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=E1102,W0141
+# pylint: disable=E1102
 # python3
 """Tool for generating quarterly business reviews.
 
@@ -27,13 +27,14 @@ import re
 
 import customer_data_service
 import customer_spreadsheet_reader
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file as oauth_file, client, tools
 import presentation_reader
 import presentation_writer
 import spreadsheet_writer
-
+from googleapiclient.discovery import build
+from httplib2 import Http
+from oauth2client import client
+from oauth2client import file as oauth_file
+from oauth2client import tools
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 store = oauth_file.Storage('token.json')

@@ -14,14 +14,14 @@
 
 # [START forms_add_item]
 from __future__ import print_function
+
 from apiclient import discovery
 from httplib2 import Http
-from oauth2client import client
-from oauth2client import file
-from oauth2client import tools
+from oauth2client import client, file, tools
 
 SCOPES = "https://www.googleapis.com/auth/forms.body"
-DISCOVERY_DOC = "https://forms.googleapis.com/$discovery/rest?version=v1beta&key=<YOUR_API_KEY>&labels=FORMS_BETA_TESTERS"
+API_KEY = "<YOUR_API_KEY>"
+DISCOVERY_DOC = f"https://forms.googleapis.com/$discovery/rest?version=v1beta&key={API_KEY}&labels=FORMS_BETA_TESTERS"
 
 store = file.Storage('credentials.json')
 creds = None
@@ -50,7 +50,7 @@ update = {
                 "description": "Quizzes in Google Forms",
                 "videoItem": {
                     "video": {
-                         "youtubeUri": "https://www.youtube.com/watch?v=Lt5HqPvM-eI"
+                        "youtubeUri": "https://www.youtube.com/watch?v=Lt5HqPvM-eI"
                     }
                 }
             },
