@@ -1,5 +1,18 @@
-from __future__ import print_function
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
+from __future__ import print_function
 import mimetypes
 import os
 from email.mime.text import MIMEText
@@ -7,7 +20,6 @@ from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
-
 from googleapiclient import errors
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -20,8 +32,7 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
 
 def main():
-    """Create and insert a draft email. Print the returned draft's message and id.
-      Returns: Draft object, including draft id and message meta data.
+    """Shows basic usage send_mail snippets of gmail API.
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -41,27 +52,35 @@ def main():
             token.write(creds.to_json())
 
     try:
+        # Gmail API service instance
         service = build('gmail', 'v1', credentials=creds)
 
-        user_id = 'gduser1@workspacesamples.dev'
+        # Call the Gmail API
+        recipient_id = 'gduser1@workspacesamples.dev'
         sender_id = 'gduser2@workspacesamples.dev'
         subject = 'Automated message'
         message_body = 'This is automated draft mail'
-        file_name= 'photo.jpg'
-        message = create_message(sender=sender_id, to=user_id, subject=subject, message_text=message_body)
-        message_with_attachment = create_message_with_attachment(sender=sender_id, to=user_id, subject=subject,
+        file_name = 'photo.jpg'
+        # Call create_message function
+        message = create_message(sender=sender_id, to=recipient_id, subject=subject, message_text=message_body)
+        # Call create_message_with_attachment function
+        message_with_attachment = create_message_with_attachment(sender=sender_id, to=recipient_id, subject=subject,
                                                                 message_text=message_body, file=file_name)
 
+        # Call create_draft function
         create_draft(service=service, user_id="me", message_body=message)
+        # Call send_message function
         send_message(service=service, user_id="me", message=message)
+        # Call create_draft_with_attachment function
         create_draft(service=service, user_id="me", message_body=message_with_attachment)
+        # Call send_message_with_attachment function
         send_message(service=service, user_id="me", message=message_with_attachment)
 
     except errors.HttpError as error:
         print('An error occurred: %s' % error)
 
 
-# [START create_draft]
+# [START gmail_create_draft]
 def create_draft(service, user_id, message_body):
     """Create and insert a draft email. Print the returned draft's message and id.
 
@@ -75,6 +94,7 @@ def create_draft(service, user_id, message_body):
     """
     try:
         message = {'message': message_body}
+        # create an email and save as draft
         draft = service.users().drafts().create(userId=user_id, body=message).execute()
 
         print('Draft id: %s\nDraft message: %s' % (draft['id'], draft['message']))
@@ -82,10 +102,10 @@ def create_draft(service, user_id, message_body):
         return draft
     except errors.HttpError as error:
         print('An error occurred: %s' % error)
-# [END create_draft]
+# [END gmail_create_draft]
 
 
-# [START send_message]
+# [START gmail_send_message]
 def send_message(service, user_id, message):
     """Send an email message.
 
@@ -98,15 +118,16 @@ def send_message(service, user_id, message):
         Sent Message.
     """
     try:
+        # send an email message
         message = (service.users().messages().send(userId=user_id, body=message).execute())
         print('Message Id: %s' % message['id'])
         return message
     except errors.HttpError as error:
         print('An error occurred: %s' % error)
-# [END send_email]
+# [END gmail_send_message]
 
 
-# [START create_message]
+# [START gmail_create_message]
 def create_message(sender, to, subject, message_text):
     """Create a message for an email.
 
@@ -124,10 +145,10 @@ def create_message(sender, to, subject, message_text):
     message['from'] = sender
     message['subject'] = subject
     return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
-# [END create_message]
+# [END gmail_create_message]
 
 
-# [START create_message_attachment]
+# [START gmail_create_message_attachment]
 def create_message_with_attachment(sender, to, subject, message_text, file):
     """Create a message for an email.
 
@@ -176,7 +197,7 @@ def create_message_with_attachment(sender, to, subject, message_text, file):
     message.attach(msg)
 
     return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
-# [END create_message_attachment]
+# [END gmail_create_message_attachment]
 
 
 if __name__ == '__main__':
