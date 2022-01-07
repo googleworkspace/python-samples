@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START classroom_update_course]
 from __future__ import print_function
 
 import os
@@ -26,7 +27,6 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
 
 
-# [START classroom_update_course]
 def classroom_update_course(course_id):
     """Shows basic usage of the Classroom API.
     Updates the courses names the user has access to.

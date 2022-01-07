@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START classroom_list_courses]
 from __future__ import print_function
 
 import os
@@ -25,7 +26,6 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
 
-# [START classroom_list_courses]
 def classroom_list_courses():
     """Shows basic usage of the Classroom API.
     Prints the list of the courses the user has access to.

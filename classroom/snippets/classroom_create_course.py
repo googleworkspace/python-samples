@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START classroom_main]
+# [START classroom_create_course]
 from __future__ import print_function
 
 import os
@@ -26,7 +26,6 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses']
 
-# [START classroom_create_course]
 def classroom_create_course():
     """Shows basic usage of the Classroom API.
     Creates the courses the user has access to.
