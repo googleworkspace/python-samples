@@ -40,6 +40,7 @@ def gmailCreateDraft():
         message['to'] = 'gduser1@workspacesamples.dev'
         message['from'] = 'gduser2@workspacesamples.dev'
         message['subject'] = 'Automated draft'
+        # encoding
         encoded_message = base64.urlsafe_b64encode\
             (message.as_string().encode()).decode()
 
