@@ -4,8 +4,9 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 Fixes # (issue)
 
-## Is it been tested?
+## Has it been tested?
 - [ ] Development testing done
+- [ ] Unit or integration test implemented
 
 ## Checklist
 
