@@ -49,6 +49,8 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
+        # sample
+
     try:
         service = build('classroom', 'v1', credentials=creds)
 
