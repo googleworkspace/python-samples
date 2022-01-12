@@ -39,27 +39,27 @@ def gmailCreateDraftWithAttachment():
        Print the returned draft's message and id.
       Returns: Draft object, including draft id and message meta data.
     """
-    creds = None
+    cred = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        cred = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+    if not cred or not cred.valid:
+        if cred and cred.expired and cred.refresh_token:
+            cred.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
+            cred = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w', encoding='UTF') as token:
-            token.write(creds.to_json())
+            token.write(cred.to_json())
 
     try:
         # create gmail api client
-        service = build('gmail', 'v1', credentials=creds)
+        service = build('gmail', 'v1', credentials=cred)
         mime_message = MIMEMultipart()
         mime_message['to'] = 'gduser1@workspacesamples.dev'
         mime_message['from'] = 'gduser2@workspacesamples.dev'
@@ -69,16 +69,17 @@ def gmailCreateDraftWithAttachment():
         mime_message.attach(text_part)
         image_attachment = build_file_part(file='photo.jpg')
         mime_message.attach(image_attachment)
-        encoded_message = base64.urlsafe_b64encode(mime_message.\
-                        as_string().encode()).decode()
+        encoded_message = base64.urlsafe_b64encode(mime_message.as_string()
+                                                   .encode()).decode()
 
         create_draft_request_body = {
             'message': {
                 'raw': encoded_message
             }
         }
-        draft = service.users().drafts().create(userId="me",\
-                        body=create_draft_request_body).execute()
+        draft = service.users().drafts().create(userId="me",
+                                                body=create_draft_request_body)\
+            .execute()
         print(F'Draft id: {draft["id"]}\nDraft message: {draft["message"]}')
     except HttpError as error:
         print(F'An error occurred: {error}')
