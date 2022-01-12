@@ -18,8 +18,8 @@ limitations under the License.
 # [START gmail_create_draft]
 
 from __future__ import print_function
-import os
 import base64
+import os
 from email.mime.text import MIMEText
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -27,7 +27,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-SCOPES =['https://www.googleapis.com/auth/gmail.compose	']
+SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
 
 def gmail_create_draft():
@@ -35,30 +35,30 @@ def gmail_create_draft():
        Print the returned draft's message and id.
       Returns: Draft object, including draft id and message meta data.
     """
+    cred = None
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        cred = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+    if not cred or not cred.valid:
+        if cred and cred.expired and cred.refresh_token:
+            cred.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file \
-                ('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            cred = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w', encoding='UTF') as token:
-            token.write(creds.to_json())
+            token.write(cred.to_json())
 
     try:
         # create gmail api client
-        service = build('gmail', 'v1', credentials=creds)
+        service = build('gmail', 'v1', credentials=cred)
 
         message = MIMEText('This is automated draft mail')
         message['to'] = 'gduser1@workspacesamples.dev'
         message['from'] = 'gduser2@workspacesamples.dev'
         message['subject'] = 'Automated draft'
-        encoded_message = base64.urlsafe_b64encode\
-            (message.as_string().encode()).decode()
+        encoded_message = base64.urlsafe_b64encode(message.as_string().encode()
+                                                   ).decode()
 
         create_message = {
             'message': {
@@ -70,8 +70,11 @@ def gmail_create_draft():
                                                 body=create_message).execute()
 
         print(F'Draft id: {draft["id"]}\nDraft message: {draft["message"]}')
+
     except HttpError as error:
         print(F'An error occurred: {error}')
+        draft = None
+
     return draft
 
 
