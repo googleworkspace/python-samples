@@ -1,0 +1,4 @@
+UserId,Certificate File Path,Certificate Password
+user1@example.com,files/cert.p12,password
+user2@example.com,files/cert.p12,
+user3@example.com,files/notfound.p12,
