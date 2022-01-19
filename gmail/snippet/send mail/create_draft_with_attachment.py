@@ -39,7 +39,7 @@ def gmail_create_draft_with_attachment():
       TODO(developer) - See https://developers.google.com/identity
       for guides on implementing OAuth2 for the application.
     """
-    creds,_ = google.auth.default()
+    creds, _ = google.auth.default()
 
     try:
         # create gmail api client
