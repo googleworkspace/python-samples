@@ -4,7 +4,6 @@ import send_mail
 from base_test import BaseTest
 
 
-
 class SendMailTest(BaseTest):
     @classmethod
     def setUpClass(cls):
@@ -16,13 +15,12 @@ class SendMailTest(BaseTest):
     def tearDown(self):
         super(SendMailTest, self).tearDown()
 
-
     def test_create_message(self):
         message = send_mail.create_message(SendMailTest.TEST_USER,
                                            SendMailTest.RECIPIENT,
                                            'Test',
                                            'Hello!')
-        self.assertIsNotNone(message) # Weak assertion
+        self.assertIsNotNone(message)  # Weak assertion
 
     def test_create_message_with_attachment(self):
         message = send_mail.create_message_with_attachment(SendMailTest.TEST_USER,
@@ -30,7 +28,7 @@ class SendMailTest(BaseTest):
                                                            'Test',
                                                            'Hello!',
                                                            'files/photo.jpg')
-        self.assertIsNotNone(message) # Weak assertion
+        self.assertIsNotNone(message)  # Weak assertion
 
     def test_create_draft(self):
         message = send_mail.create_message(SendMailTest.TEST_USER,

@@ -1,7 +1,9 @@
 import os
 import unittest
+
+from apiclient import discovery
 from oauth2client.service_account import ServiceAccountCredentials
-import apiclient
+
 
 class BaseTest(unittest.TestCase):
 
@@ -27,9 +29,8 @@ class BaseTest(unittest.TestCase):
     @classmethod
     def create_service(cls):
         credentials = cls.create_credentials()
-        with open('rest.json', 'r') as document:
-            return discovery.build_from_document(document.read(),
-                                                 credentials=credentials)
+        return discovery.build('gmail', 'v1', credentials=credentials)
+
 
 if __name__ == '__main__':
     unittest.main()

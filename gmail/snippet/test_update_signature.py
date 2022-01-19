@@ -1,6 +1,7 @@
 import unittest
-from settings_snippets import SettingsSnippets
+
 from base_test import BaseTest
+from settings_snippets import SettingsSnippets
 
 
 class SettingsSnippetsTest(BaseTest):
@@ -19,6 +20,7 @@ class SettingsSnippetsTest(BaseTest):
     def test_update_signature(self):
         signature = self.snippets.update_signature()
         self.assertIsNotNone(signature)
+
 
 if __name__ == '__main__':
     unittest.main()
