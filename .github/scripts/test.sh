@@ -17,6 +17,7 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 export PIPENV_PYTHON="${PYENV_ROOT}/shims/python"
 export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/secrets/default_credentials.json"
+export SERVICE_ACCOUNT_CREDENTIALS="${HOME}/secrets/service_account.json"
 
 dirs=()
 

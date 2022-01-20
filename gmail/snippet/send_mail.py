@@ -83,7 +83,10 @@ def create_message(sender, to, subject, message_text):
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
-    return {'raw': base64.urlsafe_b64encode(message.as_string())}
+
+    encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+
+    return {'raw': encoded_message}
 
 
 # [END create_message]
@@ -138,5 +141,6 @@ def create_message_with_attachment(
     msg.add_header('Content-Disposition', 'attachment', filename=filename)
     message.attach(msg)
 
-    return {'raw': base64.urlsafe_b64encode(message.as_string())}
+    encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return {'raw': encoded_message}
 # [END create_message_attachment]
