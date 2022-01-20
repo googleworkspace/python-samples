@@ -54,8 +54,7 @@ def gmail_send_message_with_attachment():
         mime_message.attach(text_part)
         image_attachment = build_file_part(file='photo.jpg')
         mime_message.attach(image_attachment)
-        encoded_message = base64.urlsafe_b64encode(mime_message.as_string()
-                                                   .encode()).decode()
+        encoded_message = base64.urlsafe_b64encode(mime_message.as_bytes()).decode()
 
         send_message_request_body = {
             'message': {
