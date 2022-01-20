@@ -1,13 +1,15 @@
 import os
 import unittest
+
+from apiclient import discovery
 from oauth2client.service_account import ServiceAccountCredentials
-import apiclient
+
 
 class BaseTest(unittest.TestCase):
 
-    RECIPIENT = 'gdtest2@appsrocks.com'
-    TEST_USER = 'gdtest1@appsrocks.com'
-    FORWARDING_ADDRESS = 'gdtest2@appsrocks.com'
+    RECIPIENT = 'gduser01@workspacesamples.dev'
+    TEST_USER = 'ci-test01@workspacesamples.dev'
+    FORWARDING_ADDRESS = 'gduser01@workspacesamples.dev'
 
     @classmethod
     def setUpClass(cls):
@@ -19,17 +21,17 @@ class BaseTest(unittest.TestCase):
                  'https://www.googleapis.com/auth/gmail.send',
                  'https://www.googleapis.com/auth/gmail.labels',
                  'https://www.googleapis.com/auth/gmail.settings.basic',
-                 'https://www.googleapis.com/auth/gmail.settings.sharing']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(os.environ['GOOGLE_APPLICATION_CREDENTIALS'],
+                 'https://www.googleapis.com/auth/gmail.settings.sharing',
+                 'https://mail.google.com/']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(os.environ['SERVICE_ACCOUNT_CREDENTIALS'],
                                                                        scopes=scope)
         return credentials.create_delegated(BaseTest.TEST_USER)
 
     @classmethod
     def create_service(cls):
         credentials = cls.create_credentials()
-        with open('rest.json', 'r') as document:
-            return discovery.build_from_document(document.read(),
-                                                 credentials=credentials)
+        return discovery.build('gmail', 'v1', credentials=credentials)
+
 
 if __name__ == '__main__':
     unittest.main()

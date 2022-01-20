@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+
 from numpy import long
 
 
@@ -11,7 +12,7 @@ class SettingsSnippets:
         gmail_service = self.service
         # [START updateSignature]
         primary_alias = None
-        aliases = gmail_service.users().settings().sendAs().\
+        aliases = gmail_service.users().settings().sendAs(). \
             list(userId='me').execute()
         for alias in aliases.get('sendAs'):
             if alias.get('isPrimary'):
@@ -21,7 +22,7 @@ class SettingsSnippets:
         sendAsConfiguration = {
             'signature': 'I heart cats'
         }
-        result = gmail_service.users().settings().sendAs().\
+        result = gmail_service.users().settings().sendAs(). \
             patch(userId='me',
                   sendAsEmail=primary_alias.get('sendAsEmail'),
                   body=sendAsConfiguration).execute()
@@ -32,7 +33,7 @@ class SettingsSnippets:
     def create_filter(self, real_label_id):
         gmail_service = self.service
         # [START createFilter]
-        label_id = 'Label_14' # ID of user label to add
+        label_id = 'Label_14'  # ID of user label to add
         # [START_EXCLUDE silent]
         label_id = real_label_id
         # [END_EXCLUDE]
@@ -45,7 +46,7 @@ class SettingsSnippets:
                 'removeLabelIds': ['INBOX']
             }
         }
-        result = gmail_service.users().settings().filters().\
+        result = gmail_service.users().settings().filters(). \
             create(userId='me', body=filter).execute()
         print('Created filter: %s' % result.get('id'))
         # [END createFilter]
@@ -54,11 +55,15 @@ class SettingsSnippets:
     def enable_forwarding(self, real_forwarding_address):
         gmail_service = self.service
         # [START enableForwarding]
-        address = { 'forwardingEmail': 'user2@example.com' }
+        address = {
+            'forwardingEmail': 'user2@example.com'
+        }
         # [START_EXCLUDE silent]
-        address = { 'forwardingEmail': real_forwarding_address }
+        address = {
+            'forwardingEmail': real_forwarding_address
+        }
         # [END_EXCLUDE]
-        result = gmail_service.users().settings().forwardingAddresses().\
+        result = gmail_service.users().settings().forwardingAddresses(). \
             create(userId='me', body=address).execute()
         if result.get('verificationStatus') == 'accepted':
             body = {
@@ -66,7 +71,7 @@ class SettingsSnippets:
                 'enabled': True,
                 'disposition': 'trash'
             }
-            result = gmail_service.users().settings().\
+            result = gmail_service.users().settings(). \
                 updateAutoForwarding(userId='me', body=body).execute()
             # [START_EXCLUDE silent]
             return result
@@ -90,7 +95,7 @@ class SettingsSnippets:
             'startTime': long(start_time),
             'endTime': long(end_time)
         }
-        response = gmail_service.users().settings().\
+        response = gmail_service.users().settings(). \
             updateVacation(userId='me', body=vacation_settings).execute()
         # [END enableAutoReply]
         return response

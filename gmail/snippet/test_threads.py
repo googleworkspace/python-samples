@@ -3,6 +3,7 @@ import unittest
 import threads
 from base_test import BaseTest
 
+
 class ThreadsTest(BaseTest):
     @classmethod
     def setUpClass(cls):
@@ -14,10 +15,10 @@ class ThreadsTest(BaseTest):
     def tearDown(self):
         super(ThreadsTest, self).tearDown()
 
-
     def test_show_chatty_threads(self):
-        threads = threads.show_chatty_threads(self.service)
-        self.assertIsNotNone(threads) # Weak assertion
+        # TODO - Capture output and assert
+        threads.show_chatty_threads(self.service)
+
 
 if __name__ == '__main__':
     unittest.main()
