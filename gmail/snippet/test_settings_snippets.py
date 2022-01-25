@@ -2,7 +2,6 @@ import unittest
 from settings_snippets import SettingsSnippets
 from base_test import BaseTest
 
-
 class SettingsSnippetsTest(BaseTest):
 
     @classmethod
@@ -21,7 +20,6 @@ class SettingsSnippetsTest(BaseTest):
         for l in labels.get('labels'):
             if l.get('name') == 'testLabel':
                 return l
-
         body = {
             'name': 'testLabel',
             'labelListVisibility': 'labelShow',
@@ -49,7 +47,6 @@ class SettingsSnippetsTest(BaseTest):
         self.service.users().settings().updateAutoForwarding(userId='me', body=body).execute()
         self.service.users().settings().forwardingAddresses().delete(userId='me',
                                                                      forwardingEmail=BaseTest.FORWARDING_ADDRESS).execute()
-
     def test_enable_auto_reply(self):
         settings = self.snippets.enable_auto_reply()
         self.assertIsNotNone(settings)

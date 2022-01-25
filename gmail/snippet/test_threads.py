@@ -14,7 +14,6 @@ class ThreadsTest(BaseTest):
     def tearDown(self):
         super(ThreadsTest, self).tearDown()
 
-
     def test_show_chatty_threads(self):
         threads = threads.show_chatty_threads(self.service)
         self.assertIsNotNone(threads) # Weak assertion

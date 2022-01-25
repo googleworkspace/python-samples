@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from numpy import long
 
-
 class SettingsSnippets:
 
     def __init__(self, service):
@@ -11,8 +10,7 @@ class SettingsSnippets:
         gmail_service = self.service
         # [START updateSignature]
         primary_alias = None
-        aliases = gmail_service.users().settings().sendAs().\
-            list(userId='me').execute()
+        aliases = gmail_service.users().settings().sendAs().list(userId='me').execute()
         for alias in aliases.get('sendAs'):
             if alias.get('isPrimary'):
                 primary_alias = alias
@@ -21,8 +19,7 @@ class SettingsSnippets:
         sendAsConfiguration = {
             'signature': 'I heart cats'
         }
-        result = gmail_service.users().settings().sendAs().\
-            patch(userId='me',
+        result = gmail_service.users().settings().sendAs().patch(userId='me',
                   sendAsEmail=primary_alias.get('sendAsEmail'),
                   body=sendAsConfiguration).execute()
         print('Updated signature for: %s' % result.get('displayName'))
@@ -33,6 +30,7 @@ class SettingsSnippets:
         gmail_service = self.service
         # [START createFilter]
         label_id = 'Label_14' # ID of user label to add
+
         # [START_EXCLUDE silent]
         label_id = real_label_id
         # [END_EXCLUDE]
@@ -45,8 +43,7 @@ class SettingsSnippets:
                 'removeLabelIds': ['INBOX']
             }
         }
-        result = gmail_service.users().settings().filters().\
-            create(userId='me', body=filter).execute()
+        result = gmail_service.users().settings().filters().create(userId='me', body=filter).execute()
         print('Created filter: %s' % result.get('id'))
         # [END createFilter]
         return result.get('id')
@@ -58,16 +55,14 @@ class SettingsSnippets:
         # [START_EXCLUDE silent]
         address = { 'forwardingEmail': real_forwarding_address }
         # [END_EXCLUDE]
-        result = gmail_service.users().settings().forwardingAddresses().\
-            create(userId='me', body=address).execute()
+        result = gmail_service.users().settings().forwardingAddresses().create(userId='me', body=address).execute()
         if result.get('verificationStatus') == 'accepted':
             body = {
                 'emailAddress': result.get('forwardingEmail'),
                 'enabled': True,
                 'disposition': 'trash'
             }
-            result = gmail_service.users().settings().\
-                updateAutoForwarding(userId='me', body=body).execute()
+            result = gmail_service.users().settings().updateAutoForwarding(userId='me', body=body).execute()
             # [START_EXCLUDE silent]
             return result
             # [END_EXCLUDE]
@@ -94,3 +89,4 @@ class SettingsSnippets:
             updateVacation(userId='me', body=vacation_settings).execute()
         # [END enableAutoReply]
         return response
+

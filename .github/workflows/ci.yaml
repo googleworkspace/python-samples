@@ -34,9 +34,11 @@ jobs:
         run: |
           mkdir "${HOME}/secrets"
           echo "${DEFAULT_CREDENTIALS}" > "${HOME}/secrets/default_credentials.json"
+          echo "${SERVICE_ACCOUNT_CREDENTIALS}" > "${HOME}/secrets/service_account.json"
           echo "${CLIENT_ID_FILE}" > "${HOME}/secrets/client_id.json"
         env:
           DEFAULT_CREDENTIALS: ${{secrets.SNIPPETS_DEFAULT_CREDENTIALS}}
+          SERVICE_ACCOUNT_CREDENTIALS: ${{secrets.SNIPPETS_DELEGATED_ADMIN_SERVICE_ACCOUNT}}
           CLIENT_ID_FILE: ${{secrets.SNIPPETS_CLIENT_ID_FILE}}
       - name: Run tests
         run: ./.github/scripts/test.sh

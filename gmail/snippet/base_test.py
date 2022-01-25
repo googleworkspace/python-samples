@@ -9,6 +9,7 @@ class BaseTest(unittest.TestCase):
     TEST_USER = 'gdtest1@appsrocks.com'
     FORWARDING_ADDRESS = 'gdtest2@appsrocks.com'
 
+
     @classmethod
     def setUpClass(cls):
         cls.service = cls.create_service()
