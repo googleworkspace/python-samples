@@ -10,6 +10,7 @@ from email.mime.text import MIMEText
 import mimetypes
 import os
 
+
 from apiclient import errors
 
 
@@ -36,6 +37,7 @@ def create_draft(service, user_id, message_body):
   except errors.HttpError as error:
     print('An error occurred: %s' % error)
     return None
+
 # [END create_draft]
 
 
@@ -59,6 +61,7 @@ def send_message(service, user_id, message):
     return message
   except errors.HttpError as error:
     print('An error occurred: %s' % error)
+
 # [END send_email]
 
 
@@ -133,4 +136,5 @@ def create_message_with_attachment(
   message.attach(msg)
 
   return {'raw': base64.urlsafe_b64encode(message.as_string())}
+
 # [END create_message_attachment]

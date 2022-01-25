@@ -3,6 +3,7 @@ from settings_snippets import SettingsSnippets
 from base_test import BaseTest
 
 
+
 class SettingsSnippetsTest(BaseTest):
 
     @classmethod

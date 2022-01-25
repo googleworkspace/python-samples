@@ -31,6 +31,7 @@ def create_smime_info(cert_filename, cert_password=None):
     print('An error occurred while reading the certificate file: %s' % error)
 
   return smime_info
+
 # [END create_smime_info]
 
 
@@ -85,6 +86,7 @@ def insert_cert_from_csv(service_builder, csv_filename):
           print('Unable to read certificate file for user_id: %s' % user_id)
   except (OSError, IOError) as error:
     print('An error occured while reading the CSV file: %s' % error)
+
 # [END insert_cert_from_csv]
 
 
@@ -194,4 +196,5 @@ def update_smime_from_csv(service_builder, csv_filename, expire_dt=None):
             expire_dt=expire_dt)
   except (OSError, IOError) as error:
     print('An error occured while reading the CSV file: %s' % error)
+
 # [END update_smime_certs]
