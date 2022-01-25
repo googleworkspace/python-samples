@@ -47,8 +47,8 @@ def create_filter():
         }
 
         # pylint: disable=E1101
-        result = service.users().settings().filters().create\
-            (userId='me', body=filter_content).execute()
+        result = service.users().settings().filters().create(
+            userId='me', body=filter_content).execute()
         print(F'Created filter with id: {result.get("id")}')
 
     except HttpError as error:
