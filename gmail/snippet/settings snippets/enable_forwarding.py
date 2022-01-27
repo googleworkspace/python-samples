@@ -47,7 +47,7 @@ def enable_forwarding():
                 'disposition': 'trash'
             }
             # pylint: disable=E1101
-            result = service.users().settings().updateAutoForwarding\
+            result = service.users().settings().updateAutoForwarding
                 (userId='me', body=body).execute()
             print(F'Forwarding is enabled : {result}')
 
