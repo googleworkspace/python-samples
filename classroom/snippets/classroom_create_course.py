@@ -47,7 +47,7 @@ def classroom_create_course():
             'descriptionHeading': 'Welcome to 10th Grade Mathematics',
             'description': """We'll be learning about about the
                                  polynomials from a
-                                 combination of textbooks and guest lectures. 
+                                 combination of textbooks and guest lectures.
                                  Expect to be excited!""",
             'room': '302',
             'ownerId': 'me',

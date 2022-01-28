@@ -22,7 +22,8 @@ from googleapiclient.errors import HttpError
 
 def classroom_patch_course(course_id):
     """Shows basic usage of the Classroom API.
-    Patch new course with existing course in the account the user has access to.
+    Patch new course with existing course in the account the
+    user has access to.
     """
     creds, _ = google.auth.default()
 
