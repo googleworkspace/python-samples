@@ -35,7 +35,7 @@ def classroom_add_teacher(course_id):
     # pylint: disable=maybe-no-member
     service = build('classroom', 'v1', credentials=creds)
 
-    teacher_email = 'himanshu@workspacesamples.dev'
+    teacher_email = 'gduser1@workspacesamples.dev'
     teacher = {
         'userId': teacher_email
     }
