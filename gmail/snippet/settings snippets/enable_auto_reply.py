@@ -52,8 +52,8 @@ def enable_auto_reply():
         }
 
         # pylint: disable=E1101
-        response = service.users().settings().updateVacation\
-            (userId='me', body=vacation_settings).execute()
+        response = service.users().settings().updateVacation(
+            userId='me', body=vacation_settings).execute()
         print(F'Enabled AutoReply with message: '
               F'{response.get("responseBodyHtml")}')
 
