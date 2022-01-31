@@ -14,7 +14,6 @@ limitations under the License.
 from __future__ import print_function
 
 import create_smime_info
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
