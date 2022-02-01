@@ -35,7 +35,7 @@ def insert_smime_info():
         service = build('gmail', 'v1', credentials=creds)
 
         user_id = 'gduser1@workspacesamples.dev'
-        smime_info = create_smime_info.create_smime_info()
+        smime_info = create_smime_info.create_smime_info(cert_filename='xyz', cert_password='xyz')
         send_as_email = None
 
         if not send_as_email:
