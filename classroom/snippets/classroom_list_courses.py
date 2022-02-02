@@ -23,14 +23,15 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_list_courses():
-    """
-    Shows basic usage of the Classroom API.
-    Prints the list of the courses the user has access to.
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity for
-     guides on implementing OAuth2 for the application.
+    # Prints the list of the courses the user has access to.
+
     """
+    Load pre-authorized user credentials from the environment.
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.\n"
+    """
+
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
 
