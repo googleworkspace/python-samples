@@ -15,12 +15,11 @@ from __future__ import print_function
 
 from datetime import datetime
 
+import create_smime_info
 import google.auth
+import insert_smime_info
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
-import create_smime_info
-import insert_smime_info
 
 
 def update_smime_cert(user_id, send_as_email, cert_filename, cert_password,
