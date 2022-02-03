@@ -16,14 +16,16 @@ from __future__ import print_function
 import base64
 
 
-def create_smime_info():
+def create_smime_info(cert_filename, cert_password):
     """Create an smimeInfo resource for a certificate from file.
+    Args:
+      cert_filename: Name of the file containing the S/MIME certificate.
+      cert_password: Password for the certificate file, or None if the file is not
+          password-protected.
     Returns : Smime object, including smime information
     """
 
     smime_info = None
-    cert_password = None
-    cert_filename = 'humble_coder.csr'
     try:
         with open(cert_filename, 'rb') as cert:
             smime_info = {}
@@ -40,5 +42,5 @@ def create_smime_info():
 
 
 if __name__ == '__main__':
-    print(create_smime_info())
+    print(create_smime_info(cert_filename='xyz', cert_password='xyz'))
 # [END gmail_create_smime_info]
