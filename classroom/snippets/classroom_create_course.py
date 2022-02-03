@@ -23,26 +23,21 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_create_course():
-    """Shows basic usage of the Classroom API.
-    Creates the courses the user has access to.
 
-    The file token.json stores the user's access and refresh tokens, and is
-    created automatically when the authorization flow completes for the first
-    time.
-
+    # Creates the courses the user has access to.
+    """
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
     """
 
-    # creds = None
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
 
     try:
         service = build('classroom', 'v1', credentials=creds)
         course = {
-            'name': '10th Grade Mathematics',
+            'name': '10th Grade Mathematics Algebric Expression',
             'section': 'Period 3',
             'descriptionHeading': 'Welcome to 10th Grade Mathematics',
             'description': """We'll be learning about about the

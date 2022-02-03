@@ -23,18 +23,15 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_list_courses():
-    """
-    Shows basic usage of the Classroom API.
-    Prints the list of the courses the user has access to.
 
-    creds = None
-    The file token.json stores the user's access and refresh tokens, and is
-    created automatically when the authorization flow completes for the first
-    time.
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity for
-     guides on implementing OAuth2 for the application.
+    # Prints the list of the courses the user has access to.
+
     """
+    Load pre-authorized user credentials from the environment.
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.\n"
+    """
+
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
 
@@ -53,11 +50,11 @@ def classroom_list_courses():
 
         if not courses:
             print('No courses found.')
-        else:
-            print('Courses:')
-            for course in courses:
-                print(course.get('name'), course.get('id'))
-            return course
+            return
+        print('Courses:')
+        for course in courses:
+            print(course.get('name'), course.get('id'))
+        return course
     except HttpError as error:
         print('An error occurred: %s' % error)
         return error

@@ -20,17 +20,15 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_update_course(course_id):
-    """Shows basic usage of the Classroom API.
-    Updates the courses names the user has access to.
-    """
-    creds, _ = google.auth.default()
 
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    # Load pre-authorized user credentials from the environment.
-    # TODO(developer) - See https://developers.google.com/identity for
-    #  guides on implementing OAuth2 for the application.
+    # Updates the courses names the user has access to.
+    """
+    Load pre-authorized user credentials from the environment.
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.\n"
+    """
+
+    creds, _ = google.auth.default()
 
     # pylint: disable=maybe-no-member
 
@@ -39,7 +37,7 @@ def classroom_update_course(course_id):
 
         """ Updates the section and room of Google Classroom. """
         course = service.courses().get(id=course_id).execute()
-        course['name'] = '10th Grade Physics'
+        course['name'] = '10th Grade Physics - Light'
         course['section'] = 'Period 4'
         course['room'] = '410'
         course = service.courses().update(id=course_id, body=course).execute()
