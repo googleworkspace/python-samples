@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-
+from __future__ import print_function
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -23,8 +23,8 @@ from googleapiclient.errors import HttpError
 
 def classroom_patch_course(course_id):
 
-    # Patch new course with existing course in the account the user has access to.
     """
+    Patch new course with existing course in the account the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
@@ -36,7 +36,7 @@ def classroom_patch_course(course_id):
 
     try:
         service = build('classroom', 'v1', credentials=creds)
-        """ Creates a course with alias specification. """
+        # Creates a course with alias specification.
         course = {
             'section': 'Period 3',
             'room': '313'
@@ -44,10 +44,10 @@ def classroom_patch_course(course_id):
         course = service.courses().patch(id=course_id,
                                          updateMask='section,room',
                                          body=course).execute()
-        print('Course "%s" updated.' % course.get('name'))
+        print(f" Course updated are: {course.get('name')}")
 
     except HttpError as error:
-        print('An error occurred: %s' % error)
+        print(f"An error occurred: {error}")
 
 
 if __name__ == '__main__':
