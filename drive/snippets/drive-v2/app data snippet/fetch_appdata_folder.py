@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START drive_fetch_app_data_folder]
+# [START drive_fetch_appdata_folder]
 
 from __future__ import print_function
 
@@ -22,7 +22,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def fetch_app_data_folder():
+def fetch_appdata_folder():
     """List out application data folder and prints folder ID.
     Returns : Folder ID
 
@@ -49,5 +49,5 @@ def fetch_app_data_folder():
 
 
 if __name__ == '__main__':
-    fetch_app_data_folder()
-# [END drive_fetch_app_data_folder]
+    fetch_appdata_folder()
+# [END drive_fetch_appdata_folder]
