@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START drive_upload_app_data]
+# [START drive_upload_appdata]
 
 from __future__ import print_function
 
@@ -23,7 +23,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
 
-def upload_app_data():
+def upload_appdata():
     """Insert a file in the application data folder and prints file Id.
     Returns : ID's of the inserted files
 
@@ -59,5 +59,5 @@ def upload_app_data():
 
 
 if __name__ == '__main__':
-    upload_app_data()
-# [END drive_upload_app_data]
+    upload_appdata()
+# [END drive_upload_appdata]
