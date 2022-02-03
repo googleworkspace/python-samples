@@ -52,4 +52,3 @@ if __name__ == '__main__':
     # Put the course_id of course whose course needs to be updated
     classroom_update_course(455990676852)
 # [END classroom_update_course]
-

@@ -1,4 +1,4 @@
-"""Copyright 2018 Google LLC
+"""Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ def classroom_add_teacher(course_id):
     # pylint: disable=maybe-no-member
     service = build('classroom', 'v1', credentials=creds)
 
-    teacher_email = 'himanshu@workspacesamples.dev'
+    teacher_email = 'gduser1@workspacesamples.dev'
     teacher = {
         'userId': teacher_email
     }
@@ -48,7 +48,8 @@ def classroom_add_teacher(course_id):
               % (teacher.get('profile').get('name').get('fullName'),
                  course_id))
     except HttpError as error:
-        print('User "{%s}" is already a member of this course.' % teacher_email)
+        print('User "{%s}" is already a member of this course.'
+              % teacher_email)
         return error
     return teachers
 
