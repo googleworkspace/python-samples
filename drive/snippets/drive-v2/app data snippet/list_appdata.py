@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START drive_list_app_data]
+# [START drive_list_appdata]
 
 from __future__ import print_function
 
@@ -22,7 +22,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def list_app_data():
+def list_appdata():
     """List all files inserted in the application data folder
     prints file titles with Ids.
     Returns : List of items
@@ -53,5 +53,5 @@ def list_app_data():
 
 
 if __name__ == '__main__':
-    list_app_data()
-# [END drive_list_app_data]
+    list_appdata()
+# [END drive_list_appdata]
