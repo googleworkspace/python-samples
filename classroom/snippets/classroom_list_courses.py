@@ -15,18 +15,19 @@ limitations under the License.
 
 """
 
-# [START classroom_list_courses]
 
+from __future__ import print_function
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+# [START classroom_list_courses]
+
 
 def classroom_list_courses():
 
-    # Prints the list of the courses the user has access to.
-
     """
+    Prints the list of the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
@@ -34,7 +35,7 @@ def classroom_list_courses():
 
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
-
+    course = None
     try:
         service = build('classroom', 'v1', credentials=creds)
         courses = []
@@ -49,18 +50,19 @@ def classroom_list_courses():
                 break
 
         if not courses:
-            print('No courses found.')
+            print("No courses found.")
             return
-        print('Courses:')
+        print("Courses:")
         for course in courses:
-            print(course.get('name'), course.get('id'))
+            print(f"{course.get('name'), course.get('id')}")
         return course
     except HttpError as error:
-        print('An error occurred: %s' % error)
+        print(f"An error occurred: {error}")
         return error
 
 
 if __name__ == '__main__':
     print('Courses available are-------')
     classroom_list_courses()
+
 # [END classroom_list_courses]
