@@ -15,13 +15,12 @@ limitations under the License.
 
 """
 
-
+# [START classroom_list_courses]
 from __future__ import print_function
+
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
-# [START classroom_list_courses]
 
 
 def classroom_list_courses():
