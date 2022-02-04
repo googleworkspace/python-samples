@@ -37,8 +37,8 @@ def insert_cert_from_csv(csv_filename):
                 user_id = row[0]
                 cert_filename = row[1]
                 cert_password = row[2]
-                smime_info = create_smime_info.create_smime_info \
-                    (cert_filename=cert_filename, cert_password=cert_password)
+                smime_info = create_smime_info.create_smime_info(
+                    cert_filename=cert_filename, cert_password=cert_password)
                 if smime_info:
                     insert_smime_info.insert_smime_info()
                 else:
