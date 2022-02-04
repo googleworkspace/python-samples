@@ -22,7 +22,6 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-
 def classroom_create_course():
 
     """
