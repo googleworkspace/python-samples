@@ -13,7 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License."""
 
 # [START classroom_add_teacher]
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
