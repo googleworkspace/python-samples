@@ -23,7 +23,7 @@ from googleapiclient.errors import HttpError
 
 
 def update_smime_cert(user_id, send_as_email, cert_filename, cert_password,
-                       expire_dt):
+                      expire_dt):
     """Update S/MIME certificates for the user.
 
     First performs a lookup of all certificates for a user.  If there are no
@@ -111,5 +111,5 @@ def update_smime_cert(user_id, send_as_email, cert_filename, cert_password,
 
 if __name__ == '__main__':
     update_smime_cert(user_id='xyz', send_as_email=None, cert_filename='xyz',
-                       cert_password='xyz', expire_dt=None)
+                      cert_password='xyz', expire_dt=None)
 # [END gmail_update_smime_certs]
