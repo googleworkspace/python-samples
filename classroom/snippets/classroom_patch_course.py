@@ -13,12 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+# [START classroom_patch_course]
 from __future__ import print_function
+
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
-# [START classroom_patch_course]
 
 
 def classroom_patch_course(course_id):
