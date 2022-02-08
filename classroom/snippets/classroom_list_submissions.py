@@ -20,13 +20,13 @@ import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# [START classroom_create_coursework]
+
+# [START classroom_list_submissions]
 
 
-def classroom_create_coursework(course_id):
-
+def classroom_list_submissions(course_id, coursework_id):
     """
-    Creates the coursework the user has access to.
+    Creates the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.\n"
@@ -34,24 +34,31 @@ def classroom_create_coursework(course_id):
 
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
+    submissions = []
+    page_token = None
 
     try:
         service = build('classroom', 'v1', credentials=creds)
-        coursework = {
-            'title': 'Ant colonies',
-            'description': '''Read the article about ant colonies
-                              and complete the quiz.''',
-            'materials': [
-                {'link': {'url': 'http://example.com/ant-colonies'}},
-                {'link': {'url': 'http://example.com/ant-quiz'}}
-            ],
-            'workType': 'ASSIGNMENT',
-            'state': 'PUBLISHED',
-        }
-        coursework = service.courses().courseWork().create(
-            courseId=course_id, body=coursework).execute()
-        print(f"Assignment created with ID {coursework.get('id')}")
-        return coursework
+        while True:
+            coursework = service.courses().courseWork()
+            response = coursework.studentSubmissions().list(
+                pageToken=page_token,
+                courseId=course_id,
+                courseWorkId=coursework_id,
+                pageSize=10).execute()
+            submissions.extend(response.get('studentSubmissions', []))
+            page_token = response.get('nextPageToken', None)
+            if not page_token:
+                break
+
+        if not submissions:
+            print('No student submissions found.')
+            return
+        print('Student Submissions:')
+        for submission in submissions:
+            print(f"Submitted at:"
+                  f"{(submission.get('id'), submission.get('creationTime'))}")
+        return submissions
 
     except HttpError as error:
         print(f"An error occurred: {error}")
@@ -59,6 +66,7 @@ def classroom_create_coursework(course_id):
 
 
 if __name__ == '__main__':
-    # Put the course_id of course whose coursework needs to be created.
-    classroom_create_coursework(453686957652)
-# [END classroom_create_coursework]
+    # Put the course_id and coursework_id of course whose list needs to be
+    # submitted.
+    classroom_list_submissions(453686957652, 466086979658)
+# [END classroom_list_submissions]
