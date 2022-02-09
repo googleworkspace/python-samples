@@ -59,6 +59,7 @@ def classroom_create_coursework(course_id):
 
 
 if __name__ == '__main__':
-    # Put the course_id of course whose coursework needs to be created.
+    # Put the course_id of course whose coursework needs to be created,
+    # the user has access to.
     classroom_create_coursework(453686957652)
 # [END classroom_create_coursework]
