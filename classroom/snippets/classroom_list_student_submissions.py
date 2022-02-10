@@ -52,17 +52,15 @@ def classroom_list_student_submissions(course_id, coursework_id, user_id):
 
         if not submissions:
             print('No student submissions found.')
-            return
 
         print('Student Submissions:')
         for submission in submissions:
             print(f"Submitted at:"
                   f"{(submission.get('id'), submission.get('creationTime'))}")
-        return submissions
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-        return error
+    return submissions
 
 
 if __name__ == '__main__':

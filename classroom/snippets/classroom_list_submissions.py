@@ -20,7 +20,6 @@ import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-
 # [START classroom_list_submissions]
 
 
@@ -53,16 +52,16 @@ def classroom_list_submissions(course_id, coursework_id):
 
         if not submissions:
             print('No student submissions found.')
-            return
+
         print('Student Submissions:')
         for submission in submissions:
             print(f"Submitted at:"
                   f"{(submission.get('id'), submission.get('creationTime'))}")
-        return submissions
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-        return error
+        submissions = None
+    return submissions
 
 
 if __name__ == '__main__':
