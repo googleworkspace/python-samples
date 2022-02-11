@@ -41,13 +41,11 @@ def upload_with_conversion():
             'title': 'My Report',
             'mimeType': 'application/vnd.google-apps.spreadsheet'
         }
-        media = MediaFileUpload('report.csv',
-                                mimetype='text/csv',
+        media = MediaFileUpload('report.csv', mimetype='text/csv',
                                 resumable=True)
         # pylint: disable=maybe-no-member
         file = service.files().insert(body=file_metadata,
-                                            media_body=media,
-                                            fields='id').execute()
+                                      media_body=media, fields='id').execute()
         print(F'File with ID: "{file.get("id")}" has been uploaded.')
 
     except HttpError as error:

@@ -44,12 +44,10 @@ def upload_to_folder(real_folder_id):
             'parents': [{'id': folder_id}]
         }
         media = MediaFileUpload('photo.jpg',
-                                mimetype='image/jpeg',
-                                resumable=True)
+                                mimetype='image/jpeg', resumable=True)
         # pylint: disable=maybe-no-member
         file = service.files().insert(body=file_metadata,
-                                            media_body=media,
-                                            fields='id').execute()
+                                      media_body=media, fields='id').execute()
         print(F'File with ID: "{file.get("id")}" has added to the folder with '
               F'ID "{real_folder_id}".')
 
