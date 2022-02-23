@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,16 +28,15 @@ def classroom_create_course():
     Creates the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
-
-    creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
+    creds, _ = google.auth.default()
 
     try:
         service = build('classroom', 'v1', credentials=creds)
         course = {
-            'name': '10th Grade Mathematics Probability-2',
+            'name': '10th Grade Mathematics Polynomials-3',
             'section': 'Period 3',
             'descriptionHeading': 'Welcome to 10th Grade Mathematics',
             'description': """We'll be learning about about the
@@ -52,7 +51,6 @@ def classroom_create_course():
         course = service.courses().create(body=course).execute()
         print(f"Course created:  {(course.get('name'), course.get('id'))}")
         return course
-
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error
