@@ -27,7 +27,7 @@ def classroom_patch_course(course_id):
     Patch new course with existing course in the account the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
@@ -52,6 +52,6 @@ def classroom_patch_course(course_id):
 
 if __name__ == '__main__':
     # course_id1 = (classroom_update_course.classroom_list_courses())
-    classroom_patch_course(456090670671)
+    classroom_patch_course('course_id')
 
 # [END classroom_patch_course]
