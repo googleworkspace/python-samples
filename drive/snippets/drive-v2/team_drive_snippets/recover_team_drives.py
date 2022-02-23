@@ -77,5 +77,5 @@ def recover_team_drives(real_user):
 
 
 if __name__ == '__main__':
-    recover_team_drives(real_user='rajesh@workspacesamples.dev')
+    recover_team_drives(real_user='gduser1@workspacesamples.dev')
 # [END drive_recover_team_drives]
