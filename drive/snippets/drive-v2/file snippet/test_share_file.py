@@ -24,7 +24,7 @@ class TestShareFile(unittest.TestCase):
     def test_share_file(cls):
         """Test share_file"""
         real_file_id = '1dUiRSoAQKkM3a4nTPeNQWgiuau1KdQ_l'
-        real_user = 'anurag@workspacesamples.dev'
+        real_user = 'gduser1@workspacesamples.dev'
         real_domain = 'workspacesamples.dev'
         file = share_file.share_file(real_file_id=real_file_id,
                                      real_user=real_user,
