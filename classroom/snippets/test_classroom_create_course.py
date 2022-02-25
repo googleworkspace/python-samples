@@ -1,4 +1,5 @@
-"""Copyright 2022 Google LLC
+"""
+Copyright 2022 Google LLC
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,9 +17,7 @@ import classroom_create_course
 
 
 class TestClassroomCreateCourse(unittest.TestCase):
-"""
-Unit test class for Create course snippet
-"""
+    """Unit test class for Create course snippet"""
     @classmethod
     def test_classroom_create_course(cls):
         """Class function for Create course snippet"""
