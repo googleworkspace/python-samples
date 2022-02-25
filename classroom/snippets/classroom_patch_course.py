@@ -14,6 +14,7 @@ limitations under the License.
 """
 
 # [START classroom_patch_course]
+
 from __future__ import print_function
 
 import google.auth
@@ -27,16 +28,14 @@ def classroom_patch_course(course_id):
     Patch new course with existing course in the account the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
+    # pylint: disable=maybe-no-member
 
     creds, _ = google.auth.default()
 
-    # pylint: disable=maybe-no-member
-
     try:
         service = build('classroom', 'v1', credentials=creds)
-        # Creates a course with alias specification.
         course = {
             'section': 'Period 3',
             'room': '313'
@@ -51,7 +50,8 @@ def classroom_patch_course(course_id):
 
 
 if __name__ == '__main__':
-    # course_id1 = (classroom_update_course.classroom_list_courses())
-    classroom_patch_course(456090670671)
+    # Put the course_id of course with whom we need to patch some extra
+    # information.
+    classroom_patch_course('course_id')
 
 # [END classroom_patch_course]

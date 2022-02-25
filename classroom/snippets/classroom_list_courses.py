@@ -16,6 +16,7 @@ limitations under the License.
 """
 
 # [START classroom_list_courses]
+
 from __future__ import print_function
 
 import google.auth
@@ -29,7 +30,7 @@ def classroom_list_courses():
     Prints the list of the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
