@@ -18,8 +18,8 @@ import classroom_get_course
 import classroom_list_courses
 
 
-"""Unit test class for Get course snippet"""
-class TestClassroomGetCourse(unittest.TestCase):   
+class TestClassroomGetCourse(unittest.TestCase):
+    """Unit test class for Get course snippet"""
     @classmethod
     def test_classroom_get_course(cls):
         """Unit test method for Get course snippet"""
