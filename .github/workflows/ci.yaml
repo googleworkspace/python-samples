@@ -16,7 +16,7 @@ jobs:
         # TODO - expand matrix once stable
         python-version: [3.6]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Fetch and Diff PR with base from which it was cloned
         if: ${{ github.event.pull_request.base.sha }}
         run: |
