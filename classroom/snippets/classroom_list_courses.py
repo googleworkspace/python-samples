@@ -34,14 +34,13 @@ def classroom_list_courses():
     """
 
     creds, _ = google.auth.default()
-    # pylint: disable=maybe-no-member
-    course = None
     try:
         service = build('classroom', 'v1', credentials=creds)
         courses = []
         page_token = None
 
         while True:
+            # pylint: disable=maybe-no-member
             response = service.courses().list(pageToken=page_token,
                                               pageSize=100).execute()
             courses.extend(response.get('courses', []))
@@ -55,7 +54,7 @@ def classroom_list_courses():
         print("Courses:")
         for course in courses:
             print(f"{course.get('name'), course.get('id')}")
-        return course
+        return courses
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error

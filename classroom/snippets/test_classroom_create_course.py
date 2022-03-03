@@ -14,16 +14,16 @@ limitations under the License.
 import unittest
 
 import classroom_create_course
+from base_test import BaseTest
 
 
-class TestClassroomCreateCourse(unittest.TestCase):
+class TestClassroomCreateCourse(BaseTest):
     """Unit test class for Create course snippet"""
-    @classmethod
-    def test_classroom_create_course(cls):
+    def test_classroom_create_course(self):
         """Class function for Create course snippet"""
         course = classroom_create_course.classroom_create_course()
-        cls.assertIsNotNone(cls, course)
-        cls.doClassCleanups()
+        self.assertIsNotNone(course)
+        self.delete_course_on_cleanup(course.get('id'))
 
 
 if __name__ == "__main__":

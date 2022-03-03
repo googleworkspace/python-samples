@@ -15,7 +15,6 @@ limitations under the License.
 """
 
 # [START classroom_update_course]
-
 from __future__ import print_function
 
 import google.auth
@@ -44,6 +43,7 @@ def classroom_update_course(course_id):
         course['room'] = '410'
         course = service.courses().update(id=course_id, body=course).execute()
         print(f" Updated Course is:  {course.get('name')}")
+        return course
 
     except HttpError as error:
         print(f"An error occurred: {error}")

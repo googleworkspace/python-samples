@@ -14,7 +14,6 @@ limitations under the License.
 """
 
 # [START classroom_patch_course]
-
 from __future__ import print_function
 
 import google.auth
@@ -44,7 +43,7 @@ def classroom_patch_course(course_id):
                                          updateMask='section,room',
                                          body=course).execute()
         print(f" Course updated are: {course.get('name')}")
-
+        return course
     except HttpError as error:
         print(f"An error occurred: {error}")
 

@@ -12,19 +12,20 @@ limitations under the License.
 """
 import unittest
 
-import classroom_list_courses
+import classroom_create_course
 import classroom_update_course
+from base_test import BaseTest
 
 
-class TestClassroomUpdateCourse(unittest.TestCase):
+class TestClassroomUpdateCourse(BaseTest):
     """Unit test class for Get course snippet"""
-    @classmethod
-    def test_classroom_update_course(cls):
+    def test_classroom_update_course(self):
         """Unit test method for Get course snippet"""
-        course = classroom_list_courses.classroom_list_courses()
-        course_id = classroom_update_course.classroom_update_course(course
-                                                                    .get('id'))
-        cls.assertIsNotNone(cls, course_id)
+        course = classroom_create_course.classroom_create_course()
+        self.assertIsNotNone(course)
+        self.delete_course_on_cleanup(course.get('id'))
+        course = classroom_update_course.classroom_update_course(course.get('id'))
+        self.assertIsNotNone(course)
 
 
 if __name__ == "__main__":

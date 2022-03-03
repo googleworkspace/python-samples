@@ -23,7 +23,7 @@ jobs:
           git fetch origin master "${{ github.event.pull_request.base.sha }}"
           git diff  --diff-filter=ACM --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > "${HOME}/changed_files.txt"
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
