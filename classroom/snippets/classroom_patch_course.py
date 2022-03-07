@@ -43,10 +43,10 @@ def classroom_patch_course(course_id):
                                          updateMask='section,room',
                                          body=course).execute()
         print(f" Course updated are: {course.get('name')}")
-        return course
+        
     except HttpError as error:
         print(f"An error occurred: {error}")
-
+    return course
 
 if __name__ == '__main__':
     # Put the course_id of course with whom we need to patch some extra
