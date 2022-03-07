@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START forms_create_quiz]
+# [START forms_convert_form]
 from __future__ import print_function
 
 from apiclient import discovery
@@ -64,4 +64,4 @@ question_setting = form_service.forms().batchUpdate(formId=result["formId"],
 # Print the result to see it's now a quiz
 getresult = form_service.forms().get(formId=result["formId"]).execute()
 print(getresult)
-# [END forms_create_quiz]
+# [END forms_convert_form]
