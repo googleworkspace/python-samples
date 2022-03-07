@@ -20,7 +20,7 @@ from httplib2 import Http
 from oauth2client import client, file, tools
 
 SCOPES = "https://www.googleapis.com/auth/forms.body"
-API_KEY = "AIzaSyC2z2Kj1QbZJuVK3drjhEUBkQ_SyScX48A"
+API_KEY = "<YOUR_API_KEY>"
 DISCOVERY_DOC = f"https://forms.googleapis.com/$discovery/rest?version=v1"
 
 store = file.Storage('token.json')
