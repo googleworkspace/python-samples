@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START forms_convert_form]
+# [START forms_create_quiz]
 from __future__ import print_function
 
 from apiclient import discovery
@@ -21,20 +21,20 @@ from oauth2client import client, file, tools
 
 SCOPES = "https://www.googleapis.com/auth/forms.body"
 API_KEY = "<YOUR_API_KEY>"
-DISCOVERY_DOC = f"https://forms.googleapis.com/$discovery/rest?version=v1beta&key={API_KEY}&labels=FORMS_BETA_TESTERS"
+DISCOVERY_DOC = f"https://forms.googleapis.com/$discovery/rest?version=v1&key={API_KEY}"
 
-store = file.Storage('credentials.json')
+store = file.Storage('token.json')
 creds = None
 if not creds or creds.invalid:
     flow = client.flow_from_clientsecrets('client_secrets.json', SCOPES)
     creds = tools.run_flow(flow, store)
 
-form_service = discovery.build('forms', 'v1beta', http=creds.authorize(
+form_service = discovery.build('forms', 'v1', http=creds.authorize(
     Http()), discoveryServiceUrl=DISCOVERY_DOC, static_discovery=False)
 
 form = {
     "info": {
-        "title": "My new form",
+        "title": "My new quiz",
     }
 }
 
@@ -64,4 +64,4 @@ question_setting = form_service.forms().batchUpdate(formId=result["formId"],
 # Print the result to see it's now a quiz
 getresult = form_service.forms().get(formId=result["formId"]).execute()
 print(getresult)
-# [END forms_convert_form]
+# [END forms_create_quiz]
