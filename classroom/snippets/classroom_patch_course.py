@@ -24,8 +24,8 @@ from googleapiclient.errors import HttpError
 def classroom_patch_course(course_id):
 
     """
-    Patch new course with existing course in the account the user has access to.
-    Load pre-authorized user credentials from the environment.
+    Patch new course with existing course in the account the user has 
+    access to. Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.
     """
