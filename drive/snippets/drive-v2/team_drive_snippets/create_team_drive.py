@@ -1,4 +1,4 @@
-"""Copyright 2018 Google LLC
+"""Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,44 +13,46 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START classroom_patch_course]
+# [START drive_create_team_drive]
+
 from __future__ import print_function
+
+import uuid
 
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def classroom_patch_course(course_id):
+def create_team_drive():
+    """ Create a drive for team.
+    Returns: ID of the created drive
 
-    """
-    Patch new course with existing course in the account the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.
     """
-    # pylint: disable=maybe-no-member
-
     creds, _ = google.auth.default()
 
     try:
-        service = build('classroom', 'v1', credentials=creds)
-        course = {
-            'section': 'Period 3',
-            'room': '313'
-        }
-        course = service.courses().patch(id=course_id,
-                                         updateMask='section,room',
-                                         body=course).execute()
-        print(f" Course updated are: {course.get('name')}")
-        return course
+        # call drive api client
+        service = build('drive', 'v2', credentials=creds)
+
+        # pylint: disable=maybe-no-member
+        team_drive_metadata = {'name': 'Project Resources'}
+        request_id = str(uuid.uuid4())
+        team_drive = service.teamdrives().insert(body=team_drive_metadata,
+                                                 requestId=request_id,
+                                                 fields='id').execute()
+        print(F'Team Drive ID: {team_drive.get("id")}')
+
     except HttpError as error:
-        print(f"An error occurred: {error}")
+        print(F'An error occurred: {error}')
+        team_drive = None
+
+    return team_drive.get('id')
 
 
 if __name__ == '__main__':
-    # Put the course_id of course with whom we need to patch some extra
-    # information.
-    classroom_patch_course('course_id')
-
-# [END classroom_patch_course]
+    create_team_drive()
+# [END drive_create_team_drive]
