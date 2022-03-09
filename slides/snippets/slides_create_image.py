@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,13 +23,23 @@ from googleapiclient.errors import HttpError
 
 
 def create_image(presentation_id, page_id):
+    """
+        Creates images the user has access to.
+        Load pre-authorized user credentials from the environment.
+        TODO(developer) - See https://developers.google.com/identity
+        for guides on implementing OAuth2 for the application.\n"
+        """
+
     creds, _ = google.auth.default()
+    # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
+        # pylint: disable = invalid-name
         IMAGE_URL = ('https://www.google.com/images/branding/'
                      'googlelogo/2x/googlelogo_color_272x92dp.png')
+        # pylint: disable=invalid-name
         requests = []
-        image_id = 'MyImage_02'
+        image_id = 'MyImage_11'
         emu4M = {
             'magnitude': 4000000,
             'unit': 'EMU'
@@ -62,21 +72,18 @@ def create_image(presentation_id, page_id):
         response = service.presentations() \
             .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_image_response = response.get('replies')[0].get('createImage')
-        print('Created image with ID: {0}'.format(
-            create_image_response.get('objectId')))
+        print(f"Created image with ID: "
+              f"{(create_image_response.get('objectId'))}")
 
-
-
+        return response
     except HttpError as error:
         print(f"An error occurred: {error}")
-        print(f"Slides not created")
+        print("Images not created")
         return error
-
-    return response
 
 
 if __name__ == '__main__':
     # Put the presentation_id, Page_id of slides whose list needs
     # to be submitted.
-    create_image("16eRvJHRrM8Sej5YA0yCHVzQCPLz31-JhbOa4XpP8Yko", "wa1ercf")
+    create_image("12SQU9Ik-ShXecJoMtT-LlNwEPiFR7AadnxV2KiBXCnE", "My2ndpage")
     # [END slides_create_image]

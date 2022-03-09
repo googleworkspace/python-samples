@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,14 @@ from googleapiclient.errors import HttpError
 
 
 def create_slide(presentation_id, page_id):
+    """
+    Creates the Presentation the user has access to.
+    Load pre-authorized user credentials from the environment.
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.\n"
+    """
     creds, _ = google.auth.default()
+    # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
         # [START slides_create_slide]
@@ -51,11 +58,11 @@ def create_slide(presentation_id, page_id):
         response = service.presentations() \
             .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_slide_response = response.get('replies')[0].get('createSlide')
-        print('Created slide with ID: {0}'.format(
-            create_slide_response.get('objectId')))
+        print(f"Created slide with ID:"
+              f"{(create_slide_response.get('objectId'))}")
     except HttpError as error:
         print(f"An error occurred: {error}")
-        print(f"Slides not created")
+        print("Slides not created")
         return error
 
     return response
@@ -64,5 +71,5 @@ def create_slide(presentation_id, page_id):
 if __name__ == '__main__':
     # Put the presentation_id, Page_id of slides whose list needs
     # to be submitted.
-    create_slide("16eRvJHRrM8Sej5YA0yCHVzQCPLz31-JhbOa4XpP8Yko", "wa1fe")
+    create_slide("12SQU9Ik-ShXecJoMtT-LlNwEPiFR7AadnxV2KiBXCnE", "My4ndpage")
     # [END slides_create_slide]

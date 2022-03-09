@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,15 @@ from googleapiclient.errors import HttpError
 
 
 def copy_presentation(presentation_id, copy_title):
+    """
+           Creates the copy Presentation the user has access to.
+           Load pre-authorized user credentials from the environment.
+           TODO(developer) - See https://developers.google.com/identity
+           for guides on implementing OAuth2 for the application.\n"
+           """
+
     creds, _ = google.auth.default()
+    # pylint: disable=maybe-no-member
     try:
         drive_service = build('drive', 'v3', credentials=creds)
         body = {
@@ -35,7 +43,7 @@ def copy_presentation(presentation_id, copy_title):
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-        print(f"Slides not created")
+        print("Presentations  not copied")
         return error
 
     return presentation_copy_id

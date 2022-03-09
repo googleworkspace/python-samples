@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,14 @@ from googleapiclient.errors import HttpError
 
 
 def create_presentation(title):
+    """
+        Creates the Presentation the user has access to.
+        Load pre-authorized user credentials from the environment.
+        TODO(developer) - See https://developers.google.com/identity
+        for guides on implementing OAuth2 for the application.\n"
+        """
     creds, _ = google.auth.default()
+    # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
 
@@ -32,17 +39,20 @@ def create_presentation(title):
         }
         presentation = service.presentations() \
             .create(body=body).execute()
-        print('Created presentation with ID: {0}'.format(
-            presentation.get('presentationId')))
+        print(f"Created presentation with ID:"
+              f"{(presentation.get('presentationId'))}")
+        # [END slides_create_presentation]
+        return presentation
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-        print(f"presentation not created")
+        print("presentation not created")
         return error
-    return presentation
 
 
 if __name__ == '__main__':
-    create_presentation("myfirsttest")
+    # Put the title of the presentation
+
+    create_presentation("finalp")
 
 # [END slides_create_presentation]

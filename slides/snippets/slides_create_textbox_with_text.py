@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,12 +23,19 @@ from googleapiclient.errors import HttpError
 
 
 def create_textbox_with_text(presentation_id, page_id):
+    """
+    Creates the textbox with text, the user has access to.
+    Load pre-authorized user credentials from the environment.
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.\n"
+    """
     creds, _ = google.auth.default()
+    # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
         # [START slides_create_textbox_with_text]
         # Create a new square textbox, using the supplied element ID.
-        element_id = 'MyTextBox_01'
+        element_id = 'MyTextBox_10'
         pt350 = {
             'magnitude': 350,
             'unit': 'PT'
@@ -72,11 +79,11 @@ def create_textbox_with_text(presentation_id, page_id):
         response = service.presentations() \
             .batchUpdate(presentationId=presentation_id, body=body).execute()
         create_shape_response = response.get('replies')[0].get('createShape')
-        print('Created textbox with ID: {0}'.format(
-            create_shape_response.get('objectId')))
+        print(f"Created textbox with ID:"
+              f"{(create_shape_response.get('objectId'))}")
     except HttpError as error:
-        print(f"An error occurred: {error}")
-        print(f"Slides not created")
+        print(f'An error occurred: {error}')
+
         return error
 
     return response
@@ -85,6 +92,7 @@ def create_textbox_with_text(presentation_id, page_id):
 if __name__ == '__main__':
     # Put the presentation_id, Page_id of slides whose list needs
     # to be submitted.
-    create_textbox_with_text("16eRvJHRrM8Sej5YA0yCHVzQCPLz31-JhbOa4XpP8Yko", "wa1ercf")
+    create_textbox_with_text("12SQU9Ik-ShXecJoMtT-LlNwEPiFR7AadnxV2KiBXCnE",
+                             "Myfirstpage")
 
 # [END slides_create_textbox_with_text]
