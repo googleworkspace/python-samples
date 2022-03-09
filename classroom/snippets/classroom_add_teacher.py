@@ -19,17 +19,12 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_add_teacher(course_id):
-    """Shows basic usage of the Classroom API.
-    Updates the courses names the user has access to.
-
-    The file token.json stores the user's access and refresh tokens, and is
-    created automatically when the authorization flow completes for the first
-    time.
+    """
+    Adds a teacher to a course with specific course_id.
     Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity for
-     guides on implementing OAuth2 for the application."""
-
-    """ Adds a teacher to a course. """
+    TODO(developer) - See https://developers.google.com/identity
+    for guides on implementing OAuth2 for the application.
+    """
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
     service = build('classroom', 'v1', credentials=creds)
