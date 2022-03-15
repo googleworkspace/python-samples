@@ -16,7 +16,6 @@ limitations under the License.
 """
 
 # [START classroom_get_course]
-
 from __future__ import print_function
 
 import google.auth
@@ -30,7 +29,7 @@ def classroom_get_course(course_id):
     Prints the name of the with specific course_id.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
@@ -49,6 +48,6 @@ def classroom_get_course(course_id):
 
 if __name__ == '__main__':
     # Put the course_id of course whose information needs to be fetched.
-    classroom_get_course(466190187326)
+    classroom_get_course('course_id')
 
-# [END classroom_list_courses]
+# [END classroom_get_courses]

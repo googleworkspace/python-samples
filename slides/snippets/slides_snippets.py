@@ -137,8 +137,7 @@ class SlidesSnippets(object):
         # [START slides_create_image]
         # Create a new image, using the supplied object ID,
         # with content downloaded from IMAGE_URL.
-        IMAGE_URL = ('https://www.google.com/images/branding/'
-                     'googlelogo/2x/googlelogo_color_272x92dp.png')
+        IMAGE_URL = 'https://picsum.photos/200'
         requests = []
         image_id = 'MyImage_01'
         emu4M = {
