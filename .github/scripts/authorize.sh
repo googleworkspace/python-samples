@@ -20,6 +20,7 @@
 SCOPES=(
     "https://www.googleapis.com/auth/drive"
     "https://www.googleapis.com/auth/drive.activity"
+    "https://www.googleapis.com/auth/drive.appdata"
     "https://mail.google.com/"
     "https://www.googleapis.com/auth/classroom.courses"
     "https://www.googleapis.com/auth/classroom.announcements"
@@ -41,7 +42,7 @@ fi
 
 printf -v EXPANDED_SCOPES '%s,' "${SCOPES[@]}"
 gcloud auth application-default login \
-  --client-id-file=client_secret.json \
+  --client-id-file="$CLIENT_ID_FILE" \
   --scopes="${EXPANDED_SCOPES}"
 
 cat "${HOME}/.config/gcloud/application_default_credentials.json"

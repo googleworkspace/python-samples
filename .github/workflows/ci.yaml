@@ -5,9 +5,14 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    branches: [ master ]
 
 jobs:
   test:
+    concurrency:
+      group: ${{ github.head_ref || github.ref }}
+      cancel-in-progress: true
     # Only run for internal PRs or after a merge
     if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
