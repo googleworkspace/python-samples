@@ -20,8 +20,7 @@ from slides_snippets import SlidesSnippets
 
 
 class SnippetsTest(BaseTest):
-    IMAGE_URL = 'https://www.google.com/images/' \
-        'branding/googlelogo/2x/googlelogo_color_272x92dp.png'
+    IMAGE_URL = 'https://picsum.photos/200'
     TEMPLATE_PRESENTATION_ID = '1ElmXUX6de-b_OkH2iOK8PKS9FfQeln_Rx0aloIg6Rdc'
     DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
     CHART_ID = 1107320627

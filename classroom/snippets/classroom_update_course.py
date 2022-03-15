@@ -27,12 +27,11 @@ def classroom_update_course(course_id):
     Updates the courses names the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
+    # pylint: disable=maybe-no-member
 
     creds, _ = google.auth.default()
-
-    # pylint: disable=maybe-no-member
 
     try:
         service = build('classroom', 'v1', credentials=creds)
@@ -44,6 +43,7 @@ def classroom_update_course(course_id):
         course['room'] = '410'
         course = service.courses().update(id=course_id, body=course).execute()
         print(f" Updated Course is:  {course.get('name')}")
+        return course
 
     except HttpError as error:
         print(f"An error occurred: {error}")
@@ -51,6 +51,7 @@ def classroom_update_course(course_id):
 
 
 if __name__ == '__main__':
-    # Put the course_id of course whose course needs to be updated
-    classroom_update_course(455990676852)
+    # Put the course_id of course whose course needs to be updated.
+    classroom_update_course('course_id')
+
 # [END classroom_update_course]

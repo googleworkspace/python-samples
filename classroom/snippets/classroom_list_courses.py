@@ -16,6 +16,7 @@ limitations under the License.
 """
 
 # [START classroom_list_courses]
+
 from __future__ import print_function
 
 import google.auth
@@ -29,18 +30,17 @@ def classroom_list_courses():
     Prints the list of the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
-    # pylint: disable=maybe-no-member
-    course = None
     try:
         service = build('classroom', 'v1', credentials=creds)
         courses = []
         page_token = None
 
         while True:
+            # pylint: disable=maybe-no-member
             response = service.courses().list(pageToken=page_token,
                                               pageSize=100).execute()
             courses.extend(response.get('courses', []))
@@ -54,7 +54,7 @@ def classroom_list_courses():
         print("Courses:")
         for course in courses:
             print(f"{course.get('name'), course.get('id')}")
-        return course
+        return courses
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error

@@ -37,6 +37,11 @@ Perform mail merges from plain text or Google Sheets data sources
 - [Quickstart](https://developers.google.com/drive/v3/web/quickstart/python)
 - [DriveApp](drive/driveapp): A simple app that uploads a file to Google Drive.
 
+### Forms
+
+- [Quickstart](https://developers.google.com/forms/api/quickstart/python)
+- [Snippets](https://developers.google.com/forms/api/guides)
+
 ### Gmail
 
 - [Quickstart](https://developers.google.com/gmail/api/quickstart/python)

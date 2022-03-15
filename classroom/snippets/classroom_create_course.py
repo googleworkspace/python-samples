@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
+
 # [START classroom_create_course]
 from __future__ import print_function
 
@@ -28,7 +29,7 @@ def classroom_create_course():
     Creates the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
@@ -60,4 +61,5 @@ def classroom_create_course():
 
 if __name__ == '__main__':
     classroom_create_course()
+
 # [END classroom_create_course]

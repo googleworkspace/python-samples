@@ -1,18 +1,18 @@
 # Copyright 2021 Google LLC
-#
+# 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     https://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START forms_add_item]
+# [START forms_quickstart]
 from __future__ import print_function
 
 from apiclient import discovery
@@ -31,41 +31,50 @@ if not creds or creds.invalid:
 form_service = discovery.build('forms', 'v1', http=creds.authorize(
     Http()), discoveryServiceUrl=DISCOVERY_DOC, static_discovery=False)
 
-form = {
+# Request body for creating a form
+NEW_FORM = {
     "info": {
-        "title": "Update item example for Forms API",
+        "title": "Quickstart form",
     }
 }
 
-# Creates the initial Form
-createResult = form_service.forms().create(body=form).execute()
-
-# Request body to add a video item to a Form
-update = {
+# Request body to add a multiple-choice question
+NEW_QUESTION = {
     "requests": [{
         "createItem": {
             "item": {
-                "title": "Homework video",
-                "description": "Quizzes in Google Forms",
-                "videoItem": {
-                    "video": {
-                        "youtubeUri": "https://www.youtube.com/watch?v=Lt5HqPvM-eI"
+                "title": "In what year did the United States land a mission on the moon?",
+                "questionItem": {
+                    "question": {
+                        "required": True,
+                        "choiceQuestion": {
+                            "type": "RADIO",
+                            "options": [
+                                {"value": "1965"},
+                                {"value": "1967"},
+                                {"value": "1969"},
+                                {"value": "1971"}
+                            ],
+                            "shuffle": True
+                        }
                     }
-                }
+                },
             },
             "location": {
                 "index": 0
             }
-        }
-    }
-    ]
+       }
+    }]
 }
 
-# Add the video to the form
-question_setting = form_service.forms().batchUpdate(
-    formId=createResult["formId"], body=update).execute()
+# Creates the initial form
+result = form_service.forms().create(body=NEW_FORM).execute()
 
-# Print the result to see it now has a video
-result = form_service.forms().get(formId=createResult["formId"]).execute()
-print(result)
-# [END forms_add_item]
+# Adds the question to the form
+question_setting = form_service.forms().batchUpdate(formId=result["formId"], body=NEW_QUESTION).execute()
+
+# Prints the result to show the question has been added
+get_result = form_service.forms().get(formId=result["formId"]).execute()
+print(get_result)
+
+# [END forms_quickstart]
