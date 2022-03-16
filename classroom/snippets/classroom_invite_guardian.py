@@ -23,7 +23,7 @@ from googleapiclient.errors import HttpError
 # [START classroom_invite_guardian]
 
 
-def classroom_invite_guardian(course_id, coursework_id, submission_id):
+def classroom_invite_guardian():
     """
     Creates the courses the user has access to.
     Load pre-authorized user credentials from the environment.
