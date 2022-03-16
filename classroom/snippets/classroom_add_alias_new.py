@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 import os.path
-import google.auth
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -31,8 +31,8 @@ def classroom_add_alias_new():
     """
         Creates a course with alias specification the user has access to.
         The file token.json stores the user's access and refresh tokens, and is
-        created automatically when the authorization flow completes for the first
-        time.
+        created automatically when the authorization flow completes for
+        the first time.
         Load pre-authorized user credentials from the environment.
         TODO(developer) - See https://developers.google.com/identity for
          guides on implementing OAuth2 for the application.
@@ -50,7 +50,7 @@ def classroom_add_alias_new():
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('token.json', 'w', encoding="utf8") as token:
             token.write(creds.to_json())
 
     alias = 'd:school_physics_333'
@@ -67,14 +67,15 @@ def classroom_add_alias_new():
         service = build('classroom', 'v1', credentials=creds)
         course = service.courses().create(body=course).execute()
         print('====================================')
-        return course
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+    return course
 
 
 if __name__ == '__main__':
+    # pylint: disable=too-many-arguments
     # Put the course_id of course whose alias needs to be created.
-    classroom_add_alias_new(478800920837)
+    classroom_add_alias_new()
 
 # [END classroom_new_alias]
