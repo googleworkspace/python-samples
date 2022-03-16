@@ -16,6 +16,7 @@ limitations under the License."""
 from __future__ import print_function
 
 import os
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -51,14 +52,13 @@ def classroom_add_student_new(course_id):
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('token.json', 'w', encoding="utf8") as token:
             token.write(creds.to_json())
 
     enrollment_code = 'abc-def'
     student = {
             'userId': 'gduser1@workspacesamples.dev'
         }
-
     try:
         service = build('classroom', 'v1', credentials=creds)
         student = service.courses().students().create(
