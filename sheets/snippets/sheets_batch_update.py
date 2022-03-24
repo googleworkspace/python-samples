@@ -75,6 +75,6 @@ def sheets_batch_update(spreadsheet_id, title, find, replacement):
 
 
 if __name__ == '__main__':
-    sheets_batch_update(spreadsheet_id, title, find, replacement)
+    sheets_batch_update('spreadsheet_id', 'title', 'find', 'replacement')
 
 # [END sheets_batch_update]
