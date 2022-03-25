@@ -14,6 +14,7 @@ limitations under the License.
 """
 
 # [START classroom_patch_course]
+
 from __future__ import print_function
 
 import google.auth

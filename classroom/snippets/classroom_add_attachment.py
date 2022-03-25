@@ -1,5 +1,5 @@
 """
-Copyright 2018 Google LLC
+Copyright 2022 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,53 +14,47 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
-
-# [START classroom_create_course]
-
 from __future__ import print_function
 
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+# [START classroom_add_attachment]
 
-def classroom_create_course():
 
+def classroom_add_attachment(course_id, coursework_id, submission_id):
     """
-    Creates the courses the user has access to.
+    Adds attachment to existing course with specific course_id.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.
     """
-
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
+    request = {
+        'addAttachments': [
+            {'link': {'url': 'http://example.com/quiz-results'}},
+            {'link': {'url': 'http://example.com/quiz-reading'}}
+        ]
+    }
 
     try:
         service = build('classroom', 'v1', credentials=creds)
-        course = {
-            'name': '10th Grade Mathematics Probability-2',
-            'section': 'Period 3',
-            'descriptionHeading': 'Welcome to 10th Grade Mathematics',
-            'description': """We'll be learning about about the
-                                 polynomials from a
-                                 combination of textbooks and guest lectures.
-                                 Expect to be excited!""",
-            'room': '302',
-            'ownerId': 'me',
-            'courseState': 'PROVISIONED'
-        }
-        # pylint: disable=maybe-no-member
-        course = service.courses().create(body=course).execute()
-        print(f"Course created:  {(course.get('name'), course.get('id'))}")
-        return course
+        while True:
+            coursework = service.courses().courseWork()
+            coursework.studentSubmissions().modifyAttachments(
+                courseId=course_id,
+                courseWorkId=coursework_id,
+                id=submission_id,
+                body=request).execute()
 
     except HttpError as error:
         print(f"An error occurred: {error}")
-        return error
 
 
 if __name__ == '__main__':
-    classroom_create_course()
-
-# [END classroom_create_course]
+    # Put the course_id, coursework_id and submission_id of course in which
+    # attachment needs to be added.
+    classroom_add_attachment('course_id', 'coursework_id', "me")
+# [END classroom_add_attachment]
