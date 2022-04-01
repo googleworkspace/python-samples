@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=(consider-using-f-string)
 
 """
 docs-mail-merge.py (Python 2.x or 3.x)
@@ -22,17 +23,16 @@ from __future__ import print_function
 
 import time
 
-from googleapiclient import discovery
-from httplib2 import Http
-from oauth2client import client, file, tools
+import google.auth
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # Fill-in IDs of your Docs template & any Sheets data source
-DOCS_FILE_ID = 'YOUR_TMPL_DOC_FILE_ID'
-SHEETS_FILE_ID = 'YOUR_SHEET_DATA_FILE_ID'
+DOCS_FILE_ID = "195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE"
+SHEETS_FILE_ID = "11pPEzi1vCMNbdpqaQx4N43rKmxvZlgEHE9GqpYoEsWw"
 
 # authorization constants
-CLIENT_ID_FILE = 'credentials.json'
-TOKEN_STORE_FILE = 'token.json'
+
 SCOPES = (  # iterable or space-delimited string
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/documents',
@@ -50,33 +50,27 @@ TEXT_SOURCE_DATA = (
                                                 'New York, NY  10011-4962'),
 )
 
-
-def get_http_client():
-    """Uses project credentials in CLIENT_ID_FILE along with requested OAuth2
-        scopes for authorization, and caches API tokens in TOKEN_STORE_FILE.
-    """
-    store = file.Storage(TOKEN_STORE_FILE)
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_ID_FILE, SCOPES)
-        creds = tools.run_flow(flow, store)
-    return creds.authorize(Http())
-
+creds, _ = google.auth.default()
+# pylint: disable=maybe-no-member
 
 # service endpoints to Google APIs
-HTTP = get_http_client()
-DRIVE = discovery.build('drive', 'v3', http=HTTP)
-DOCS = discovery.build('docs', 'v1', http=HTTP)
-SHEETS = discovery.build('sheets', 'v4', http=HTTP)
+
+DRIVE = build('drive', 'v2', credentials=creds)
+DOCS = build('docs', 'v1', credentials=creds)
+SHEETS = build('sheets', 'v4', credentials=creds)
 
 
 def get_data(source):
     """Gets mail merge data from chosen data source.
     """
-    if source not in {'sheets', 'text'}:
-        raise ValueError('ERROR: unsupported source %r; choose from %r' % (
-            source, SOURCES))
-    return SAFE_DISPATCH[source]()
+    try:
+        if source not in {'sheets', 'text'}:
+            raise ValueError(f"ERROR: unsupported source {source}; "
+                             f"choose from {SOURCES}")
+        return SAFE_DISPATCH[source]()
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return error
 
 
 def _get_text_data():
@@ -91,7 +85,9 @@ def _get_sheets_data(service=SHEETS):
         (header) row. Use any desired data range (in standard A1 notation).
     """
     return service.spreadsheets().values().get(spreadsheetId=SHEETS_FILE_ID,
-                                               range='Sheet1').execute().get('values')[1:]  # skip header row
+                                               range='Sheet1').execute().get(
+        'values')[1:]
+    # skip header row
 
 
 # data source dispatch table [better alternative vs. eval()]
@@ -102,32 +98,41 @@ def _copy_template(tmpl_id, source, service):
     """(private) Copies letter template document using Drive API then
         returns file ID of (new) copy.
     """
-    body = {'name': 'Merged form letter (%s)' % source}
-    return service.files().copy(body=body, fileId=tmpl_id,
-                                fields='id').execute().get('id')
+    try:
+        body = {'name': 'Merged form letter (%s)' % source}
+        return service.files().copy(body=body, fileId=tmpl_id,
+                                    fields='id').execute().get('id')
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return error
 
 
 def merge_template(tmpl_id, source, service):
     """Copies template document and merges data into newly-minted copy then
         returns its file ID.
     """
-    # copy template and set context data struct for merging template values
-    copy_id = _copy_template(tmpl_id, source, service)
-    context = merge.iteritems() if hasattr({}, 'iteritems') else merge.items()
+    try:
+        # copy template and set context data struct for merging template values
+        copy_id = _copy_template(tmpl_id, source, service)
+        context = merge.iteritems() if hasattr({},
+                                               'iteritems') else merge.items()
 
-    # "search & replace" API requests for mail merge substitutions
-    reqs = [{'replaceAllText': {
-        'containsText': {
-            'text': '{{%s}}' % key.upper(),  # {{VARS}} are uppercase
-                    'matchCase': True,
-        },
-        'replaceText': value,
-    }} for key, value in context]
+        # "search & replace" API requests for mail merge substitutions
+        reqs = [{'replaceAllText': {
+            'containsText': {
+                'text': '{{%s}}' % key.upper(),  # {{VARS}} are uppercase
+                'matchCase': True,
+            },
+            'replaceText': value,
+        }} for key, value in context]
 
-    # send requests to Docs API to do actual merge
-    DOCS.documents().batchUpdate(body={'requests': reqs},
-                                 documentId=copy_id, fields='').execute()
-    return copy_id
+        # send requests to Docs API to do actual merge
+        DOCS.documents().batchUpdate(body={'requests': reqs},
+                                     documentId=copy_id, fields='').execute()
+        return copy_id
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        return error
 
 
 if __name__ == '__main__':
