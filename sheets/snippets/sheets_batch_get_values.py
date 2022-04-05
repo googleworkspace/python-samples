@@ -33,7 +33,6 @@ def batch_get_values(spreadsheet_id, _range_names):
     # pylint: disable=maybe-no-member
     try:
         service = build('sheets', 'v4', credentials=creds)
-        # [START sheets_batch_get_values]
         range_names = [
             # Range names ...
         ]
@@ -44,7 +43,6 @@ def batch_get_values(spreadsheet_id, _range_names):
             spreadsheetId=spreadsheet_id, ranges=range_names).execute()
         ranges = result.get('valueRanges', [])
         print(f"{len(ranges)} ranges retrieved")
-        # [END sheets_batch_get_values]
         return result
     except HttpError as error:
         print(f"An error occurred: {error}")
