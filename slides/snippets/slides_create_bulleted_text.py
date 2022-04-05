@@ -65,7 +65,6 @@ def create_bulleted_text(presentation_id, shape_id):
 if __name__ == '__main__':
     # Put the presentation_id and shape_id
     # to be submitted.
-    create_bulleted_text("1VD1xmi1-9DonI4zmCKENTzlVxIL5SdGGTmbHmnBjQ1E"
-                         , "MyTextBox_9")
+    create_bulleted_text("1VD1xmi1-9DonI4zmCKENTzlVxIL5SdGGTmbHmnBjQ1E", "MyTextBox_9")
 
 # [END slides_create_bulleted_text]

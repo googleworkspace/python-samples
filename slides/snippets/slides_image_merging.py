@@ -40,8 +40,6 @@ def image_merging(template_presentation_id,
 
         customer_graphic_url = image_url
 
-
-        # [START slides_image_merging]
         # Duplicate the template presentation using the Drive API.
         copy_title = customer_name + ' presentation'
         drive_response = drive_service.files().copy(

@@ -25,8 +25,10 @@ docs_mail_merge_test.py -- unit test for docs_mail_merge.py:
 import unittest
 
 import google.auth
-from docs_mail_merge import _copy_template, get_data, get_http_client
+from docs_mail_merge import _copy_template, get_data
 from googleapiclient import discovery
+
+creds, _ = google.auth.default()
 
 
 class TestDocsMailMerge(unittest.TestCase):
@@ -34,9 +36,6 @@ class TestDocsMailMerge(unittest.TestCase):
 
     def test_project(self):
         self.assertTrue(project_test())
-
-    def test_gapis(self):
-        self.assertTrue(gapis_test())
 
     def test_create_doc(self):
         self.assertTrue(create_doc_test())
@@ -56,18 +55,9 @@ def project_test():
     credentials, project = google.auth.default()
 
 
-def gapis_test():
-    'Tests whether project can connect to all 3 APIs used in the sample.'
-    HTTP = get_http_client()
-    discovery.build('drive', 'v3', http=HTTP)
-    discovery.build('docs', 'v1', http=HTTP)
-    discovery.build('sheets', 'v4', http=HTTP)
-    return True
-
-
 def create_doc_test():
     'Tests whether project can create and delete a Google Docs file.'
-    DRIVE = discovery.build('drive', 'v3', http=get_http_client())
+    DRIVE = discovery.build('drive', 'v3', credentials=creds)
     DATA = {
         'name': 'Test Doc',
         'mimeType': 'application/vnd.google-apps.document',
@@ -79,7 +69,7 @@ def create_doc_test():
 
 def copy_doc_test():
     'Tests whether project can copy and delete a Google Docs file.'
-    DRIVE = discovery.build('drive', 'v3', http=get_http_client())
+    DRIVE = discovery.build('drive', 'v3', credentials=creds)
     DOCS_FILE_ID = '1Xycxuuv7OhEQUuzbt_Mw0TPMq02MseSD1vZdBJ3nLjk'
     doc_id = _copy_template(DOCS_FILE_ID, 'text', DRIVE)
     DRIVE.files().delete(fileId=doc_id, fields='').execute()

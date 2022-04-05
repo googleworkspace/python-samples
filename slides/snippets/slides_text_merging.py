@@ -114,7 +114,6 @@ def text_merging(template_presentation_id, data_spreadsheet_id):
 
         return response
 
-
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error
