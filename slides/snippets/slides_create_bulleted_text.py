@@ -34,7 +34,6 @@ def create_bulleted_text(presentation_id, shape_id):
     try:
 
         slides_service = build('slides', 'v1', credentials=creds)
-        # [START slides_create_bulleted_text]
         # Add arrow-diamond-disc bullets to all text in the shape.
         requests = [
             {

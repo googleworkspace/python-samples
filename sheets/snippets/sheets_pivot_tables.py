@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START sheets_get_values]
+# [START sheets_pivot_tables]
 from __future__ import print_function
 
 import google.auth
@@ -48,7 +48,6 @@ def pivot_tables(spreadsheet_id):
         target_sheet_id = batch_update_response.get('replies')[1] \
             .get('addSheet').get('properties').get('sheetId')
         requests = []
-        # [START sheets_pivot_tables]
         requests.append({
             'updateCells': {
                 'rows': {
@@ -103,7 +102,6 @@ def pivot_tables(spreadsheet_id):
         }
         response = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
-        # [END sheets_pivot_tables]
         return response
 
     except HttpError as error:

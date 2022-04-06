@@ -34,7 +34,6 @@ def create_sheets_chart(presentation_id, page_id, spreadsheet_id,
     # pylint: disable=maybe-no-member
     try:
         slides_service = build('slides', 'v1', credentials=creds)
-        # [START slides_create_sheets_chart]
         # Embed a Sheets chart (indicated by the spreadsheet_id and
         # sheet_chart_id) onto a page in the presentation.
         # Setting the linking mode as "LINKED" allows the
@@ -78,7 +77,6 @@ def create_sheets_chart(presentation_id, page_id, spreadsheet_id,
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print(f"Added a linked Sheets chart with ID: {presentation_chart_id}")
-        # [END slides_create_sheets_chart]
         return response
     except HttpError as error:
         print(f"An error occurred: {error}")

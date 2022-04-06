@@ -33,7 +33,6 @@ def create_slide(presentation_id, page_id):
     # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
-        # [START slides_create_slide]
         # Add a slide at index 1 using the predefined
         # 'TITLE_AND_TWO_COLUMNS' layout and the ID page_id.
         requests = [

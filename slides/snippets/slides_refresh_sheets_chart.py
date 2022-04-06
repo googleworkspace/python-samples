@@ -33,7 +33,6 @@ def refresh_sheets_chart(presentation_id, presentation_chart_id):
     # pylint: disable=maybe-no-member
     try:
         slides_service = build('slides', 'v1', credentials=creds)
-        # [START slides_refresh_sheets_chart]
         # Refresh an existing linked Sheets chart embedded in a presentation.
         requests = [
             {
@@ -50,7 +49,6 @@ def refresh_sheets_chart(presentation_id, presentation_chart_id):
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print(f"Refreshed a linked Sheets chart with ID:{presentation_chart_id}")
-        # [END slides_refresh_sheets_chart]
         return response
     except HttpError as error:
         print(f"An error occurred: {error}")

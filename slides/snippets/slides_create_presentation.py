@@ -41,7 +41,6 @@ def create_presentation(title):
             .create(body=body).execute()
         print(f"Created presentation with ID:"
               f"{(presentation.get('presentationId'))}")
-        # [END slides_create_presentation]
         return presentation
 
     except HttpError as error:

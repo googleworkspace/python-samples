@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START sheets_get_values]
+# [START sheets_batch_update_values]
 from __future__ import print_function
 
 import google.auth
@@ -35,7 +35,6 @@ def batch_update_values(spreadsheet_id, range_name,
     try:
         service = build('sheets', 'v4', credentials=creds)
 
-        # [START sheets_batch_update_values]
         values = [
             [
                 # Cell values ...
@@ -59,7 +58,6 @@ def batch_update_values(spreadsheet_id, range_name,
         result = service.spreadsheets().values().batchUpdate(
             spreadsheetId=spreadsheet_id, body=body).execute()
         print(f"{(result.get('totalUpdatedCells'))} cells updated.")
-        # [END sheets_batch_update_values]
         return result
     except HttpError as error:
         print(f"An error occurred: {error}")

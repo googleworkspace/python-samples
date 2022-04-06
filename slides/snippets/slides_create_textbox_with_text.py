@@ -33,7 +33,6 @@ def create_textbox_with_text(presentation_id, page_id):
     # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
-        # [START slides_create_textbox_with_text]
         # Create a new square textbox, using the supplied element ID.
         element_id = 'MyTextBox_10'
         pt350 = {

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START slides_simple_text_replace]
+# [START slides_text_style_update]
 from __future__ import print_function
 
 import google.auth
@@ -33,7 +33,6 @@ def text_style_update(presentation_id, shape_id):
     # pylint: disable=maybe-no-member
     try:
         service = build('slides', 'v1', credentials=creds)
-        # [START slides_text_style_update]
         # Update the text style so that the first 5 characters are bolded
         # and italicized, the next 5 are displayed in blue 14 pt Times
         # New Roman font, and the next 5 are hyperlinked.

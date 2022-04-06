@@ -34,12 +34,10 @@ def get_values(spreadsheet_id, range_name):
     try:
         service = build('sheets', 'v4', credentials=creds)
 
-        # [START sheets_get_values]
         result = service.spreadsheets().values().get(
             spreadsheetId=spreadsheet_id, range=range_name).execute()
         rows = result.get('values', [])
         print(f"{len(rows)} rows retrieved")
-        # [END sheets_get_values]
         return result
     except HttpError as error:
         print(f"An error occurred: {error}")

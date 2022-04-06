@@ -33,7 +33,6 @@ def simple_text_replace(presentation_id, shape_id, replacement_text):
     # pylint: disable=maybe-no-member
     try:
         slides_service = build('slides', 'v1', credentials=creds)
-        # [START slides_simple_text_replace]
         # Remove existing text in the shape, then insert new text.
         requests = []
         requests.append({
@@ -59,7 +58,6 @@ def simple_text_replace(presentation_id, shape_id, replacement_text):
         response = slides_service.presentations().batchUpdate(
             presentationId=presentation_id, body=body).execute()
         print(f"Replaced text in shape with ID: {shape_id}")
-        # [END slides_simple_text_replace]
         return response
     except HttpError as error:
         print(f"An error occurred: {error}")

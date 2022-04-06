@@ -33,7 +33,6 @@ def create(title):
     # pylint: disable=maybe-no-member
     try:
         service = build('sheets', 'v4', credentials=creds)
-        # [START sheets_create]
         spreadsheet = {
             'properties': {
                 'title': title
@@ -43,7 +42,6 @@ def create(title):
                                                     fields='spreadsheetId') \
             .execute()
         print(f"Spreadsheet ID: {(spreadsheet.get('spreadsheetId'))}")
-        # [END sheets_create]
         return spreadsheet.get('spreadsheetId')
     except HttpError as error:
         print(f"An error occurred: {error}")

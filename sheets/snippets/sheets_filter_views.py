@@ -34,7 +34,6 @@ def filter_views(spreadsheet_id):
     try:
         service = build('sheets', 'v4', credentials=creds)
 
-        # [START sheets_filter_views]
         my_range = {
             'sheetId': 0,
             'startRowIndex': 0,
@@ -111,7 +110,6 @@ def filter_views(spreadsheet_id):
         updatefilterviewresponse = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
         print(str(updatefilterviewresponse))
-        # [END sheets_filter_views]
     except HttpError as error:
         print(f"An error occurred: {error}")
 

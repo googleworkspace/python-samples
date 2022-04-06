@@ -35,7 +35,6 @@ def update_values(spreadsheet_id, range_name, value_input_option,
     try:
 
         service = build('sheets', 'v4', credentials=creds)
-        # [START sheets_update_values]
         values = [
             [
                 # Cell values ...
@@ -52,7 +51,6 @@ def update_values(spreadsheet_id, range_name, value_input_option,
             spreadsheetId=spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
         print(f"{result.get('updatedCells')} cells updated.")
-        # [END sheets_update_values]
         return result
     except HttpError as error:
         print(f"An error occurred: {error}")

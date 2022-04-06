@@ -35,7 +35,6 @@ def append_values(spreadsheet_id, range_name, value_input_option,
     try:
         service = build('sheets', 'v4', credentials=creds)
 
-        # [START sheets_append_values]
         values = [
             [
                 # Cell values ...
@@ -52,7 +51,6 @@ def append_values(spreadsheet_id, range_name, value_input_option,
             spreadsheetId=spreadsheet_id, range=range_name,
             valueInputOption=value_input_option, body=body).execute()
         print(f"{(result.get('updates').get('updatedCells'))} cells appended.")
-        # [END sheets_append_values]
         return result
 
     except HttpError as error:

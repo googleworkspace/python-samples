@@ -34,7 +34,6 @@ def conditional_formatting(spreadsheet_id):
     try:
         service = build('sheets', 'v4', credentials=creds)
 
-        # [START sheets_conditional_formatting]
         my_range = {
             'sheetId': 0,
             'startRowIndex': 1,
@@ -93,7 +92,6 @@ def conditional_formatting(spreadsheet_id):
         response = service.spreadsheets() \
             .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
         print(f"{(len(response.get('replies')))} cells updated.")
-        # [END sheets_conditional_formatting]
         return response
 
     except HttpError as error:

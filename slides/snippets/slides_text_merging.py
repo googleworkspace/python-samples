@@ -38,7 +38,6 @@ def text_merging(template_presentation_id, data_spreadsheet_id):
         service = build('slides', 'v1', credentials=creds)
         sheets_service = build('sheets', 'v4', credentials=creds)
         drive_service = build('drive', 'v3', credentials=creds)
-        # [START slides_text_merging]
         # Use the Sheets API to load data, one record per row.
         data_range_notation = 'Customers!A2:M6'
         sheets_response = sheets_service.spreadsheets().values().get(
