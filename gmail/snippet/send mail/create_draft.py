@@ -42,9 +42,9 @@ def gmail_create_draft():
         service = build('gmail', 'v1', credentials=creds)
 
         message = MIMEText('This is automated draft mail')
-        message['to'] = 'gduser1@workspacesamples.dev'
-        message['from'] = 'gduser2@workspacesamples.dev'
-        message['subject'] = 'Automated draft'
+        message['To'] = 'gduser1@workspacesamples.dev'
+        message['From'] = 'gduser2@workspacesamples.dev'
+        message['Subject'] = 'Automated draft'
         encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
         create_message = {
