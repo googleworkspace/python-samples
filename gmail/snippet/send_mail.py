@@ -80,9 +80,9 @@ def create_message(sender, to, subject, message_text):
       An object containing a base64url encoded email object.
     """
     message = MIMEText(message_text)
-    message['to'] = to
-    message['from'] = sender
-    message['subject'] = subject
+    message['To'] = to
+    message['From'] = sender
+    message['Subject'] = subject
 
     encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
@@ -108,9 +108,9 @@ def create_message_with_attachment(
       An object containing a base64url encoded email object.
     """
     message = MIMEMultipart()
-    message['to'] = to
-    message['from'] = sender
-    message['subject'] = subject
+    message['To'] = to
+    message['From'] = sender
+    message['Subject'] = subject
 
     msg = MIMEText(message_text)
     message.attach(msg)
