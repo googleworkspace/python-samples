@@ -45,9 +45,9 @@ def gmail_create_draft_with_attachment():
         # create gmail api client
         service = build('gmail', 'v1', credentials=creds)
         mime_message = MIMEMultipart()
-        mime_message['to'] = 'gduser1@workspacesamples.dev'
-        mime_message['from'] = 'gduser2@workspacesamples.dev'
-        mime_message['subject'] = 'sample with attachment'
+        mime_message['To'] = 'gduser1@workspacesamples.dev'
+        mime_message['From'] = 'gduser2@workspacesamples.dev'
+        mime_message['Subject'] = 'sample with attachment'
         text_part = MIMEText('Hi, this is automated mail with attachment.'
                              'Please do not reply.')
         mime_message.attach(text_part)
