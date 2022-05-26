@@ -20,7 +20,7 @@ import fetch_start_page_token
 
 
 class TestFetchChanges(unittest.TestCase):
-    """Unit test classs for Change snippet"""
+    """Unit test class for Change snippet"""
 
     @classmethod
     def test_fetch_changes(cls):
