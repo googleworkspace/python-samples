@@ -32,7 +32,7 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
-      - uses: github/super-linter/slim@v4.9.0
+      - uses: github/super-linter/slim@v4.9.4
         env:
           ERROR_ON_MISSING_EXEC_BIT: true
           VALIDATE_JSCPD: false
