@@ -44,10 +44,7 @@ def gmail_send_message():
             .decode()
 
         create_message = {
-            'message': {
-
-                'raw': encoded_message
-            }
+            'raw': encoded_message
         }
         # pylint: disable=E1101
         send_message = (service.users().messages().send
