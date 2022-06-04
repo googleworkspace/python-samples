@@ -54,10 +54,7 @@ def gmail_send_message_with_attachment():
             .decode()
 
         send_message_request_body = {
-            'message': {
-
-                'raw': encoded_message
-            }
+            'raw': encoded_message
         }
         # pylint: disable=E1101
         send_message = (service.users().messages().send
