@@ -24,6 +24,7 @@ from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.message import EmailMessage
 
 import google.auth
 from googleapiclient.discovery import build
@@ -44,15 +45,29 @@ def gmail_create_draft_with_attachment():
     try:
         # create gmail api client
         service = build('gmail', 'v1', credentials=creds)
-        mime_message = MIMEMultipart()
+        mime_message = EmailMessage()
+
+        # headers
         mime_message['To'] = 'gduser1@workspacesamples.dev'
         mime_message['From'] = 'gduser2@workspacesamples.dev'
         mime_message['Subject'] = 'sample with attachment'
-        text_part = MIMEText('Hi, this is automated mail with attachment.'
-                             'Please do not reply.')
-        mime_message.attach(text_part)
-        image_attachment = build_file_part(file='photo.jpg')
-        mime_message.attach(image_attachment)
+
+       # text
+        mime_message.set_content(
+            'Hi, this is automated mail with attachment.'
+            'Please do not reply.'
+        )
+
+        # attachment
+        attachment_filename = 'photo.jpg'
+        # guessing the MIME type
+        type_subtype, _ = mimetypes.guess_type(attachment_filename)
+        maintype, subtype = type_subtype.split('/')
+
+        with open(attachment_filename, 'rb') as fp:
+            attachment_data = fp.read()
+        mime_message.add_attachment(attachment_data, maintype, subtype)
+
         encoded_message = base64.urlsafe_b64encode(mime_message.as_bytes()).decode()
 
         create_draft_request_body = {
