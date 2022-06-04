@@ -15,7 +15,7 @@ limitations under the License.
 from __future__ import print_function
 
 import base64
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 
 import google.auth
 from googleapiclient.discovery import build
@@ -35,7 +35,8 @@ def gmail_send_message():
 
     try:
         service = build('gmail', 'v1', credentials=creds)
-        message = MIMEText('This is automated draft mail')
+        message = EmailMessage()
+        message.set_content('This is automated draft mail')
         message['To'] = 'gduser1@workspacesamples.dev'
         message['From'] = 'gduser2@workspacesamples.dev'
         message['Subject'] = 'Automated draft'
