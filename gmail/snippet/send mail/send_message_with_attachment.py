@@ -15,12 +15,7 @@ from __future__ import print_function
 
 import base64
 import mimetypes
-import os
-from email.mime.audio import MIMEAudio
-from email.mime.base import MIMEBase
-from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 
 import google.auth
 from googleapiclient.discovery import build
@@ -39,25 +34,37 @@ def gmail_send_message_with_attachment():
     creds, _ = google.auth.default()
 
     try:
+        # create gmail api client
         service = build('gmail', 'v1', credentials=creds)
-        mime_message = MIMEMultipart()
+        mime_message = EmailMessage()
+
+        # headers
         mime_message['to'] = 'gduser1@workspacesamples.dev'
         mime_message['from'] = 'gduser2@workspacesamples.dev'
         mime_message['subject'] = 'sample with attachment'
-        text_part = MIMEText('Hi, this is automated mail with attachment.'
-                             'Please do not reply.')
-        mime_message.attach(text_part)
-        image_attachment = build_file_part(file='photo.jpg')
-        mime_message.attach(image_attachment)
+
+        # text
+        mime_message.set_content(
+            'Hi, this is automated mail with attachment.'
+            'Please do not reply.'
+        )
+
+        # attachment
+        attachment_filename = 'photo.jpg'
+        # guessing the MIME type
+        type_subtype, _ = mimetypes.guess_type(attachment_filename)
+        maintype, subtype = type_subtype.split('/')
+
+        with open(attachment_filename, 'rb') as fp:
+            attachment_data = fp.read()
+        mime_message.add_attachment(attachment_data, maintype, subtype)
+
         # encoded message
         encoded_message = base64.urlsafe_b64encode(mime_message.as_bytes()) \
             .decode()
 
         send_message_request_body = {
-            'message': {
-
-                'raw': encoded_message
-            }
+            'raw': encoded_message
         }
         # pylint: disable=E1101
         send_message = (service.users().messages().send
@@ -67,35 +74,6 @@ def gmail_send_message_with_attachment():
         print(F'An error occurred: {error}')
         send_message = None
     return send_message
-
-
-def build_file_part(file):
-    """Creates a MIME part for a file.
-    Args:
-      file: The path to the file to be attached.
-    Returns:
-      A MIME part that can be attached to a message.
-    """
-    content_type, encoding = mimetypes.guess_type(file)
-    if content_type is None or encoding is not None:
-        content_type = 'application/octet-stream'
-    main_type, sub_type = content_type.split('/', 1)
-    if main_type == 'text':
-        with open(file, 'rb'):
-            msg = MIMEText('r', _subtype=sub_type)
-    elif main_type == 'image':
-        with open(file, 'rb'):
-            msg = MIMEImage('r', _subtype=sub_type)
-    elif main_type == 'audio':
-        with open(file, 'rb'):
-            msg = MIMEAudio('r', _subtype=sub_type)
-    else:
-        with open(file, 'rb'):
-            msg = MIMEBase(main_type, sub_type)
-            msg.set_payload(file.read())
-    filename = os.path.basename(file)
-    msg.add_header('Content-Disposition', 'attachment', filename=filename)
-    return msg
 
 
 if __name__ == '__main__':
