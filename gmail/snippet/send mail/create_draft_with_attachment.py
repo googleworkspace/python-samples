@@ -13,18 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 # [START gmail_create_draft_with_attachment]
-
 from __future__ import print_function
 
 import base64
 import mimetypes
 import os
+from email.message import EmailMessage
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.message import EmailMessage
 
 import google.auth
 from googleapiclient.discovery import build
@@ -52,7 +50,7 @@ def gmail_create_draft_with_attachment():
         mime_message['From'] = 'gduser2@workspacesamples.dev'
         mime_message['Subject'] = 'sample with attachment'
 
-       # text
+        # text
         mime_message.set_content(
             'Hi, this is automated mail with attachment.'
             'Please do not reply.'
