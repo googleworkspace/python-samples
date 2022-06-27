@@ -17,7 +17,6 @@ from pprint import pformat
 import slides_text_style_update
 from base_test import BaseTest
 
-
 class TestTextStyleUpdate(BaseTest):
     """Unit test for SimpleTextReplace snippet"""
 
