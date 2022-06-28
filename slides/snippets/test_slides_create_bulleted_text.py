@@ -22,7 +22,7 @@ class TestCreateBulletedText(BaseTest):
     """Unit test for create_bulleted_text snippet"""
 
     def test_create_bulleted_text(self):
-        """test_create_bulleted_text function"""
+        """create_bulleted_text function"""
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)

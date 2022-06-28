@@ -19,10 +19,10 @@ from base_test import BaseTest
 
 
 class TestCreateTextboxWithText(BaseTest):
-    """Unit test for create_image snippet"""
+    """Unit test case for create_image snippet"""
 
     def test_create_image(self):
-        """pass presentation id and page id for create image"""
+        """presentation id and page id for create image"""
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         response = slides_create_image.create_image(presentation_id, page_id)

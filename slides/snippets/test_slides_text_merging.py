@@ -24,7 +24,7 @@ class TestTextMerging(BaseTest):
     DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
 
     def test_text_merging(self):
-        """text_merging method """
+        """ text_merging method """
 
         responses = slides_text_merging.text_merging(
             self.TEMPLATE_PRESENTATION_ID,

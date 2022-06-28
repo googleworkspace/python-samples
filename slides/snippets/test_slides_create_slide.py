@@ -21,7 +21,7 @@ class TestCreateSlide(BaseTest):
     """Unit test for create Slide  snippet"""
 
     def test_create_slide(self):
-        """pass presentation_id and  page_id for creating the slides"""
+        """pass presentation_id and page_id for creating the slides"""
         presentation_id = self.create_test_presentation()
         self.add_slides(presentation_id, 3)
         page_id = 'my_page_id'
