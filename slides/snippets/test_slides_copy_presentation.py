@@ -21,7 +21,7 @@ class TestCopyPresentation(BaseTest):
     """Unit test for Copy presentation  snippet"""
 
     def test_copy_presentation(self):
-        """set presentation title for copy presentation"""
+        """set title for copy presentation"""
         presentation_id = self.create_test_presentation()
         copy_id = slides_copy_presentation.copy_presentation(
             presentation_id, 'My Duplicate Presentation')

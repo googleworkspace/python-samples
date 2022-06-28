@@ -27,7 +27,7 @@ class TestTextMerging(BaseTest):
     CUSTOMER_NAME = 'Fake Customer'
 
     def test_image_merging(self):
-        """image merging function"""
+        """image merging function """
         response = slides_image_merging.image_merging(
             self.TEMPLATE_PRESENTATION_ID,
             self.IMAGE_URL,

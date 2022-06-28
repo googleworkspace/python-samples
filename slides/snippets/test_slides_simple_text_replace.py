@@ -22,7 +22,7 @@ class TestSimpleTextReplace(BaseTest):
     """Unit test for SimpleTextReplace snippet"""
 
     def test_simple_text_replace(self):
-        """test_simple_text_replace function"""
+        """ test_simple_text_replace function"""
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)

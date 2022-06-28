@@ -21,7 +21,7 @@ class TestCreatePresentation(BaseTest):
     """Unit test for create presentation  snippet"""
 
     def test_create_presentation(self):
-        """Set title for presentation"""
+        """Set title for create presentation"""
         presentation = slides_create_presentation.create_presentation('Title')
         self.assertIsNotNone(presentation)
         self.delete_file_on_cleanup(presentation.get('presentationId'))

@@ -17,12 +17,11 @@ from pprint import pformat
 import slides_text_style_update
 from base_test import BaseTest
 
-
 class TestTextStyleUpdate(BaseTest):
     """Unit test for SimpleTextReplace snippet"""
 
     def test_text_style_update(self):
-        """test_text_style_update function"""
+        """ test_text_style_update function"""
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         box_id = self.create_test_textbox(presentation_id, page_id)

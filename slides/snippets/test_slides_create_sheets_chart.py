@@ -24,7 +24,7 @@ class TestCreateSheetsChart(BaseTest):
     CHART_ID = 1107320627
 
     def test_create_sheets_chart(self):
-        """create_sheets_chart method """
+        """create_sheet chart method """
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         response = slides_create_sheets_chart. \

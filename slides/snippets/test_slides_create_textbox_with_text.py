@@ -22,7 +22,7 @@ class TestCreateTextboxWithText(BaseTest):
     """Unit test for TestCreateTextboxWithText snippet"""
 
     def test_create_textbox_with_text(self):
-        """Pass Presentation id and page id"""
+        """Pass Presentation id and page id """
         presentation_id = self.create_test_presentation()
         page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
         response = slides_create_textbox_with_text.create_textbox_with_text(
