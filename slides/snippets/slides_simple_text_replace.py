@@ -70,3 +70,5 @@ if __name__ == '__main__':
     simple_text_replace('10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4',
                         'MyTextBox_6',
                         'GWSpace_now')
+
+# [END slides_simple_text_replace]
