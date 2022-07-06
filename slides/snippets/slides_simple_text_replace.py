@@ -27,7 +27,7 @@ def simple_text_replace(presentation_id, shape_id, replacement_text):
     Run simple_text_replace the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
@@ -70,3 +70,5 @@ if __name__ == '__main__':
     simple_text_replace('10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4',
                         'MyTextBox_6',
                         'GWSpace_now')
+
+# [END slides_simple_text_replace]
