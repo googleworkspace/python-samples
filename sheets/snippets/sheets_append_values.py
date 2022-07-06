@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-# [START sheets_get_values]
+# [START sheets_append_values]
 from __future__ import print_function
 
 import google.auth

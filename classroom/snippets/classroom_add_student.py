@@ -12,7 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License."""
 
-# [START classroom_add_teacher]
+# [START classroom_add_student]
 from __future__ import print_function
 
 import os
@@ -79,4 +79,4 @@ def classroom_add_student_new(course_id):
 if __name__ == '__main__':
     # Put the course_id of course for which student needs to be added.
     classroom_add_student_new(478800920837)
-# [END classroom_add_teacher]
+# [END classroom_add_student]
