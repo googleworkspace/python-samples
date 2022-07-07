@@ -28,7 +28,7 @@ def create_sheets_chart(presentation_id, page_id, spreadsheet_id,
     create_sheets_chart the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
@@ -90,3 +90,5 @@ if __name__ == '__main__':
                         "FIRSTSLIDE",
                         "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM",
                         "1107320627")
+
+# [END slides_create_sheets_chart]
