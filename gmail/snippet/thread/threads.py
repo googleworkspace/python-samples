@@ -33,6 +33,7 @@ def show_chatty_threads():
         service = build('gmail', 'v1', credentials=creds)
 
         # pylint: disable=maybe-no-member
+        # pylint: disable:R1710
         threads = service.users().threads().list(userId='me').execute().get('threads', [])
         for thread in threads:
             tdata = service.users().threads().get(userId='me', id=thread['id']).execute()
@@ -48,6 +49,7 @@ def show_chatty_threads():
                         break
                 if subject:  # skip if no Subject line
                     print(F'- {subject}, {nmsgs}')
+        return threads
 
     except HttpError as error:
         print(F'An error occurred: {error}')

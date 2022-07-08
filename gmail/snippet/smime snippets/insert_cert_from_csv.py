@@ -43,6 +43,7 @@ def insert_cert_from_csv(csv_filename):
                     insert_smime_info.insert_smime_info()
                 else:
                     print(F'Unable to read certificate file for user_id: {user_id}')
+                return smime_info
 
     except (OSError, IOError) as error:
         print(F'An error occured while reading the CSV file: {error}')
