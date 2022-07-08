@@ -30,7 +30,8 @@ def update_signature():
     for guides on implementing OAuth2 for the application.
     """
     creds, _ = google.auth.default()
-
+    # If you want to use service account to impersonate a user account
+    # creds = creds.with_subject('user@yourdomain.com')
     try:
         # create gmail api client
         service = build('gmail', 'v1', credentials=creds)
