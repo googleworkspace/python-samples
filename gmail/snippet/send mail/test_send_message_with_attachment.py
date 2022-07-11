@@ -17,8 +17,7 @@ import unittest
 from send_message_with_attachment import gmail_send_message_with_attachment
 
 
-# pylint: disable=too-few-public-methods
-class TestSendMessageWithAttachment(unittest.Testcase):
+class TestSendMessageWithAttachment(unittest.TestCase):
     """Unit test class for gmail snippet"""
 
     def test_send_message_with_attachment(self):
