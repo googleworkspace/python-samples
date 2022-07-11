@@ -15,6 +15,7 @@ import csv
 
 import update_smime_cert
 
+
 # pylint: disable-this-line-in-some-way
 def update_smime_from_csv(csv_filename, expire_dt=None):
     """Update S/MIME certificates based on the contents of a CSV file.
