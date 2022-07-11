@@ -39,8 +39,8 @@ def gmail_send_message_with_attachment():
         mime_message = EmailMessage()
 
         # headers
-        mime_message['to'] = 'gduser1@workspacesamples.dev'
-        mime_message['from'] = 'gduser2@workspacesamples.dev'
+        mime_message['to'] = 'anurag@workspacesamples.dev'
+        mime_message['from'] = 'anurag@workspacesamples.dev'
         mime_message['subject'] = 'sample with attachment'
 
         # text
