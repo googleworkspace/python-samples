@@ -3,7 +3,7 @@ name: Test
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  test:
+  matrix:
     concurrency:
       group: ${{ github.head_ref || github.ref }}
       cancel-in-progress: true
@@ -41,3 +41,8 @@ jobs:
           CLIENT_ID_FILE: ${{secrets.SNIPPETS_CLIENT_ID_FILE}}
       - name: Run tests
         run: ./.github/scripts/test.sh
+  test:
+    needs: [matrix]
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Test matrix finished"
