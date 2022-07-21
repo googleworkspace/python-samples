@@ -1,24 +1,48 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 name: Test
-on: [push, pull_request]
+
+on: [push, pull_request, workflow_dispatch]
+
 jobs:
+  matrix:
+    concurrency:
+      group: ${{ github.head_ref || github.ref }}
+      cancel-in-progress: true
+    # Only run for internal PRs or after a merge
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # TODO - expand matrix once stable
+        python-version: [3.6]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch and Diff PR with base from which it was cloned
+        if: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch origin master "${{ github.event.pull_request.base.sha }}"
+          git diff  --diff-filter=ACM --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > "${HOME}/changed_files.txt"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+      - name: Write test credentials
+        run: |
+          mkdir "${HOME}/secrets"
+          echo "${DEFAULT_CREDENTIALS}" > "${HOME}/secrets/default_credentials.json"
+          echo "${SERVICE_ACCOUNT_CREDENTIALS}" > "${HOME}/secrets/service_account.json"
+          echo "${CLIENT_ID_FILE}" > "${HOME}/secrets/client_id.json"
+        env:
+          DEFAULT_CREDENTIALS: ${{secrets.SNIPPETS_DEFAULT_CREDENTIALS}}
+          SERVICE_ACCOUNT_CREDENTIALS: ${{secrets.SNIPPETS_DELEGATED_ADMIN_SERVICE_ACCOUNT}}
+          CLIENT_ID_FILE: ${{secrets.SNIPPETS_CLIENT_ID_FILE}}
+      - name: Run tests
+        run: ./.github/scripts/test.sh
   test:
+    needs: [matrix]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: |
-          echo "No tests";
-          exit 1;
+    - run: echo "Test matrix finished"
