@@ -1,5 +1,3 @@
-# Google Workspace Python Samples [![Build Status](https://travis-ci.org/googleworkspace/python-samples.svg?branch=master)](https://travis-ci.org/googleworkspace/python-samples)
-
 Python samples for [Google Workspace APIs](https://developers.google.com/gsuite/) docs.
 
 ## APIs
