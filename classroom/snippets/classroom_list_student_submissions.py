@@ -27,7 +27,7 @@ def classroom_list_student_submissions(course_id, coursework_id, user_id):
     Creates the courses the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
     """
 
     creds, _ = google.auth.default()
