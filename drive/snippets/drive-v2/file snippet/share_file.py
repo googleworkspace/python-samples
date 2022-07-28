@@ -37,7 +37,7 @@ def share_file(real_file_id, real_user, real_domain):
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v2', credentials=creds)
         ids = []
         file_id = real_file_id

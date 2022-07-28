@@ -32,7 +32,7 @@ def create_shortcut():
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v3', credentials=creds)
         file_metadata = {
             'title': 'Project plan',

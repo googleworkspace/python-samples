@@ -35,7 +35,7 @@ def upload_to_folder(real_folder_id):
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v2', credentials=creds)
 
         folder_id = real_folder_id
