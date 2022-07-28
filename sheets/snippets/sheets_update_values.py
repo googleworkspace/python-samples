@@ -28,7 +28,7 @@ def update_values(spreadsheet_id, range_name, value_input_option,
     Creates the batch_update the user has access to.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.\n"
+    for guides on implementing OAuth2 for the application.
         """
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
