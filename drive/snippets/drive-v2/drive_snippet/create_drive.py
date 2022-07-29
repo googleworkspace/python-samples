@@ -36,7 +36,7 @@ def create_drive():
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v2', credentials=creds)
 
         drive_metadata = {'name': 'Project Resources'}

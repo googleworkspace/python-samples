@@ -29,7 +29,7 @@ def fetch_start_page_token():
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v2', credentials=creds)
 
         # pylint: disable=maybe-no-member

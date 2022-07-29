@@ -38,7 +38,7 @@ def touch_file(real_file_id, real_timestamp):
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v3', credentials=creds)
 
         file_metadata = {

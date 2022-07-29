@@ -32,7 +32,7 @@ def search_file():
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v3', credentials=creds)
         files = []
         page_token = None

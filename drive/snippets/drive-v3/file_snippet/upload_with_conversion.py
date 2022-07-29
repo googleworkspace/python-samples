@@ -34,7 +34,7 @@ def upload_with_conversion():
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v3', credentials=creds)
 
         file_metadata = {

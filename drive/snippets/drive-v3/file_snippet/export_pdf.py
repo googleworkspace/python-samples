@@ -38,7 +38,7 @@ def export_pdf(real_file_id):
     creds, _ = google.auth.default()
 
     try:
-        # create gmail api client
+        # create drive api client
         service = build('drive', 'v3', credentials=creds)
 
         file_id = real_file_id
