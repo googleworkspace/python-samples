@@ -80,4 +80,4 @@ def recover_drives(real_user):
 
 if __name__ == '__main__':
     recover_drives(real_user='gduser1@workspacesamples.dev')
-# [END drive_create_drive]
+# [END drive_recover_drives]
