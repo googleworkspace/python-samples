@@ -36,7 +36,7 @@ def create_folder():
         # create drive api client
         service = build('drive', 'v3', credentials=creds)
         file_metadata = {
-            'title': 'Invoices',
+            'name': 'Invoices',
             'mimeType': 'application/vnd.google-apps.folder'
         }
 
