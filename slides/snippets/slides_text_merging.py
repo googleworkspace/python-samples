@@ -31,10 +31,8 @@ def text_merging(template_presentation_id, data_spreadsheet_id):
     """
     creds, _ = google.auth.default()
     # pylint: disable=maybe-no-member
-    responses = []
 
     try:
-
         service = build('slides', 'v1', credentials=creds)
         sheets_service = build('sheets', 'v4', credentials=creds)
         drive_service = build('drive', 'v3', credentials=creds)
@@ -98,9 +96,7 @@ def text_merging(template_presentation_id, data_spreadsheet_id):
             }
             response = service.presentations().batchUpdate(
                 presentationId=presentation_copy_id, body=body).execute()
-            # [START_EXCLUDE silent]
-            responses.append(response)
-            # [END_EXCLUDE]
+
             # Count the total number of replacements made.
             num_replacements = 0
             for reply in response.get('replies'):
@@ -110,8 +106,6 @@ def text_merging(template_presentation_id, data_spreadsheet_id):
             print(f"Created presentation for "
                   f"{customer_name} with ID: {presentation_copy_id}")
             print(f"Replaced {num_replacements} text instances")
-
-        return response
 
     except HttpError as error:
         print(f"An error occurred: {error}")

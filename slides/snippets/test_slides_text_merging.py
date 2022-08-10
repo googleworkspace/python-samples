@@ -25,20 +25,9 @@ class TestTextMerging(BaseTest):
 
     def test_text_merging(self):
         """ text_merging method """
-
-        responses = slides_text_merging.text_merging(
+        slides_text_merging.text_merging(
             self.TEMPLATE_PRESENTATION_ID,
             self.DATA_SPREADSHEET_ID)
-        for response in responses:
-            presentation_id = response.get('presentationId')
-            self.delete_file_on_cleanup(presentation_id)
-            self.assertIsNotNone(presentation_id, msg=pformat(response))
-            self.assertEqual(3, len(response.get('replies')),
-                             msg=pformat(response))
-            num_replacements = 0
-            for reply in response.get('replies'):
-                num_replacements += reply.get('replaceAllText') \
-                    .get('occurrencesChanged')
 
 
 if __name__ == "__main__":
