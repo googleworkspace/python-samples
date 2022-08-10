@@ -53,7 +53,9 @@ def gmail_create_draft():
         encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
         create_message = {
+            'message': {
                 'raw': encoded_message
+            }
         }
         # pylint: disable=E1101
         draft = service.users().drafts().create(userId="me",
