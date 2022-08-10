@@ -12,7 +12,6 @@ limitations under the License.
 """
 
 import unittest
-from pprint import pformat
 
 import slides_text_merging
 from base_test import BaseTest
