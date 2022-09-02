@@ -32,7 +32,7 @@ PRESENTATION_ID = '1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc'
 
 def main():
     """Shows basic usage of the Slides API.
-    Prints the number of slides and elments in a sample presentation.
+    Prints the number of slides and elements in a sample presentation.
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
