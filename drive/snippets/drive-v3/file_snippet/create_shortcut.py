@@ -35,7 +35,7 @@ def create_shortcut():
         # create drive api client
         service = build('drive', 'v3', credentials=creds)
         file_metadata = {
-            'title': 'Project plan',
+            'name': 'Project plan',
             'mimeType': 'application/vnd.google-apps.drive-sdk'
         }
 
