@@ -38,7 +38,7 @@ def upload_with_conversion():
         service = build('drive', 'v3', credentials=creds)
 
         file_metadata = {
-            'title': 'My Report',
+            'name': 'My Report',
             'mimeType': 'application/vnd.google-apps.spreadsheet'
         }
         media = MediaFileUpload('report.csv', mimetype='text/csv',
