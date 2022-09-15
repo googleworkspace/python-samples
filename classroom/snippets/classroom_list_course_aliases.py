@@ -25,7 +25,6 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_list_course_aliases(course_id):
-
     """
     Prints the list of the aliases of a specified course the user has access to.
     Load pre-authorized user credentials from the environment.
