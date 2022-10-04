@@ -1,0 +1,116 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/admin_sdk/directory"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/admin_sdk/reports"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/admin_sdk/reseller"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/apps_script/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/calendar/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/classroom/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/docs/mail-merge"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/docs/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/drive/activity-v2"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/drive/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/forms/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/gmail/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/gmail/snippet"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/people/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/sheets/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/slides/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/tasks/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
+  - package-ecosystem: "pip"
+    directory: "/vault/quickstart"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps):"
