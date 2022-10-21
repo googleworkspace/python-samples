@@ -30,7 +30,7 @@ if not creds or creds.invalid:
 service = discovery.build('forms', 'v1', http=creds.authorize(
     Http()), discoveryServiceUrl=DISCOVERY_DOC, static_discovery=False)
 
-# Prints the title of the sample form:
+# Prints the contents of the sample form:
 form_id = '<YOUR_FORM_ID>'
 result = service.forms().get(formId=form_id).execute()
 print(result)
