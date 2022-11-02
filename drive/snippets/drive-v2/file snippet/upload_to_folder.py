@@ -23,7 +23,7 @@ from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
 
-def upload_to_folder(real_folder_id):
+def upload_to_folder(folder_id):
     """Upload a file to the specified folder and prints file ID, folder ID
     Args: Id of the folder
     Returns: ID of the file uploaded
@@ -38,7 +38,6 @@ def upload_to_folder(real_folder_id):
         # create drive api client
         service = build('drive', 'v2', credentials=creds)
 
-        folder_id = real_folder_id
         file_metadata = {
             'title': 'photo.jpg',
             'parents': [{'id': folder_id}]
@@ -48,16 +47,14 @@ def upload_to_folder(real_folder_id):
         # pylint: disable=maybe-no-member
         file = service.files().insert(body=file_metadata,
                                       media_body=media, fields='id').execute()
-        print(F'File with ID: "{file.get("id")}" has added to the folder with '
-              F'ID "{real_folder_id}".')
+        print(F'File ID: "{file.get("id")}".')
+        return file.get('id')
 
     except HttpError as error:
         print(F'An error occurred: {error}')
-        file = None
-
-    return file.get('id')
+        return None
 
 
 if __name__ == '__main__':
-    upload_to_folder(real_folder_id='1s0oKEZZXjImNngxHGnY0xed6Mw-tvspu')
+    upload_to_folder(folder_id='1s0oKEZZXjImNngxHGnY0xed6Mw-tvspu')
 # [END drive_upload_to_folder]

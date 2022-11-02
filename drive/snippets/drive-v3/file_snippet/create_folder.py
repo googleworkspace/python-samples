@@ -43,13 +43,12 @@ def create_folder():
         # pylint: disable=maybe-no-member
         file = service.files().create(body=file_metadata, fields='id'
                                       ).execute()
-        print(F'Folder has created with ID: "{file.get("id")}".')
+        print(F'Folder ID: "{file.get("id")}".')
+        return file.get('id')
 
     except HttpError as error:
         print(F'An error occurred: {error}')
-        file = None
-
-    return file.get('id')
+        return None
 
 
 if __name__ == '__main__':
