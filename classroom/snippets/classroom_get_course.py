@@ -26,7 +26,7 @@ from googleapiclient.errors import HttpError
 def classroom_get_course(course_id):
 
     """
-    Prints the name of the with specific course_id.
+    Prints the name of the course with a specific course_id.
     Load pre-authorized user credentials from the environment.
     TODO(developer) - See https://developers.google.com/identity
     for guides on implementing OAuth2 for the application.
