@@ -55,7 +55,7 @@ def export_pdf(real_file_id):
 
     except HttpError as error:
         print(F'An error occurred: {error}')
-        file = None
+        return None
 
     return file.getvalue()
 
