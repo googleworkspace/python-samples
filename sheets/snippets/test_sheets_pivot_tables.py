@@ -18,15 +18,15 @@ from base_test import BaseTest
 
 
 class Testpivottables(BaseTest):
-    """Unit test for Pivot tables value Sheet snippet"""
+  """Unit test for Pivot tables value Sheet snippet"""
 
-    def test_pivot_tables(self):
-        """pivot table function"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        self.populate_values(spreadsheet_id)
-        response = sheets_pivot_tables.pivot_tables(spreadsheet_id)
-        self.assertIsNotNone(response)
+  def test_pivot_tables(self):
+    """pivot table function"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    self.populate_values(spreadsheet_id)
+    response = sheets_pivot_tables.pivot_tables(spreadsheet_id)
+    self.assertIsNotNone(response)
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

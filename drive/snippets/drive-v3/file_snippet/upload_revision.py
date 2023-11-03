@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 # [START drive_upload_revision]
 
 from __future__ import print_function
@@ -24,36 +25,37 @@ from googleapiclient.http import MediaFileUpload
 
 
 def upload_revision(real_file_id):
-    """Replace the old file with new one on same file ID
-    Args: ID of the file to be replaced
-    Returns: file ID
+  """Replace the old file with new one on same file ID
+  Args: ID of the file to be replaced
+  Returns: file ID
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # create drive api client
-        service = build('drive', 'v3', credentials=creds)
-        file_id = real_file_id
-        media = MediaFileUpload('download.jpeg',
-                                mimetype='image/jpeg',
-                                resumable=True)
-        # pylint: disable=maybe-no-member
-        file = service.files().update(fileId=file_id,
-                                      body={},
-                                      media_body=media,
-                                      fields='id').execute()
-        print(F'File ID: {file.get("id")}')
+  try:
+    # create drive api client
+    service = build('drive', 'v3', credentials=creds)
+    file_id = real_file_id
+    media = MediaFileUpload(
+        'download.jpeg', mimetype='image/jpeg', resumable=True
+    )
+    # pylint: disable=maybe-no-member
+    file = (
+        service.files()
+        .update(fileId=file_id, body={}, media_body=media, fields='id')
+        .execute()
+    )
+    print(f'File ID: {file.get("id")}')
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
+  except HttpError as error:
+    print(f'An error occurred: {error}')
 
-    return file.get('id')
+  return file.get('id')
 
 
 if __name__ == '__main__':
-    upload_revision(real_file_id='1jJTiihczk_xSNPVLwMySQBJACXYdpGTi')
+  upload_revision(real_file_id='1jJTiihczk_xSNPVLwMySQBJACXYdpGTi')
 # [END drive_upload_revision]

@@ -18,16 +18,17 @@ from base_test import BaseTest
 
 
 class TestCopyPresentation(BaseTest):
-    """Unit test for Copy presentation  snippet"""
+  """Unit test for Copy presentation  snippet"""
 
-    def test_copy_presentation(self):
-        """set title for copy presentation"""
-        presentation_id = self.create_test_presentation()
-        copy_id = slides_copy_presentation.copy_presentation(
-            presentation_id, 'My Duplicate Presentation')
-        self.assertIsNotNone(copy_id)
-        self.delete_file_on_cleanup(copy_id)
+  def test_copy_presentation(self):
+    """set title for copy presentation"""
+    presentation_id = self.create_test_presentation()
+    copy_id = slides_copy_presentation.copy_presentation(
+        presentation_id, "My Duplicate Presentation"
+    )
+    self.assertIsNotNone(copy_id)
+    self.delete_file_on_cleanup(copy_id)
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

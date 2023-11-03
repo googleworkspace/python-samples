@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 # [START drive_upload_with_conversion]
 
 from __future__ import print_function
@@ -24,37 +25,39 @@ from googleapiclient.http import MediaFileUpload
 
 
 def upload_with_conversion():
-    """Upload file with conversion
-    Returns: ID of the file uploaded
+  """Upload file with conversion
+  Returns: ID of the file uploaded
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # create drive api client
-        service = build('drive', 'v2', credentials=creds)
+  try:
+    # create drive api client
+    service = build('drive', 'v2', credentials=creds)
 
-        file_metadata = {
-            'title': 'My Report',
-            'mimeType': 'application/vnd.google-apps.spreadsheet'
-        }
-        media = MediaFileUpload('report.csv', mimetype='text/csv',
-                                resumable=True)
-        # pylint: disable=maybe-no-member
-        file = service.files().insert(body=file_metadata,
-                                      media_body=media, fields='id').execute()
-        print(F'File with ID: "{file.get("id")}" has been uploaded.')
+    file_metadata = {
+        'title': 'My Report',
+        'mimeType': 'application/vnd.google-apps.spreadsheet',
+    }
+    media = MediaFileUpload('report.csv', mimetype='text/csv', resumable=True)
+    # pylint: disable=maybe-no-member
+    file = (
+        service.files()
+        .insert(body=file_metadata, media_body=media, fields='id')
+        .execute()
+    )
+    print(f'File with ID: "{file.get("id")}" has been uploaded.')
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        file = None
+  except HttpError as error:
+    print(f'An error occurred: {error}')
+    file = None
 
-    return file.get('id')
+  return file.get('id')
 
 
 if __name__ == '__main__':
-    upload_with_conversion()
+  upload_with_conversion()
 # [END drive_upload_with_conversion]

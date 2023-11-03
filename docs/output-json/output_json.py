@@ -26,24 +26,23 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # Set doc ID, as found at `https://docs.google.com/document/d/YOUR_DOC_ID/edit`
-DOCUMENT_ID = "195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE"
+DOCUMENT_ID = '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE'
 
 # Set the scopes and discovery info
 SCOPES = 'https://www.googleapis.com/auth/documents.readonly'
-DISCOVERY_DOC = ('https://docs.googleapis.com/$discovery/rest?'
-                 'version=v1')
+DISCOVERY_DOC = 'https://docs.googleapis.com/$discovery/rest?version=v1'
 
 # Initialize credentials and instantiate Docs API service
 creds, _ = google.auth.default()
 # pylint: disable=maybe-no-member
 try:
-    service = build('docs', 'v1', credentials=creds)
+  service = build('docs', 'v1', credentials=creds)
 
-    # Do a document "get" request and print the results as formatted JSON
+  # Do a document "get" request and print the results as formatted JSON
 
-    result = service.documents().get(documentId=DOCUMENT_ID).execute()
-    print(json.dumps(result, indent=4, sort_keys=True))
+  result = service.documents().get(documentId=DOCUMENT_ID).execute()
+  print(json.dumps(result, indent=4, sort_keys=True))
 except HttpError as error:
-    print(f"An error occurred: {error}")
+  print(f'An error occurred: {error}')
 
 # [END output_json_python]
