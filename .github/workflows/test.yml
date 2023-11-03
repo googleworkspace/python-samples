@@ -27,7 +27,8 @@ jobs:
     strategy:
       matrix:
         # TODO - expand matrix once stable
-        python-version: [3.6]
+        python-version: 
+          - "3.10"
     steps:
       - uses: actions/checkout@v3
       - name: Fetch and Diff PR with base from which it was cloned
@@ -36,7 +37,7 @@ jobs:
           git fetch origin master "${{ github.event.pull_request.base.sha }}"
           git diff  --diff-filter=ACM --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > "${HOME}/changed_files.txt"
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
