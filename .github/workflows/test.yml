@@ -27,7 +27,8 @@ jobs:
     strategy:
       matrix:
         # TODO - expand matrix once stable
-        python-version: [3.10]
+        python-version: 
+          - "3.10"
     steps:
       - uses: actions/checkout@v3
       - name: Fetch and Diff PR with base from which it was cloned
