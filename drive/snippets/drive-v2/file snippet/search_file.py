@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 # [START drive_search_file]
 
 from __future__ import print_function
@@ -23,41 +24,46 @@ from googleapiclient.errors import HttpError
 
 
 def search_file():
-    """Search file in drive location
+  """Search file in drive location
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # create drive api client
-        service = build('drive', 'v2', credentials=creds)
-        files = []
-        page_token = None
-        while True:
-            # pylint: disable=maybe-no-member
-            response = service.files().list(q="mimeType='image/jpeg'",
-                                            spaces='drive',
-                                            fields='nextPageToken, '
-                                                   'items(id, title)',
-                                            pageToken=page_token).execute()
-            for file in response.get('items', []):
-                # Process change
-                print(F'Found file: {file.get("title")}, {file.get("id")}')
-            files.extend(response.get('items', []))
-            page_token = response.get('nextPageToken', None)
-            if page_token is None:
-                break
+  try:
+    # create drive api client
+    service = build('drive', 'v2', credentials=creds)
+    files = []
+    page_token = None
+    while True:
+      # pylint: disable=maybe-no-member
+      response = (
+          service.files()
+          .list(
+              q="mimeType='image/jpeg'",
+              spaces='drive',
+              fields='nextPageToken, items(id, title)',
+              pageToken=page_token,
+          )
+          .execute()
+      )
+      for file in response.get('items', []):
+        # Process change
+        print(f'Found file: {file.get("title")}, {file.get("id")}')
+      files.extend(response.get('items', []))
+      page_token = response.get('nextPageToken', None)
+      if page_token is None:
+        break
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        files = None
+  except HttpError as error:
+    print(f'An error occurred: {error}')
+    files = None
 
-    return files
+  return files
 
 
 if __name__ == '__main__':
-    search_file()
+  search_file()
 # [END drive_search_file]

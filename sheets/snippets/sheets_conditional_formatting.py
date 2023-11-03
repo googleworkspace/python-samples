@@ -23,83 +23,91 @@ from googleapiclient.errors import HttpError
 
 
 def conditional_formatting(spreadsheet_id):
-    """
-    Creates the batch_update the user has access to.
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-        """
-    creds, _ = google.auth.default()
-    # pylint: disable=maybe-no-member
-    try:
-        service = build('sheets', 'v4', credentials=creds)
+  """
+  Creates the batch_update the user has access to.
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
+  # pylint: disable=maybe-no-member
+  try:
+    service = build('sheets', 'v4', credentials=creds)
 
-        my_range = {
-            'sheetId': 0,
-            'startRowIndex': 1,
-            'endRowIndex': 11,
-            'startColumnIndex': 0,
-            'endColumnIndex': 4,
-        }
-        requests = [{
+    my_range = {
+        'sheetId': 0,
+        'startRowIndex': 1,
+        'endRowIndex': 11,
+        'startColumnIndex': 0,
+        'endColumnIndex': 4,
+    }
+    requests = [
+        {
             'addConditionalFormatRule': {
                 'rule': {
                     'ranges': [my_range],
                     'booleanRule': {
                         'condition': {
                             'type': 'CUSTOM_FORMULA',
-                            'values': [{
-                                'userEnteredValue':
-                                    '=GT($D2,median($D$2:$D$11))'
-                            }]
+                            'values': [
+                                {
+                                    'userEnteredValue': (
+                                        '=GT($D2,median($D$2:$D$11))'
+                                    )
+                                }
+                            ],
                         },
                         'format': {
-                            'textFormat': {
-                                'foregroundColor': {'red': 0.8}
-                            }
-                        }
-                    }
+                            'textFormat': {'foregroundColor': {'red': 0.8}}
+                        },
+                    },
                 },
-                'index': 0
+                'index': 0,
             }
-        }, {
+        },
+        {
             'addConditionalFormatRule': {
                 'rule': {
                     'ranges': [my_range],
                     'booleanRule': {
                         'condition': {
                             'type': 'CUSTOM_FORMULA',
-                            'values': [{
-                                'userEnteredValue':
-                                    '=LT($D2,median($D$2:$D$11))'
-                            }]
+                            'values': [
+                                {
+                                    'userEnteredValue': (
+                                        '=LT($D2,median($D$2:$D$11))'
+                                    )
+                                }
+                            ],
                         },
                         'format': {
                             'backgroundColor': {
                                 'red': 1,
                                 'green': 0.4,
-                                'blue': 0.4
+                                'blue': 0.4,
                             }
-                        }
-                    }
+                        },
+                    },
                 },
-                'index': 0
+                'index': 0,
             }
-        }]
-        body = {
-            'requests': requests
-        }
-        response = service.spreadsheets() \
-            .batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
-        print(f"{(len(response.get('replies')))} cells updated.")
-        return response
+        },
+    ]
+    body = {'requests': requests}
+    response = (
+        service.spreadsheets()
+        .batchUpdate(spreadsheetId=spreadsheet_id, body=body)
+        .execute()
+    )
+    print(f"{(len(response.get('replies')))} cells updated.")
+    return response
 
-    except HttpError as error:
-        print(f"An error occurred: {error}")
-        return error
+  except HttpError as error:
+    print(f'An error occurred: {error}')
+    return error
 
 
 if __name__ == '__main__':
-    # Pass: spreadsheet_id
-    conditional_formatting("1CM29gwKIzeXsAppeNwrc8lbYaVMmUclprLuLYuHog4k")
-    # [END sheets_conditional_formatting]
+  # Pass: spreadsheet_id
+  conditional_formatting('1CM29gwKIzeXsAppeNwrc8lbYaVMmUclprLuLYuHog4k')
+  # [END sheets_conditional_formatting]

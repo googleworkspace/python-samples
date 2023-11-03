@@ -18,13 +18,14 @@ from base_test import BaseTest
 
 
 class TestClassroomCreateCourse(BaseTest):
-    """Unit test class for Create course snippet"""
-    def test_classroom_create_course(self):
-        """Class function for Create course snippet"""
-        course = classroom_create_course.classroom_create_course()
-        self.assertIsNotNone(course)
-        self.delete_course_on_cleanup(course.get('id'))
+  """Unit test class for Create course snippet"""
+
+  def test_classroom_create_course(self):
+    """Class function for Create course snippet"""
+    course = classroom_create_course.classroom_create_course()
+    self.assertIsNotNone(course)
+    self.delete_course_on_cleanup(course.get("id"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

@@ -18,16 +18,17 @@ from base_test import BaseTest
 
 
 class TestTextMerging(BaseTest):
-    """Unit test for SimpleTextReplace snippet"""
-    TEMPLATE_PRESENTATION_ID = '10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4'
-    DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
+  """Unit test for SimpleTextReplace snippet"""
 
-    def test_text_merging(self):
-        """ text_merging method """
-        slides_text_merging.text_merging(
-            self.TEMPLATE_PRESENTATION_ID,
-            self.DATA_SPREADSHEET_ID)
+  TEMPLATE_PRESENTATION_ID = '10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4'
+  DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
+
+  def test_text_merging(self):
+    """text_merging method"""
+    slides_text_merging.text_merging(
+        self.TEMPLATE_PRESENTATION_ID, self.DATA_SPREADSHEET_ID
+    )
 
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+  unittest.main()

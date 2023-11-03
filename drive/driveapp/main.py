@@ -45,8 +45,7 @@ DESCRIPTION = 'A shiny new text document about hello world.'
 
 
 # Perform OAuth2.0 authorization flow.
-flow = oauth2client.client.flow_from_clientsecrets(
-    CLIENT_SECRETS, OAUTH2_SCOPE)
+flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRETS, OAUTH2_SCOPE)
 flow.redirect_uri = oauth2client.client.OOB_CALLBACK_URN
 authorize_url = flow.step1_get_authorize_url()
 print('Go to the following link in your browser: ' + authorize_url)
@@ -62,9 +61,7 @@ drive_service = build('drive', 'v2', http=http)
 # Insert a file. Files are comprised of contents and metadata.
 # MediaFileUpload abstracts uploading file contents from a file on disk.
 media_body = googleapiclient.http.MediaFileUpload(
-    FILENAME,
-    mimetype=MIMETYPE,
-    resumable=True
+    FILENAME, mimetype=MIMETYPE, resumable=True
 )
 # The body contains the metadata for the file.
 body = {
@@ -74,13 +71,16 @@ body = {
 
 # Perform the request and print the result.
 try:
-    new_file = drive_service.files().insert(
-        body=body, media_body=media_body).execute()
-    file_title = new_file.get('title')
-    file_desc = new_file.get('description')
-    if file_title == TITLE and file_desc == DESCRIPTION:
-        print(f"File is uploaded \nTitle : {file_title}  \nDescription : {file_desc}")
+  new_file = (
+      drive_service.files().insert(body=body, media_body=media_body).execute()
+  )
+  file_title = new_file.get('title')
+  file_desc = new_file.get('description')
+  if file_title == TITLE and file_desc == DESCRIPTION:
+    print(
+        f'File is uploaded \nTitle : {file_title}  \nDescription : {file_desc}'
+    )
 
 except HttpError as error:
-    # TODO(developer) - Handle errors from drive API.
-    print(f'An error occurred: {error}')
+  # TODO(developer) - Handle errors from drive API.
+  print(f'An error occurred: {error}')
