@@ -19,24 +19,24 @@ from base_test import BaseTest
 
 
 class TestCreateSheetsChart(BaseTest):
-    """Unit test for create_sheets_chart snippet"""
-    DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
-    CHART_ID = 1107320627
+  """Unit test for create_sheets_chart snippet"""
 
-    def test_create_sheets_chart(self):
-        """create_sheet chart method """
-        presentation_id = self.create_test_presentation()
-        page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        response = slides_create_sheets_chart. \
-            create_sheets_chart(presentation_id, page_id,
-                                self.DATA_SPREADSHEET_ID,
-                                self.CHART_ID)
-        self.assertEqual(1, len(response.get('replies')),
-                         msg=pformat(response))
-        chart_id = response.get('replies')[0].get('createSheetsChart') \
-            .get('objectId')
-        self.assertIsNotNone(chart_id, msg=pformat(response))
+  DATA_SPREADSHEET_ID = "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM"
+  CHART_ID = 1107320627
+
+  def test_create_sheets_chart(self):
+    """create_sheet chart method"""
+    presentation_id = self.create_test_presentation()
+    page_id = self.add_slides(presentation_id, 1, "BLANK")[0]
+    response = slides_create_sheets_chart.create_sheets_chart(
+        presentation_id, page_id, self.DATA_SPREADSHEET_ID, self.CHART_ID
+    )
+    self.assertEqual(1, len(response.get("replies")), msg=pformat(response))
+    chart_id = (
+        response.get("replies")[0].get("createSheetsChart").get("objectId")
+    )
+    self.assertIsNotNone(chart_id, msg=pformat(response))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

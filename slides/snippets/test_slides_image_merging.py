@@ -19,30 +19,30 @@ from base_test import BaseTest
 
 
 class TestTextMerging(BaseTest):
-    """Unit test for text merging snippet"""
-    TEMPLATE_PRESENTATION_ID = '10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4'
-    DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
-    IMAGE_URL = 'https://picsum.photos/200'
-    CHART_ID = 1107320627
-    CUSTOMER_NAME = 'Fake Customer'
+  """Unit test for text merging snippet"""
 
-    def test_image_merging(self):
-        """image merging function """
-        response = slides_image_merging.image_merging(
-            self.TEMPLATE_PRESENTATION_ID,
-            self.IMAGE_URL,
-            self.CUSTOMER_NAME)
-        presentation_id = response.get('presentationId')
-        self.delete_file_on_cleanup(presentation_id)
-        self.assertIsNotNone(presentation_id, msg=pformat(response))
-        self.assertEqual(2, len(response.get('replies')),
-                         msg=pformat(response))
-        num_replacements = 0
-        for reply in response.get('replies'):
-            if isinstance(reply, int):
-                num_replacements += reply.get('replaceAllShapesWithImage') \
-                    .get('occurrencesChanged')
+  TEMPLATE_PRESENTATION_ID = "10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4"
+  DATA_SPREADSHEET_ID = "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM"
+  IMAGE_URL = "https://picsum.photos/200"
+  CHART_ID = 1107320627
+  CUSTOMER_NAME = "Fake Customer"
+
+  def test_image_merging(self):
+    """image merging function"""
+    response = slides_image_merging.image_merging(
+        self.TEMPLATE_PRESENTATION_ID, self.IMAGE_URL, self.CUSTOMER_NAME
+    )
+    presentation_id = response.get("presentationId")
+    self.delete_file_on_cleanup(presentation_id)
+    self.assertIsNotNone(presentation_id, msg=pformat(response))
+    self.assertEqual(2, len(response.get("replies")), msg=pformat(response))
+    num_replacements = 0
+    for reply in response.get("replies"):
+      if isinstance(reply, int):
+        num_replacements += reply.get("replaceAllShapesWithImage").get(
+            "occurrencesChanged"
+        )
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

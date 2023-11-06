@@ -14,68 +14,80 @@ limitations under the License.
 """
 
 # [START drive_recover_team_drives]
-
-from __future__ import print_function
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
 def recover_team_drives(real_user):
-    """Finds all Team Drives without an organizer and add one
-    Args:
-        real_user:User ID for the new organizer.
-    Returns:
-        team drives_object.
+  """Finds all Team Drives without an organizer and add one
+  Args:
+      real_user:User ID for the new organizer.
+  Returns:
+      team drives_object.
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # call drive api client
-        service = build('drive', 'v2', credentials=creds)
+  try:
+    # call drive api client
+    service = build("drive", "v2", credentials=creds)
 
-        # pylint: disable=maybe-no-member
-        team_drives = []
+    # pylint: disable=maybe-no-member
+    team_drives = []
 
-        page_token = None
-        new_organizer_permission = {'type': 'user',
-                                    'role': 'organizer',
-                                    'value': 'user@example.com'}
-        new_organizer_permission['value'] = real_user
+    page_token = None
+    new_organizer_permission = {
+        "type": "user",
+        "role": "organizer",
+        "value": "user@example.com",
+    }
+    new_organizer_permission["value"] = real_user
 
-        while True:
-            response = service.teamdrives().list(q='organizerCount = 0',
-                                                 useDomainAdminAccess=True,
-                                                 fields='nextPageToken,  '
-                                                        'items(id, name)',
-                                                 pageToken=page_token) \
-                .execute()
-            for team_drive in response.get('items', []):
-                print(F'Found Team Drive without organizer: '
-                      F'{team_drive.get("title")}, {team_drive.get("id")}')
-                permission = service.permissions().insert(
-                    fileId=team_drive.get('id'),
-                    body=new_organizer_permission, useDomainAdminAccess=True,
-                    supportsTeamDrives=True, fields='id').execute()
-                print(F'Added organizer permission: {permission.get("id")}')
+    while True:
+      response = (
+          service.teamdrives()
+          .list(
+              q="organizerCount = 0",
+              useDomainAdminAccess=True,
+              fields="nextPageToken,  items(id, name)",
+              pageToken=page_token,
+          )
+          .execute()
+      )
+      for team_drive in response.get("items", []):
+        print(
+            "Found Team Drive without organizer: "
+            f"{team_drive.get('title')}, {team_drive.get('id')}"
+        )
+        permission = (
+            service.permissions()
+            .insert(
+                fileId=team_drive.get("id"),
+                body=new_organizer_permission,
+                useDomainAdminAccess=True,
+                supportsTeamDrives=True,
+                fields="id",
+            )
+            .execute()
+        )
+        print(f'Added organizer permission: {permission.get("id")}')
 
-            team_drives.extend(response.get('items', []))
-            page_token = response.get('nextPageToken', None)
-            if page_token is None:
-                break
+      team_drives.extend(response.get("items", []))
+      page_token = response.get("nextPageToken", None)
+      if page_token is None:
+        break
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        team_drives = None
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+    team_drives = None
 
-    print(team_drives)
+  print(team_drives)
 
 
-if __name__ == '__main__':
-    recover_team_drives(real_user='rajesh@workspacesamples.dev')
+if __name__ == "__main__":
+  recover_team_drives(real_user="rajesh@workspacesamples.dev")
 # [END drive_recover_team_drives]

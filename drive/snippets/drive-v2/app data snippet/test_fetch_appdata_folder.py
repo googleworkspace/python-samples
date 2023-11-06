@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import fetch_appdata_folder
 
 
 class TestFetchAppdataFolder(unittest.TestCase):
-    """Unit test class for Appdata snippet"""
+  """Unit test class for Appdata snippet"""
 
-    @classmethod
-    def test_list_appdata(cls):
-        """Test list_appdata"""
-        file_id = fetch_appdata_folder.fetch_appdata_folder()
-        cls.assertIsNotNone(cls, file_id)
+  @classmethod
+  def test_list_appdata(cls):
+    """Test list_appdata"""
+    file_id = fetch_appdata_folder.fetch_appdata_folder()
+    cls.assertIsNotNone(cls, file_id)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

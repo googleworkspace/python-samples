@@ -18,14 +18,14 @@ from base_test import BaseTest
 
 
 class Testfilterviews(BaseTest):
-    """Unit test for sheets conditional_formatting value Sheet snippet"""
+  """Unit test for sheets conditional_formatting value Sheet snippet"""
 
-    def test_filter_views(self):
-        """test filter view function"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        self.populate_values(spreadsheet_id)
-        sheets_filter_views.filter_views(spreadsheet_id)
+  def test_filter_views(self):
+    """test filter view function"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    self.populate_values(spreadsheet_id)
+    sheets_filter_views.filter_views(spreadsheet_id)
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

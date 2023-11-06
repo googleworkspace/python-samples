@@ -12,22 +12,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import export_pdf
 
 
 class TestExportPdf(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_export_pdf(cls):
-        """Test export_pdf"""
-        # valid file ID
-        real_file_id = '1zbp8wAyuImX91Jt9mI-CAX_1TqkBLDEDcr2WeXBbKUY'
-        file = export_pdf.export_pdf(real_file_id=real_file_id)
-        cls.assertNotEqual(cls, 0, len(file))
+  @classmethod
+  def test_export_pdf(cls):
+    """Test export_pdf"""
+    # valid file ID
+    real_file_id = "1zbp8wAyuImX91Jt9mI-CAX_1TqkBLDEDcr2WeXBbKUY"
+    file = export_pdf.export_pdf(real_file_id=real_file_id)
+    cls.assertNotEqual(cls, 0, len(file))
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

@@ -14,9 +14,6 @@ limitations under the License.
 """
 
 # [START drive_create_team_drive]
-
-from __future__ import print_function
-
 import uuid
 
 import google.auth
@@ -25,34 +22,36 @@ from googleapiclient.errors import HttpError
 
 
 def create_team_drive():
-    """ Create a drive for team.
-    Returns: ID of the created drive
+  """Create a drive for team.
+  Returns: ID of the created drive
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # call drive api client
-        service = build('drive', 'v3', credentials=creds)
+  try:
+    # call drive api client
+    service = build("drive", "v3", credentials=creds)
 
-        # pylint: disable=maybe-no-member
-        team_drive_metadata = {'name': 'Project Resources'}
-        request_id = str(uuid.uuid4())
-        team_drive = service.teamdrives().create(body=team_drive_metadata,
-                                                 requestId=request_id,
-                                                 fields='id').execute()
-        print(F'Team Drive ID: {team_drive.get("id")}')
+    # pylint: disable=maybe-no-member
+    team_drive_metadata = {"name": "Project Resources"}
+    request_id = str(uuid.uuid4())
+    team_drive = (
+        service.teamdrives()
+        .create(body=team_drive_metadata, requestId=request_id, fields="id")
+        .execute()
+    )
+    print(f'Team Drive ID: {team_drive.get("id")}')
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        team_drive = None
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+    team_drive = None
 
-    return team_drive.get('id')
+  return team_drive.get("id")
 
 
-if __name__ == '__main__':
-    create_team_drive()
+if __name__ == "__main__":
+  create_team_drive()
 # [END drive_create_team_drive]

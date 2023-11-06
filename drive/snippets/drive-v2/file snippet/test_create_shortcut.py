@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import create_shortcut
 
 
 class TestCreateShortcut(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_create_shortcut(cls):
-        """Test create_folder"""
-        file_id = create_shortcut.create_shortcut()
-        cls.assertIsNotNone(cls, file_id)
+  @classmethod
+  def test_create_shortcut(cls):
+    """Test create_folder"""
+    file_id = create_shortcut.create_shortcut()
+    cls.assertIsNotNone(cls, file_id)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

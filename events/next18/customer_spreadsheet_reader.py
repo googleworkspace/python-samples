@@ -21,54 +21,62 @@ import collections
 
 class CustomerSpreadsheetReader(object):
 
-    def __init__(self, sheets_service, spreadsheet_id):
-        self._sheets_service = sheets_service
-        self._spreadsheet_id = spreadsheet_id
-        self._data_filters = collections.OrderedDict()
+  def __init__(self, sheets_service, spreadsheet_id):
+    self._sheets_service = sheets_service
+    self._spreadsheet_id = spreadsheet_id
+    self._data_filters = collections.OrderedDict()
 
-    def ReadColumnData(self, column_id):
-        data_filter = {
-            'developerMetadataLookup': {
-                'metadataKey': 'column_id',
-                'metadataValue': column_id,
-            }
+  def ReadColumnData(self, column_id):
+    data_filter = {
+        "developerMetadataLookup": {
+            "metadataKey": "column_id",
+            "metadataValue": column_id,
         }
-        self._data_filters[column_id] = data_filter
+    }
+    self._data_filters[column_id] = data_filter
 
-    def ExecuteRead(self):
-        filters = list(self._data_filters.values())
-        get_body = {'dataFilters': filters}
-        read_fields = ','.join([
-            'sheets.properties.sheetId',
-            'sheets.data.rowData.values.formattedValue',
-            'developerMetadata.metadataValue'])
-        spreadsheet = self._sheets_service.spreadsheets().getByDataFilter(
-            spreadsheetId=self._spreadsheet_id, body=get_body,
-            fields=read_fields).execute()
-        customer_spreadsheet = CustomerSpreadsheet(
-            spreadsheet, self._data_filters)
-        self._data_filters = collections.OrderedDict()
-        return customer_spreadsheet
+  def ExecuteRead(self):
+    filters = list(self._data_filters.values())
+    get_body = {"dataFilters": filters}
+    read_fields = ",".join([
+        "sheets.properties.sheetId",
+        "sheets.data.rowData.values.formattedValue",
+        "developerMetadata.metadataValue",
+    ])
+    spreadsheet = (
+        self._sheets_service.spreadsheets()
+        .getByDataFilter(
+            spreadsheetId=self._spreadsheet_id,
+            body=get_body,
+            fields=read_fields,
+        )
+        .execute()
+    )
+    customer_spreadsheet = CustomerSpreadsheet(spreadsheet, self._data_filters)
+    self._data_filters = collections.OrderedDict()
+    return customer_spreadsheet
 
 
 class CustomerSpreadsheet(object):
 
-    def __init__(self, spreadsheet, data_filters):
-        self._spreadsheet = spreadsheet
-        self._data_filters = data_filters
+  def __init__(self, spreadsheet, data_filters):
+    self._spreadsheet = spreadsheet
+    self._data_filters = data_filters
 
-    def GetSheetId(self):
-        sheet = self._spreadsheet.get('sheets')[0]
-        return sheet.get('properties').get('sheetId')
+  def GetSheetId(self):
+    sheet = self._spreadsheet.get("sheets")[0]
+    return sheet.get("properties").get("sheetId")
 
-    def GetTemplateId(self):
-        metadata = self._spreadsheet.get('developerMetadata')[0]
-        return metadata.get('metadataValue')
+  def GetTemplateId(self):
+    metadata = self._spreadsheet.get("developerMetadata")[0]
+    return metadata.get("metadataValue")
 
-    def GetColumnData(self, column_id):
-        index = list(self._data_filters.keys()).index(column_id)
-        data = self._spreadsheet.get('sheets')[0].get('data')[index]
-        values = [row.get('values')[0].get('formattedValue')
-                  for row in data.get('rowData')]
-        # Remove the first value which is just the label
-        return values[1:]
+  def GetColumnData(self, column_id):
+    index = list(self._data_filters.keys()).index(column_id)
+    data = self._spreadsheet.get("sheets")[0].get("data")[index]
+    values = [
+        row.get("values")[0].get("formattedValue")
+        for row in data.get("rowData")
+    ]
+    # Remove the first value which is just the label
+    return values[1:]

@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from threads import show_chatty_threads
 
 
 class TestThreads(unittest.TestCase):
-    """unit test class for snippets"""
+  """unit test class for snippets"""
 
-    @classmethod
-    def test_threads(cls):
-        """to test threads"""
-        result = show_chatty_threads()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_threads(cls):
+    """to test threads"""
+    result = show_chatty_threads()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

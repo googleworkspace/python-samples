@@ -12,22 +12,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import download_file
 
 
 class TestDownloadFile(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_download_file(cls):
-        """Test Download_file"""
-        # valid file id
-        real_file_id = '1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9'
-        file = download_file.download_file(real_file_id=real_file_id)
-        cls.assertNotEqual(cls, 0, len(file))
+  @classmethod
+  def test_download_file(cls):
+    """Test Download_file"""
+    # valid file id
+    real_file_id = "1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9"
+    file = download_file.download_file(real_file_id=real_file_id)
+    cls.assertNotEqual(cls, 0, len(file))
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

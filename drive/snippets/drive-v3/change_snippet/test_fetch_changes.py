@@ -20,15 +20,15 @@ import fetch_start_page_token
 
 
 class TestFetchChanges(unittest.TestCase):
-    """Unit test classs for Change snippet"""
+  """Unit test class for Change snippet"""
 
-    @classmethod
-    def test_fetch_changes(cls):
-        """Test fetch_changes"""
-        start_token = fetch_start_page_token.fetch_start_page_token()
-        token = fetch_changes.fetch_changes(start_token)
-        cls.assertIsNotNone(cls, token)
+  @classmethod
+  def test_fetch_changes(cls):
+    """Test fetch_changes"""
+    start_token = fetch_start_page_token.fetch_start_page_token()
+    token = fetch_changes.fetch_changes(start_token)
+    cls.assertIsNotNone(cls, token)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

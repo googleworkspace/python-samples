@@ -12,21 +12,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from create_smime_info import create_smime_info
 
 
 class TestCreateSmimeInfo(unittest.TestCase):
-    """Unit test class to test Snippet"""
+  """Unit test class to test Snippet"""
 
-    @classmethod
-    def test_create_smime_info(cls):
-        """test to create smime info"""
-        # enter the file and password accordingly
-        smime_info = create_smime_info(cert_filename='abc', cert_password='abc')
-        cls.assertIsNotNone(cls, smime_info)
+  @classmethod
+  def test_create_smime_info(cls):
+    """test to create smime info"""
+    # enter the file and password accordingly
+    smime_info = create_smime_info(cert_filename="abc", cert_password="abc")
+    cls.assertIsNotNone(cls, smime_info)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

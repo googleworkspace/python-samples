@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from insert_smime_info import insert_smime_info
 
 
 class TestInsertSmimeInfo(unittest.TestCase):
-    """Unit test class for snippet"""
+  """Unit test class for snippet"""
 
-    @classmethod
-    def test_insert_smime_info(cls):
-        """test to insert smime info"""
-        result = insert_smime_info()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_insert_smime_info(cls):
+    """test to insert smime info"""
+    result = insert_smime_info()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

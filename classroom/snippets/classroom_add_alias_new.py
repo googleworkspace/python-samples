@@ -23,59 +23,59 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # [START classroom_new_alias]
-
-SCOPES = ['https://www.googleapis.com/auth/classroom.courses']
+SCOPES = ["https://www.googleapis.com/auth/classroom.courses"]
 
 
 def classroom_add_alias_new():
-    """
-        Creates a course with alias specification the user has access to.
-        The file token.json stores the user's access and refresh tokens, and is
-        created automatically when the authorization flow completes for
-        the first time.
-        Load pre-authorized user credentials from the environment.
-        TODO(developer) - See https://developers.google.com/identity for
-         guides on implementing OAuth2 for the application.
-    """
-    # pylint: disable=maybe-no-member
-    creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.json', 'w', encoding="utf8") as token:
-            token.write(creds.to_json())
+  """
+  Creates a course with alias specification the user has access to.
+  The file token.json stores the user's access and refresh tokens, and is
+  created automatically when the authorization flow completes for
+  the first time.
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity for
+   guides on implementing OAuth2 for the application.
+  """
+  # pylint: disable=maybe-no-member
+  creds = None
+  if os.path.exists("token.json"):
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+  # If there are no (valid) credentials available, let the user log in.
+  if not creds or not creds.valid:
+    if creds and creds.expired and creds.refresh_token:
+      creds.refresh(Request())
+    else:
+      flow = InstalledAppFlow.from_client_secrets_file(
+          "credentials.json", SCOPES
+      )
+      creds = flow.run_local_server(port=0)
+    # Save the credentials for the next run
+    with open("token.json", "w", encoding="utf8") as token:
+      token.write(creds.to_json())
 
-    alias = 'd:school_physics_333'
-    course = {
-        'id': alias,
-        'name': 'English',
-        'section': 'Period 2',
-        'description': 'Course Description',
-        'room': '301',
-        'ownerId': 'me'
-    }
-    try:
-        print('-------------')
-        service = build('classroom', 'v1', credentials=creds)
-        course = service.courses().create(body=course).execute()
-        print('====================================')
+  alias = "d:school_physics_333"
+  course = {
+      "id": alias,
+      "name": "English",
+      "section": "Period 2",
+      "description": "Course Description",
+      "room": "301",
+      "ownerId": "me",
+  }
+  try:
+    print("-------------")
+    service = build("classroom", "v1", credentials=creds)
+    course = service.courses().create(body=course).execute()
+    print("====================================")
 
-    except HttpError as error:
-        print('An error occurred: %s' % error)
-    return course
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+  return course
 
 
-if __name__ == '__main__':
-    # pylint: disable=too-many-arguments
-    # Put the course_id of course whose alias needs to be created.
-    classroom_add_alias_new()
+if __name__ == "__main__":
+  # pylint: disable=too-many-arguments
+  # Put the course_id of course whose alias needs to be created.
+  classroom_add_alias_new()
 
 # [END classroom_new_alias]

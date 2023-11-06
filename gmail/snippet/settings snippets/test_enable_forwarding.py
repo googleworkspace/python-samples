@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from enable_forwarding import enable_forwarding
 
 
 class TestEnableForwarding(unittest.TestCase):
-    """Unit test class to test enable forwarding snippet"""
+  """Unit test class to test enable forwarding snippet"""
 
-    @classmethod
-    def test_enable_forwarding(cls):
-        """test to enable forwarding"""
-        result = enable_forwarding()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_enable_forwarding(cls):
+    """test to enable forwarding"""
+    result = enable_forwarding()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

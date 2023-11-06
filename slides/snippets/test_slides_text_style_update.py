@@ -19,18 +19,18 @@ from base_test import BaseTest
 
 
 class TestTextStyleUpdate(BaseTest):
-    """Unit test for SimpleTextReplace snippet"""
+  """Unit test for SimpleTextReplace snippet"""
 
-    def test_text_style_update(self):
-        """ test_text_style_update function"""
-        presentation_id = self.create_test_presentation()
-        page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        box_id = self.create_test_textbox(presentation_id, page_id)
-        response = slides_text_style_update.\
-            text_style_update(presentation_id, box_id)
-        self.assertEqual(3, len(response.get('replies')),
-                         msg=pformat(response))
+  def test_text_style_update(self):
+    """test_text_style_update function"""
+    presentation_id = self.create_test_presentation()
+    page_id = self.add_slides(presentation_id, 1, "BLANK")[0]
+    box_id = self.create_test_textbox(presentation_id, page_id)
+    response = slides_text_style_update.text_style_update(
+        presentation_id, box_id
+    )
+    self.assertEqual(3, len(response.get("replies")), msg=pformat(response))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

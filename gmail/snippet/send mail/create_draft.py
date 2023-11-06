@@ -12,12 +12,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
 """
+
 # [START gmail_create_draft]
-
-from __future__ import print_function
-
 import base64
 from email.message import EmailMessage
 
@@ -27,49 +24,49 @@ from googleapiclient.errors import HttpError
 
 
 def gmail_create_draft():
-    """Create and insert a draft email.
-       Print the returned draft's message and id.
-       Returns: Draft object, including draft id and message meta data.
+  """Create and insert a draft email.
+   Print the returned draft's message and id.
+   Returns: Draft object, including draft id and message meta data.
 
-      Load pre-authorized user credentials from the environment.
-      TODO(developer) - See https://developers.google.com/identity
-      for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # create gmail api client
-        service = build('gmail', 'v1', credentials=creds)
+  try:
+    # create gmail api client
+    service = build("gmail", "v1", credentials=creds)
 
-        message = EmailMessage()
+    message = EmailMessage()
 
-        message.set_content('This is automated draft mail')
+    message.set_content("This is automated draft mail")
 
-        message['To'] = 'gduser1@workspacesamples.dev'
-        message['From'] = 'gduser2@workspacesamples.dev'
-        message['Subject'] = 'Automated draft'
+    message["To"] = "gduser1@workspacesamples.dev"
+    message["From"] = "gduser2@workspacesamples.dev"
+    message["Subject"] = "Automated draft"
 
-        # encoded message
-        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    # encoded message
+    encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
-        create_message = {
-            'message': {
-                'raw': encoded_message
-            }
-        }
-        # pylint: disable=E1101
-        draft = service.users().drafts().create(userId="me",
-                                                body=create_message).execute()
+    create_message = {"message": {"raw": encoded_message}}
+    # pylint: disable=E1101
+    draft = (
+        service.users()
+        .drafts()
+        .create(userId="me", body=create_message)
+        .execute()
+    )
 
-        print(F'Draft id: {draft["id"]}\nDraft message: {draft["message"]}')
+    print(f'Draft id: {draft["id"]}\nDraft message: {draft["message"]}')
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        draft = None
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+    draft = None
 
-    return draft
+  return draft
 
 
-if __name__ == '__main__':
-    gmail_create_draft()
+if __name__ == "__main__":
+  gmail_create_draft()
 # [END gmail_create_draft]

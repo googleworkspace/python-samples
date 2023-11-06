@@ -18,122 +18,115 @@
 
 
 def CreateSpreadsheet(sheets_service, title, sheet_titles):
-    """Creates an empty spreadsheet.
+  """Creates an empty spreadsheet.
 
-    It creates a spreadsheet with the provided title, and creates a sheet for
-    each entry in the sheet_titles list with the corresponding sheet title.
-    """
-    sheets = []
-    for sheet_title in sheet_titles:
-        sheet = {
-            'properties': {
-                'title': sheet_title,
-            },
-        }
-        sheets.append(sheet)
-
-    spreadsheet = {
-        'properties': {
-            'title': title,
+  It creates a spreadsheet with the provided title, and creates a sheet for
+  each entry in the sheet_titles list with the corresponding sheet title.
+  """
+  sheets = []
+  for sheet_title in sheet_titles:
+    sheet = {
+        "properties": {
+            "title": sheet_title,
         },
-        'sheets': sheets,
     }
-    return sheets_service.spreadsheets().create(body=spreadsheet).execute()
+    sheets.append(sheet)
+
+  spreadsheet = {
+      "properties": {
+          "title": title,
+      },
+      "sheets": sheets,
+  }
+  return sheets_service.spreadsheets().create(body=spreadsheet).execute()
 
 
 class SpreadsheetWriter(object):
-    """Queues writes for modifying a spreadsheet.
+  """Queues writes for modifying a spreadsheet.
 
-    Call ExecuteBatchUpdate to flush pending writes.
-    """
+  Call ExecuteBatchUpdate to flush pending writes.
+  """
 
-    def __init__(self, sheets_service, spreadsheet_id):
-        self._sheets_service = sheets_service
-        self._spreadsheet_id = spreadsheet_id
-        self._requests = []
+  def __init__(self, sheets_service, spreadsheet_id):
+    self._sheets_service = sheets_service
+    self._spreadsheet_id = spreadsheet_id
+    self._requests = []
 
-    def InsertColumn(self, sheet_id, column_index):
-        request = {
-            'insertDimension': {
-                'range': {
-                    'sheetId': sheet_id,
-                    'dimension': 'COLUMNS',
-                    'startIndex': column_index,
-                    'endIndex': column_index + 1,
-                },
-            }
+  def InsertColumn(self, sheet_id, column_index):
+    request = {
+        "insertDimension": {
+            "range": {
+                "sheetId": sheet_id,
+                "dimension": "COLUMNS",
+                "startIndex": column_index,
+                "endIndex": column_index + 1,
+            },
         }
-        self._requests.append(request)
+    }
+    self._requests.append(request)
 
-    def PopulateColumn(self, sheet_id, column_index, column_id, values):
-        # Include the column ID in the column values
-        values = [column_id] + values
+  def PopulateColumn(self, sheet_id, column_index, column_id, values):
+    # Include the column ID in the column values
+    values = [column_id] + values
 
-        # Populate the column with the values
-        rows = []
-        for value in values:
-            row_data = {
-                'values': [
-                    {
-                        'userEnteredValue': {
-                            'stringValue': value
-                        }
+    # Populate the column with the values
+    rows = []
+    for value in values:
+      row_data = {"values": [{"userEnteredValue": {"stringValue": value}}]}
+      rows.append(row_data)
+
+    update_request = {
+        "updateCells": {
+            "rows": rows,
+            "fields": "userEnteredValue",
+            "start": {
+                "sheetId": sheet_id,
+                "rowIndex": 0,
+                "columnIndex": column_index,
+            },
+        }
+    }
+    self._requests.append(update_request)
+
+    # Add developer metadata to the column to make it easier to read later
+    # by being able to just query it by the column ID
+    metadata_request = {
+        "createDeveloperMetadata": {
+            "developerMetadata": {
+                "metadataKey": "column_id",
+                "metadataValue": column_id,
+                "location": {
+                    "dimensionRange": {
+                        "sheetId": sheet_id,
+                        "dimension": "COLUMNS",
+                        "startIndex": column_index,
+                        "endIndex": column_index + 1,
                     }
-                ]
-            }
-            rows.append(row_data)
-
-        update_request = {
-            'updateCells': {
-                'rows': rows,
-                'fields': 'userEnteredValue',
-                'start': {
-                    'sheetId': sheet_id,
-                    'rowIndex': 0,
-                    'columnIndex': column_index
-                }
+                },
+                "visibility": "DOCUMENT",
             }
         }
-        self._requests.append(update_request)
+    }
+    self._requests.append(metadata_request)
 
-        # Add developer metadata to the column to make it easier to read later
-        # by being able to just query it by the column ID
-        metadata_request = {
-            'createDeveloperMetadata': {
-                'developerMetadata': {
-                    'metadataKey': 'column_id',
-                    'metadataValue': column_id,
-                    'location': {
-                        'dimensionRange': {
-                            'sheetId': sheet_id,
-                            'dimension': 'COLUMNS',
-                            'startIndex': column_index,
-                            'endIndex': column_index + 1,
-                        }
-                    },
-                    'visibility': 'DOCUMENT',
-                }
+  def AddTemplateIdToSpreadsheetMetadata(self, template_id):
+    request = {
+        "createDeveloperMetadata": {
+            "developerMetadata": {
+                "metadataKey": "template_id",
+                "metadataValue": template_id,
+                "location": {"spreadsheet": True},
+                "visibility": "DOCUMENT",
             }
         }
-        self._requests.append(metadata_request)
+    }
+    self._requests.append(request)
 
-    def AddTemplateIdToSpreadsheetMetadata(self, template_id):
-        request = {
-            'createDeveloperMetadata': {
-                'developerMetadata': {
-                    'metadataKey': 'template_id',
-                    'metadataValue': template_id,
-                    'location': {
-                        'spreadsheet': True
-                    },
-                    'visibility': 'DOCUMENT',
-                }
-            }
-        }
-        self._requests.append(request)
-
-    def ExecuteBatchUpdate(self):
-        body = {'requests': self._requests}
-        self._requests = []
-        return self._sheets_service.spreadsheets().batchUpdate(
-            spreadsheetId=self._spreadsheet_id, body=body).execute()
+  def ExecuteBatchUpdate(self):
+    body = {"requests": self._requests}
+    self._requests = []
+    return (
+        self._sheets_service.spreadsheets()
+        .batchUpdate(spreadsheetId=self._spreadsheet_id, body=body)
+        .execute()
+    )

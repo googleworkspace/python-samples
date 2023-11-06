@@ -18,19 +18,19 @@ from base_test import BaseTest
 
 
 class Testgetvalues(BaseTest):
-    """Unit test class for get value Sheet snippet"""
+  """Unit test class for get value Sheet snippet"""
 
-    def test_get_values(self):
-        """test_get_values"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        self.populate_values(spreadsheet_id)
-        result = sheets_get_values.get_values(spreadsheet_id, 'A1:C2')
-        self.assertIsNotNone(result)
-        values = result.get('values')
-        self.assertIsNotNone(values)
-        self.assertEqual(2, len(values))
-        self.assertEqual(3, len(values[0]))
+  def test_get_values(self):
+    """test_get_values"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    self.populate_values(spreadsheet_id)
+    result = sheets_get_values.get_values(spreadsheet_id, "A1:C2")
+    self.assertIsNotNone(result)
+    values = result.get("values")
+    self.assertIsNotNone(values)
+    self.assertEqual(2, len(values))
+    self.assertEqual(3, len(values[0]))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

@@ -19,23 +19,23 @@ from base_test import BaseTest
 
 
 class Testbatchupdate(BaseTest):
-    """Unit test class for Batch update Sheet snippet"""
+  """Unit test class for Batch update Sheet snippet"""
 
-    def test_batch_update(self):
-        """test_batch_update function """
-        spreadsheet_id = sheets_create.create('Title')
-        self.populate_values(spreadsheet_id)
-        response = sheets_batch_update.\
-            sheets_batch_update(spreadsheet_id, 'New Title',
-                                'Hello', 'Goodbye')
-        self.assertIsNotNone(response)
-        replies = response.get('replies')
-        self.assertIsNotNone(replies)
-        self.assertEqual(2, len(replies))
-        find_replace_response = replies[1].get('findReplace')
-        self.assertIsNotNone(find_replace_response)
-        self.assertEqual(100, find_replace_response.get('occurrencesChanged'))
+  def test_batch_update(self):
+    """test_batch_update function"""
+    spreadsheet_id = sheets_create.create("Title")
+    self.populate_values(spreadsheet_id)
+    response = sheets_batch_update.sheets_batch_update(
+        spreadsheet_id, "New Title", "Hello", "Goodbye"
+    )
+    self.assertIsNotNone(response)
+    replies = response.get("replies")
+    self.assertIsNotNone(replies)
+    self.assertEqual(2, len(replies))
+    find_replace_response = replies[1].get("findReplace")
+    self.assertIsNotNone(find_replace_response)
+    self.assertEqual(100, find_replace_response.get("occurrencesChanged"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

@@ -14,47 +14,41 @@
 
 # pylint: disable=E1102
 # python3
-"""Functionality for writing to a presentation.
-"""
+"""Functionality for writing to a presentation."""
 
 
 class PresentationWriter(object):
-    """Queues writes for modifying a presentation.
+  """Queues writes for modifying a presentation.
 
-    Call ExecuteBatchUpdate to flush pending writes.
-    """
+  Call ExecuteBatchUpdate to flush pending writes.
+  """
 
-    def __init__(self, slides_service, presentation_id):
-        self._slides_service = slides_service
-        self._presentation_id = presentation_id
-        self._requests = []
+  def __init__(self, slides_service, presentation_id):
+    self._slides_service = slides_service
+    self._presentation_id = presentation_id
+    self._requests = []
 
-    def ReplaceAllText(self, find_text, replace_text):
-        request = {
-            'replaceAllText': {
-                'replaceText': replace_text,
-                'containsText': {
-                    'text': find_text,
-                    'matchCase': True
-                }
-            }
+  def ReplaceAllText(self, find_text, replace_text):
+    request = {
+        "replaceAllText": {
+            "replaceText": replace_text,
+            "containsText": {"text": find_text, "matchCase": True},
         }
-        self._requests.append(request)
+    }
+    self._requests.append(request)
 
-    def ReplaceAllShapesWithImage(self, find_text, image_url):
-        request = {
-            'replaceAllShapesWithImage': {
-                'imageUrl': image_url,
-                'containsText': {
-                    'text': find_text,
-                    'matchCase': True
-                }
-            }
+  def ReplaceAllShapesWithImage(self, find_text, image_url):
+    request = {
+        "replaceAllShapesWithImage": {
+            "imageUrl": image_url,
+            "containsText": {"text": find_text, "matchCase": True},
         }
-        self._requests.append(request)
+    }
+    self._requests.append(request)
 
-    def ExecuteBatchUpdate(self):
-        body = {'requests': self._requests}
-        self._requests = []
-        self._slides_service.presentations().batchUpdate(
-            presentationId=self._presentation_id, body=body).execute()
+  def ExecuteBatchUpdate(self):
+    body = {"requests": self._requests}
+    self._requests = []
+    self._slides_service.presentations().batchUpdate(
+        presentationId=self._presentation_id, body=body
+    ).execute()

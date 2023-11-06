@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from update_signature import update_signature
 
 
 class TestUpdateSignature(unittest.TestCase):
-    """Unit test class to test Update signature snippet"""
+  """Unit test class to test Update signature snippet"""
 
-    @classmethod
-    def test_update_signature(cls):
-        """ test to update signature"""
-        result = update_signature()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_update_signature(cls):
+    """test to update signature"""
+    result = update_signature()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

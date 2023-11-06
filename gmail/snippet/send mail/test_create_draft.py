@@ -19,14 +19,14 @@ from create_draft import gmail_create_draft
 
 
 class TestCreateDraft(unittest.TestCase):
-    """Unit test classs for snippet"""
+  """Unit test class for snippet"""
 
-    @classmethod
-    def test_create_draft(cls):
-        """Unit test for create draft"""
-        draft = gmail_create_draft()
-        cls.assertIsNotNone(cls, draft)
+  @classmethod
+  def test_create_draft(cls):
+    """Unit test for create draft"""
+    draft = gmail_create_draft()
+    cls.assertIsNotNone(cls, draft)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()
