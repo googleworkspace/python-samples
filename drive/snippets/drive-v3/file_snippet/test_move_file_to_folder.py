@@ -24,11 +24,11 @@ class TestMoveFileToFolder(unittest.TestCase):
   @classmethod
   def test_move_file_to_folder(cls):
     """Test move_file_to_folder"""
-    real_file_id = "1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9"
-    real_folder_id = "1v5eyIbXCr9TZX3eX_44HEExfe7yRj24V"
+    file_id = "1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9"
+    folder_id = "1v5eyIbXCr9TZX3eX_44HEExfe7yRj24V"
 
     update = move_file_to_folder.move_file_to_folder(
-        real_file_id=real_file_id, real_folder_id=real_folder_id
+        file_id=file_id, folder_id=folder_id
     )
     cls.assertIsNotNone(cls, 0, len(update))
 

@@ -24,8 +24,8 @@ class TestUploadToFolder(unittest.TestCase):
   @classmethod
   def test_upload_to_folder(cls):
     """Test upload_to_folder"""
-    real_folder_id = "1s0oKEZZXjImNngxHGnY0xed6Mw-tvspu"
-    file_id = upload_to_folder.upload_to_folder(real_folder_id=real_folder_id)
+    folder_id = "1s0oKEZZXjImNngxHGnY0xed6Mw-tvspu"
+    file_id = upload_to_folder.upload_to_folder(folder_id=folder_id)
     cls.assertIsNotNone(cls, file_id)
 
 
