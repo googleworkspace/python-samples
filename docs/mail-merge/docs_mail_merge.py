@@ -56,6 +56,29 @@ TEXT_SOURCE_DATA = (
     ),
 )
 
+# fill-in your data to merge into document template variables
+merge = {
+    # sender data
+    "my_name": "Ayme A. Coder",
+    "my_address": "1600 Amphitheatre Pkwy\nMountain View, CA  94043-1351",
+    "my_email": "http://google.com",
+    "my_phone": "+1-650-253-0000",
+    # - - - - - - - - - - - - - - - - - - - - - - - - - -
+    # recipient data (supplied by 'text' or 'sheets' data source)
+    "to_name": None,
+    "to_title": None,
+    "to_company": None,
+    "to_address": None,
+    # - - - - - - - - - - - - - - - - - - - - - - - - - -
+    "date": time.strftime("%Y %B %d"),
+    # - - - - - - - - - - - - - - - - - - - - - - - - - -
+    "body": (
+        "Google, headquartered in Mountain View, unveiled the new "
+        "Android phone at the Consumer Electronics Show. CEO Sundar "
+        "Pichai said in his keynote that users love their new phones."
+    ),
+}
+
 creds, _ = google.auth.default()
 # pylint: disable=maybe-no-member
 
@@ -154,29 +177,6 @@ def merge_template(tmpl_id, source, service):
 
 
 if __name__ == "__main__":
-  # fill-in your data to merge into document template variables
-  merge = {
-      # sender data
-      "my_name": "Ayme A. Coder",
-      "my_address": "1600 Amphitheatre Pkwy\nMountain View, CA  94043-1351",
-      "my_email": "http://google.com",
-      "my_phone": "+1-650-253-0000",
-      # - - - - - - - - - - - - - - - - - - - - - - - - - -
-      # recipient data (supplied by 'text' or 'sheets' data source)
-      "to_name": None,
-      "to_title": None,
-      "to_company": None,
-      "to_address": None,
-      # - - - - - - - - - - - - - - - - - - - - - - - - - -
-      "date": time.strftime("%Y %B %d"),
-      # - - - - - - - - - - - - - - - - - - - - - - - - - -
-      "body": (
-          "Google, headquartered in Mountain View, unveiled the new "
-          "Android phone at the Consumer Electronics Show. CEO Sundar "
-          "Pichai said in his keynote that users love their new phones."
-      ),
-  }
-
   # get row data, then loop through & process each form letter
   data = get_data(SOURCE)  # get data from data source
   for i, row in enumerate(data):
