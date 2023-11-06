@@ -52,7 +52,10 @@ def image_merging(template_presentation_id, image_url, customer_name):
             "replaceAllShapesWithImage": {
                 "imageUrl": logo_url,
                 "replaceMethod": "CENTER_INSIDE",
-                "containsText": {"text": "{{company-logo}}", "matchCase": True},
+                "containsText": {
+                    "text": "{{company-logo}}",
+                    "matchCase": True,
+                },
             }
         }
     )

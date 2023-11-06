@@ -36,7 +36,10 @@ def create_filter():
     label_name = "IMPORTANT"
     filter_content = {
         "criteria": {"from": "gsuder1@workspacesamples.dev"},
-        "action": {"addLabelIds": [label_name], "removeLabelIds": ["INBOX"]},
+        "action": {
+            "addLabelIds": [label_name],
+            "removeLabelIds": ["INBOX"],
+        },
     }
 
     # pylint: disable=E1101

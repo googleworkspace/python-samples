@@ -60,7 +60,11 @@ def text_style_update(presentation_id, shape_id):
                     "fontSize": {"magnitude": 14, "unit": "PT"},
                     "foregroundColor": {
                         "opaqueColor": {
-                            "rgbColor": {"blue": 1.0, "green": 0.0, "red": 0.0}
+                            "rgbColor": {
+                                "blue": 1.0,
+                                "green": 0.0,
+                                "red": 0.0,
+                            }
                         }
                     },
                 },

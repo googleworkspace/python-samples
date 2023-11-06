@@ -42,7 +42,10 @@ def filter_views(spreadsheet_id):
             "filter": {
                 "title": "Sample Filter",
                 "range": my_range,
-                "sortSpecs": [{"dimensionIndex": 3, "sortOrder": "DESCENDING"}],
+                "sortSpecs": [{
+                    "dimensionIndex": 3,
+                    "sortOrder": "DESCENDING",
+                }],
                 "criteria": {
                     0: {"hiddenValues": ["Panel"]},
                     6: {

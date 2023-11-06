@@ -27,7 +27,8 @@ class TestCreateSlide(BaseTest):
     page_id = "my_page_id"
     response = slides_create_slide.create_slide(presentation_id, page_id)
     self.assertEqual(
-        page_id, response.get("replies")[0].get("createSlide").get("objectId")
+        page_id,
+        response.get("replies")[0].get("createSlide").get("objectId"),
     )
 
 

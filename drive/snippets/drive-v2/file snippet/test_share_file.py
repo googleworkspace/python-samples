@@ -28,7 +28,9 @@ class TestShareFile(unittest.TestCase):
     real_user = "gduser1@workspacesamples.dev"
     real_domain = "workspacesamples.dev"
     file = share_file.share_file(
-        real_file_id=real_file_id, real_user=real_user, real_domain=real_domain
+        real_file_id=real_file_id,
+        real_user=real_user,
+        real_domain=real_domain,
     )
     cls.assertNotEqual(cls, 0, len(file))
 

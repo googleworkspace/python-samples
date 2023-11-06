@@ -76,7 +76,11 @@ def main():
     request = {
         "files": [
             {"name": "hello", "type": "SERVER_JS", "source": SAMPLE_CODE},
-            {"name": "appsscript", "type": "JSON", "source": SAMPLE_MANIFEST},
+            {
+                "name": "appsscript",
+                "type": "JSON",
+                "source": SAMPLE_MANIFEST,
+            },
         ]
     }
     response = (

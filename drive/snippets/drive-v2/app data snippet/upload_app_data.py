@@ -34,7 +34,10 @@ def upload_appdata():
     # call drive api client
     service = build("drive", "v2", credentials=creds)
 
-    file_metadata = {"title": "abc.txt", "parents": [{"id": "appDataFolder"}]}
+    file_metadata = {
+        "title": "abc.txt",
+        "parents": [{"id": "appDataFolder"}],
+    }
     media = MediaFileUpload("abc.txt", mimetype="text/txt", resumable=True)
     # pylint: disable=maybe-no-member
     file = (
