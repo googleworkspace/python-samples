@@ -12,19 +12,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from send_message import gmail_send_message
 
 
 class TestSendMessage(unittest.TestCase):
-    """Unit test class for snippet"""
+  """Unit test class for snippet"""
 
-    def test_send_message(self):
-        """test send message"""
-        send_message = gmail_send_message()
-        self.assertIsNotNone(self, send_message)
+  def test_send_message(self):
+    """test send message"""
+    send_message = gmail_send_message()
+    self.assertIsNotNone(self, send_message)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

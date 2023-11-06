@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from create_filter import create_filter
 
 
 class TestCreateFilter(unittest.TestCase):
-    """Unit test class to implement test case for Snippets"""
+  """Unit test class to implement test case for Snippets"""
 
-    @classmethod
-    def test_create_file(cls):
-        """test to create file"""
-        result = create_filter()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_create_file(cls):
+    """test to create file"""
+    result = create_filter()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

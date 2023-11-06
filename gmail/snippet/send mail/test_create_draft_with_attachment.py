@@ -19,14 +19,14 @@ from create_draft_with_attachment import gmail_create_draft_with_attachment
 
 
 class TestCreateDraftWithAttachment(unittest.TestCase):
-    """Unit test classs for Change snippet"""
+  """Unit test class for Change snippet"""
 
-    @classmethod
-    def test_create_draft_with_attachment(cls):
-        """Test create draft with attachment"""
-        draft = gmail_create_draft_with_attachment()
-        cls.assertIsNotNone(cls, draft)
+  @classmethod
+  def test_create_draft_with_attachment(cls):
+    """Test create draft with attachment"""
+    draft = gmail_create_draft_with_attachment()
+    cls.assertIsNotNone(cls, draft)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

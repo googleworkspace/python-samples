@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from insert_cert_from_csv import insert_cert_from_csv
 
 
 class TestInsertCertFromCsv(unittest.TestCase):
-    """unittest class for testing the snippetts"""
+  """unittest class for testing the snippetts"""
 
-    @classmethod
-    def test_insert_cert_from_csv(cls):
-        """test to insert cert from csv"""
-        result = insert_cert_from_csv('test.csv')
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_insert_cert_from_csv(cls):
+    """test to insert cert from csv"""
+    result = insert_cert_from_csv("test.csv")
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

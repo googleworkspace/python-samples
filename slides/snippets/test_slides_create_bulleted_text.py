@@ -19,18 +19,18 @@ from base_test import BaseTest
 
 
 class TestCreateBulletedText(BaseTest):
-    """Unit test for create_bulleted_text snippet"""
+  """Unit test for create_bulleted_text snippet"""
 
-    def test_create_bulleted_text(self):
-        """create_bulleted_text function"""
-        presentation_id = self.create_test_presentation()
-        page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        box_id = self.create_test_textbox(presentation_id, page_id)
-        response = slides_create_bulleted_text.\
-            create_bulleted_text(presentation_id, box_id)
-        self.assertEqual(1, len(response.get('replies')),
-                         msg=pformat(response))
+  def test_create_bulleted_text(self):
+    """create_bulleted_text function"""
+    presentation_id = self.create_test_presentation()
+    page_id = self.add_slides(presentation_id, 1, "BLANK")[0]
+    box_id = self.create_test_textbox(presentation_id, page_id)
+    response = slides_create_bulleted_text.create_bulleted_text(
+        presentation_id, box_id
+    )
+    self.assertEqual(1, len(response.get("replies")), msg=pformat(response))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

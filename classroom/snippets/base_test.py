@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import print_function
-
 import sys
 import unittest
 
@@ -22,44 +20,45 @@ from googleapiclient import errors
 from googleapiclient.discovery import build
 from oauth2client.client import GoogleCredentials
 
-SCOPES = 'https://www.googleapis.com/auth/classroom.courses'
+SCOPES = "https://www.googleapis.com/auth/classroom.courses"
 
 
 class BaseTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.credentials = cls.create_credentials()
-        http = cls.credentials.authorize(httplib2.Http())
-        cls.credentials.refresh(http)
-        cls.service = build('classroom', 'v1', http=http)
-        cls.stdout = sys.stdout
-        sys.stdout = None
 
-    @classmethod
-    def tearDownClass(cls):
-        # Restore STDOUT.
-        sys.stdout = cls.stdout
+  @classmethod
+  def setUpClass(cls):
+    cls.credentials = cls.create_credentials()
+    http = cls.credentials.authorize(httplib2.Http())
+    cls.credentials.refresh(http)
+    cls.service = build("classroom", "v1", http=http)
+    cls.stdout = sys.stdout
+    sys.stdout = None
 
-    @classmethod
-    def create_credentials(cls):
-        cls.credentials = GoogleCredentials.get_application_default()
-        scope = ['https://www.googleapis.com/auth/drive']
-        return cls.credentials.create_scoped(scope)
+  @classmethod
+  def tearDownClass(cls):
+    # Restore STDOUT.
+    sys.stdout = cls.stdout
 
-    def setUp(self):
-        self.courses_to_delete = []
-        print("Meow" + str(self.courses_to_delete))
+  @classmethod
+  def create_credentials(cls):
+    cls.credentials = GoogleCredentials.get_application_default()
+    scope = ["https://www.googleapis.com/auth/drive"]
+    return cls.credentials.create_scoped(scope)
 
-    def tearDown(self):
-        for course_id in self.courses_to_delete:
-            try:
-                self.service.courses().delete(id=course_id).execute()
-            except errors.HttpError:
-                print('Unable to delete file %s' % course_id)
+  def setUp(self):
+    self.courses_to_delete = []
+    print("Meow" + str(self.courses_to_delete))
 
-    def delete_course_on_cleanup(self, course_id):
-        self.courses_to_delete.append(course_id)
+  def tearDown(self):
+    for course_id in self.courses_to_delete:
+      try:
+        self.service.courses().delete(id=course_id).execute()
+      except errors.HttpError:
+        print(f"Unable to delete file {course_id}")
+
+  def delete_course_on_cleanup(self, course_id):
+    self.courses_to_delete.append(course_id)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

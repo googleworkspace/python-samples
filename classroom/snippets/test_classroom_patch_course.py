@@ -10,6 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import classroom_create_course
@@ -18,15 +19,16 @@ from base_test import BaseTest
 
 
 class TestClassroomPatchCourse(BaseTest):
-    """Unit test class for Patch course snippet"""
-    def test_classroom_patch_course(self):
-        """Unit test method for Patch course snippet"""
-        course = classroom_create_course.classroom_create_course()
-        self.assertIsNotNone(course)
-        self.delete_course_on_cleanup(course.get('id'))
-        course = classroom_patch_course.classroom_patch_course(course.get('id'))
-        self.assertIsNotNone(course)
+  """Unit test class for Patch course snippet"""
+
+  def test_classroom_patch_course(self):
+    """Unit test method for Patch course snippet"""
+    course = classroom_create_course.classroom_create_course()
+    self.assertIsNotNone(course)
+    self.delete_course_on_cleanup(course.get("id"))
+    course = classroom_patch_course.classroom_patch_course(course.get("id"))
+    self.assertIsNotNone(course)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

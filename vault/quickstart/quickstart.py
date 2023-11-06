@@ -13,8 +13,6 @@
 # limitations under the License.
 
 # [START vault_quickstart]
-from __future__ import print_function
-
 import os.path
 
 from google.auth.transport.requests import Request
@@ -24,50 +22,50 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/ediscovery']
+SCOPES = ["https://www.googleapis.com/auth/ediscovery"]
 
 
 def main():
-    """Shows basic usage of the Vault API.
-    Prints the names and IDs of the first 10 matters in Vault.
-    """
-    creds = None
-    # The file token.json stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
+  """Shows basic usage of the Vault API.
+  Prints the names and IDs of the first 10 matters in Vault.
+  """
+  creds = None
+  # The file token.json stores the user's access and refresh tokens, and is
+  # created automatically when the authorization flow completes for the first
+  # time.
+  if os.path.exists("token.json"):
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+  # If there are no (valid) credentials available, let the user log in.
+  if not creds or not creds.valid:
+    if creds and creds.expired and creds.refresh_token:
+      creds.refresh(Request())
+    else:
+      flow = InstalledAppFlow.from_client_secrets_file(
+          "credentials.json", SCOPES
+      )
+      creds = flow.run_local_server(port=0)
+    # Save the credentials for the next run
+    with open("token.json", "w") as token:
+      token.write(creds.to_json())
 
-    try:
+  try:
+    service = build("vault", "v1", credentials=creds)
 
-        service = build('vault', 'v1', credentials=creds)
+    # Call the Vault API
+    results = service.matters().list(pageSize=10).execute()
+    matters = results.get("matters", [])
 
-        # Call the Vault API
-        results = service.matters().list(pageSize=10).execute()
-        matters = results.get('matters', [])
+    if not matters:
+      print("No matters found.")
+      return
 
-        if not matters:
-            print('No matters found.')
-            return
-
-        print('Matters:')
-        for matter in matters:
-            print(u'{} ({})'.format(matter.get('name'), matter.get('id')))
-    except HttpError as err:
-        print(err)
+    print("Matters:")
+    for matter in matters:
+      print(f"{matter.get('name')} ({matter.get('id')})")
+  except HttpError as err:
+    print(err)
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+  main()
 # [END vault_quickstart]

@@ -12,22 +12,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from update_smime_cert import update_smime_cert
 
 
 class TestUpdateSmimeCert(unittest.TestCase):
-    """Unit test class for snippets"""
+  """Unit test class for snippets"""
 
-    @classmethod
-    def test_update_smime_cert(cls):
-        """test update smime cert"""
-        result = update_smime_cert(user_id='xyz', send_as_email='yzx',
-                                   cert_filename='abc', cert_password='abc',
-                                   expire_dt='cde')
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_update_smime_cert(cls):
+    """test update smime cert"""
+    result = update_smime_cert(
+        user_id="xyz",
+        send_as_email="yzx",
+        cert_filename="abc",
+        cert_password="abc",
+        expire_dt="cde",
+    )
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

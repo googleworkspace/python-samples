@@ -18,21 +18,19 @@ from base_test import BaseTest
 
 
 class Testupdatesvalues(BaseTest):
-    """Unit test for update value Sheet snippet"""
+  """Unit test for update value Sheet snippet"""
 
-    def test_update_values(self):
-        """test updates_values"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        result = sheets_update_values.update_values(spreadsheet_id,
-                                                    'A1:B2', 'USER_ENTERED', [
-                                                        ['A', 'B'],
-                                                        ['C', 'D']
-                                                    ])
-        self.assertIsNotNone(result)
-        self.assertEqual(2, result.get('updatedRows'))
-        self.assertEqual(2, result.get('updatedColumns'))
-        self.assertEqual(4, result.get('updatedCells'))
+  def test_update_values(self):
+    """test updates_values"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    result = sheets_update_values.update_values(
+        spreadsheet_id, "A1:B2", "USER_ENTERED", [["A", "B"], ["C", "D"]]
+    )
+    self.assertIsNotNone(result)
+    self.assertEqual(2, result.get("updatedRows"))
+    self.assertEqual(2, result.get("updatedColumns"))
+    self.assertEqual(4, result.get("updatedCells"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

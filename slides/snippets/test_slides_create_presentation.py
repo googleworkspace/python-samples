@@ -18,14 +18,14 @@ from base_test import BaseTest
 
 
 class TestCreatePresentation(BaseTest):
-    """Unit test for create presentation  snippet"""
+  """Unit test for create presentation  snippet"""
 
-    def test_create_presentation(self):
-        """Set title for create presentation"""
-        presentation = slides_create_presentation.create_presentation('Title')
-        self.assertIsNotNone(presentation)
-        self.delete_file_on_cleanup(presentation.get('presentationId'))
+  def test_create_presentation(self):
+    """Set title for create presentation"""
+    presentation = slides_create_presentation.create_presentation("Title")
+    self.assertIsNotNone(presentation)
+    self.delete_file_on_cleanup(presentation.get("presentationId"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

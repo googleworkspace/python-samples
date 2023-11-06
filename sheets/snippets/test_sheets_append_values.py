@@ -18,25 +18,23 @@ from base_test import BaseTest
 
 
 class Testappendvalues(BaseTest):
-    """Unit test for append value Sheet snippet"""
+  """Unit test for append value Sheet snippet"""
 
-    def test_append_values(self):
-        """test append values function"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        self.populate_values(spreadsheet_id)
-        result = sheets_append_values.append_values(spreadsheet_id,
-                                                    'Sheet1', 'USER_ENTERED', [
-                                                        ['A', 'B'],
-                                                        ['C', 'D']
-                                                    ])
-        self.assertIsNotNone(result)
-        self.assertEqual('Sheet1!A1:J10', result.get('tableRange'))
-        updates = result.get('updates')
-        self.assertEqual('Sheet1!A11:B12', updates.get('updatedRange'))
-        self.assertEqual(2, updates.get('updatedRows'))
-        self.assertEqual(2, updates.get('updatedColumns'))
-        self.assertEqual(4, updates.get('updatedCells'))
+  def test_append_values(self):
+    """test append values function"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    self.populate_values(spreadsheet_id)
+    result = sheets_append_values.append_values(
+        spreadsheet_id, "Sheet1", "USER_ENTERED", [["A", "B"], ["C", "D"]]
+    )
+    self.assertIsNotNone(result)
+    self.assertEqual("Sheet1!A1:J10", result.get("tableRange"))
+    updates = result.get("updates")
+    self.assertEqual("Sheet1!A11:B12", updates.get("updatedRange"))
+    self.assertEqual(2, updates.get("updatedRows"))
+    self.assertEqual(2, updates.get("updatedColumns"))
+    self.assertEqual(4, updates.get("updatedCells"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

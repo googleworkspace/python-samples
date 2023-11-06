@@ -12,52 +12,53 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 # [START gmail_create_filter]
-
-from __future__ import print_function
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
 def create_filter():
-    """Create a filter.
-    Returns: Draft object, including filter id.
+  """Create a filter.
+  Returns: Draft object, including filter id.
 
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
 
-    try:
-        # create gmail api client
-        service = build('gmail', 'v1', credentials=creds)
+  try:
+    # create gmail api client
+    service = build("gmail", "v1", credentials=creds)
 
-        label_name = 'IMPORTANT'
-        filter_content = {
-            'criteria': {
-                'from': 'gsuder1@workspacesamples.dev'
-            },
-            'action': {
-                'addLabelIds': [label_name],
-                'removeLabelIds': ['INBOX']
-            }
-        }
+    label_name = "IMPORTANT"
+    filter_content = {
+        "criteria": {"from": "gsuder1@workspacesamples.dev"},
+        "action": {
+            "addLabelIds": [label_name],
+            "removeLabelIds": ["INBOX"],
+        },
+    }
 
-        # pylint: disable=E1101
-        result = service.users().settings().filters().create(
-            userId='me', body=filter_content).execute()
-        print(F'Created filter with id: {result.get("id")}')
+    # pylint: disable=E1101
+    result = (
+        service.users()
+        .settings()
+        .filters()
+        .create(userId="me", body=filter_content)
+        .execute()
+    )
+    print(f'Created filter with id: {result.get("id")}')
 
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        result = None
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+    result = None
 
-    return result.get('id')
+  return result.get("id")
 
 
-if __name__ == '__main__':
-    create_filter()
+if __name__ == "__main__":
+  create_filter()
 # [END gmail_create_filter]

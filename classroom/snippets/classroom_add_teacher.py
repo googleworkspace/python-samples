@@ -19,36 +19,33 @@ from googleapiclient.errors import HttpError
 
 
 def classroom_add_teacher(course_id):
-    """
-    Adds a teacher to a course with specific course_id.
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    creds, _ = google.auth.default()
-    # pylint: disable=maybe-no-member
-    service = build('classroom', 'v1', credentials=creds)
+  """
+  Adds a teacher to a course with specific course_id.
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  creds, _ = google.auth.default()
+  # pylint: disable=maybe-no-member
+  service = build("classroom", "v1", credentials=creds)
 
-    teacher_email = 'gduser1@workspacesamples.dev'
-    teacher = {
-        'userId': teacher_email
-    }
+  teacher_email = "gduser1@workspacesamples.dev"
+  teacher = {"userId": teacher_email}
 
-    try:
-        teachers = service.courses().teachers()
-        teacher = teachers.create(courseId=course_id,
-                                  body=teacher).execute()
-        print('User %s was added as a teacher to the course with ID %s'
-              % (teacher.get('profile').get('name').get('fullName'),
-                 course_id))
-    except HttpError as error:
-        print('User "{%s}" is already a member of this course.'
-              % teacher_email)
-        return error
-    return teachers
+  try:
+    teachers = service.courses().teachers()
+    teacher = teachers.create(courseId=course_id, body=teacher).execute()
+    print(
+        "User %s was added as a teacher to the course with ID %s"
+        % (teacher.get("profile").get("name").get("fullName"), course_id)
+    )
+  except HttpError as error:
+    print('User "{%s}" is already a member of this course.' % teacher_email)
+    return error
+  return teachers
 
 
-if __name__ == '__main__':
-    # Put the course_id of course for which Teacher needs to be added.
-    classroom_add_teacher(453686957652)
+if __name__ == "__main__":
+  # Put the course_id of course for which Teacher needs to be added.
+  classroom_add_teacher(453686957652)
 # [END classroom_add_teacher]

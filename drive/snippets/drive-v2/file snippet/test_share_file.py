@@ -12,25 +12,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import share_file
 
 
 class TestShareFile(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_share_file(cls):
-        """Test share_file"""
-        real_file_id = '1dUiRSoAQKkM3a4nTPeNQWgiuau1KdQ_l'
-        real_user = 'gduser1@workspacesamples.dev'
-        real_domain = 'workspacesamples.dev'
-        file = share_file.share_file(real_file_id=real_file_id,
-                                     real_user=real_user,
-                                     real_domain=real_domain)
-        cls.assertNotEqual(cls, 0, len(file))
+  @classmethod
+  def test_share_file(cls):
+    """Test share_file"""
+    real_file_id = "1dUiRSoAQKkM3a4nTPeNQWgiuau1KdQ_l"
+    real_user = "gduser1@workspacesamples.dev"
+    real_domain = "workspacesamples.dev"
+    file = share_file.share_file(
+        real_file_id=real_file_id,
+        real_user=real_user,
+        real_domain=real_domain,
+    )
+    cls.assertNotEqual(cls, 0, len(file))
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

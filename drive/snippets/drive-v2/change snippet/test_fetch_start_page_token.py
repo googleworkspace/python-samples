@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import fetch_start_page_token
 
 
 class TestFetchChanges(unittest.TestCase):
-    """Unit test classs for Change snippet"""
+  """Unit test class for Change snippet"""
 
-    @classmethod
-    def test_fetch_start_page_token(cls):
-        """Test fetch_start_page_token"""
-        token = fetch_start_page_token.fetch_start_page_token()
-        cls.assertIsNotNone(cls, token)
+  @classmethod
+  def test_fetch_start_page_token(cls):
+    """Test fetch_start_page_token"""
+    token = fetch_start_page_token.fetch_start_page_token()
+    cls.assertIsNotNone(cls, token)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

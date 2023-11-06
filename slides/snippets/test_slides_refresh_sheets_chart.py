@@ -19,23 +19,23 @@ from base_test import BaseTest
 
 
 class TestCreateSheetsChart(BaseTest):
-    """Unit test for refresh_sheets_chart snippet"""
-    DATA_SPREADSHEET_ID = '17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM'
-    CHART_ID = 1107320627
+  """Unit test for refresh_sheets_chart snippet"""
 
-    def test_refresh_sheets_chart(self):
-        """ refresh_sheets_chart method """
-        presentation_id = self.create_test_presentation()
-        page_id = self.add_slides(presentation_id, 1, 'BLANK')[0]
-        chart_id = self.create_test_sheets_chart(presentation_id,
-                                                 page_id,
-                                                 self.DATA_SPREADSHEET_ID,
-                                                 self.CHART_ID)
-        response = slides_refresh_sheets_chart.refresh_sheets_chart(
-            presentation_id, chart_id)
-        self.assertEqual(1, len(response.get('replies')),
-                         msg=pformat(response))
+  DATA_SPREADSHEET_ID = "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM"
+  CHART_ID = 1107320627
+
+  def test_refresh_sheets_chart(self):
+    """refresh_sheets_chart method"""
+    presentation_id = self.create_test_presentation()
+    page_id = self.add_slides(presentation_id, 1, "BLANK")[0]
+    chart_id = self.create_test_sheets_chart(
+        presentation_id, page_id, self.DATA_SPREADSHEET_ID, self.CHART_ID
+    )
+    response = slides_refresh_sheets_chart.refresh_sheets_chart(
+        presentation_id, chart_id
+    )
+    self.assertEqual(1, len(response.get("replies")), msg=pformat(response))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

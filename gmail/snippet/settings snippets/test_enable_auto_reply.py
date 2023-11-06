@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 from enable_auto_reply import enable_auto_reply
 
 
 class TestEnableAutoReply(unittest.TestCase):
-    """Unit test class for the snippet"""
+  """Unit test class for the snippet"""
 
-    @classmethod
-    def test_enable_auto_reply(cls):
-        """ test to enable auto reply"""
-        result = enable_auto_reply()
-        cls.assertIsNotNone(cls, result)
+  @classmethod
+  def test_enable_auto_reply(cls):
+    """test to enable auto reply"""
+    result = enable_auto_reply()
+    cls.assertIsNotNone(cls, result)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

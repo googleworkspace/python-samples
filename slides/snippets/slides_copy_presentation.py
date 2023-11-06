@@ -15,42 +15,39 @@ limitations under the License.
 """
 
 # [START slides_copy_presentation]
-from __future__ import print_function
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
 def copy_presentation(presentation_id, copy_title):
-    """
-           Creates the copy Presentation the user has access to.
-           Load pre-authorized user credentials from the environment.
-           TODO(developer) - See https://developers.google.com/identity
-           for guides on implementing OAuth2 for the application.
-           """
+  """
+  Creates the copy Presentation the user has access to.
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
 
-    creds, _ = google.auth.default()
-    # pylint: disable=maybe-no-member
-    try:
-        drive_service = build('drive', 'v3', credentials=creds)
-        body = {
-            'name': copy_title
-        }
-        drive_response = drive_service.files().copy(
-            fileId=presentation_id, body=body).execute()
-        presentation_copy_id = drive_response.get('id')
+  creds, _ = google.auth.default()
+  # pylint: disable=maybe-no-member
+  try:
+    drive_service = build("drive", "v3", credentials=creds)
+    body = {"name": copy_title}
+    drive_response = (
+        drive_service.files().copy(fileId=presentation_id, body=body).execute()
+    )
+    presentation_copy_id = drive_response.get("id")
 
-    except HttpError as error:
-        print(f"An error occurred: {error}")
-        print("Presentations  not copied")
-        return error
+  except HttpError as error:
+    print(f"An error occurred: {error}")
+    print("Presentations  not copied")
+    return error
 
-    return presentation_copy_id
-    # [END slides_copy_presentation]
+  return presentation_copy_id
+  # [END slides_copy_presentation]
 
 
-if __name__ == '__main__':
-    # Put the presentation_id, Page_id of slides whose list needs
-    # to be submitted.
-    copy_presentation("16eRvJHRrM8Sej5YA0yCHVzQCPLz31-JhbOa4XpP8Yko", "wspace")
+if __name__ == "__main__":
+  # Put the presentation_id, Page_id of slides whose list needs
+  # to be submitted.
+  copy_presentation("16eRvJHRrM8Sej5YA0yCHVzQCPLz31-JhbOa4XpP8Yko", "wspace")

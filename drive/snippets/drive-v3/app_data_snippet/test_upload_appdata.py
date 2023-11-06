@@ -12,24 +12,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import upload_app_data
 
 
 class TestUploadAppdata(unittest.TestCase):
+  """
+  Unit test class for Appdata snippet
+  """
+
+  @classmethod
+  def test_upload_adddata(cls):
+    """Test upload_appdata
+    create a text file titled "abc.txt" in order to pass this test
     """
-    Unit test class for Appdata snippet
-    """
-
-    @classmethod
-    def test_upload_adddata(cls):
-        """Test upload_appdata
-        create a text file titled "abc.txt" in order to pass this test
-        """
-        file_id = upload_app_data.upload_appdata()
-        cls.assertIsNotNone(cls, file_id)
+    file_id = upload_app_data.upload_appdata()
+    cls.assertIsNotNone(cls, file_id)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

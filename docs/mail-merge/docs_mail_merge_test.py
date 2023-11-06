@@ -32,59 +32,59 @@ creds, _ = google.auth.default()
 
 
 class TestDocsMailMerge(unittest.TestCase):
-    'Unit tests for Mail Merge sample'
+  "Unit tests for Mail Merge sample"
 
-    def test_project(self):
-        self.assertTrue(project_test())
+  def test_project(self):
+    self.assertTrue(project_test())
 
-    def test_create_doc(self):
-        self.assertTrue(create_doc_test())
+  def test_create_doc(self):
+    self.assertTrue(create_doc_test())
 
-    def test_copy_doc(self):
-        self.assertTrue(copy_doc_test())
+  def test_copy_doc(self):
+    self.assertTrue(copy_doc_test())
 
-    def test_get_text_data(self):
-        self.assertTrue(bool(get_text_data_test()))
+  def test_get_text_data(self):
+    self.assertTrue(bool(get_text_data_test()))
 
-    def test_get_sheets_data(self):
-        self.assertTrue(bool(get_sheets_data_test()))
+  def test_get_sheets_data(self):
+    self.assertTrue(bool(get_sheets_data_test()))
 
 
 def project_test():
-    'Tests whether project credentials file was downloaded from project.'
-    credentials, project = google.auth.default()
+  "Tests whether project credentials file was downloaded from project."
+  credentials, project = google.auth.default()
 
 
 def create_doc_test():
-    'Tests whether project can create and delete a Google Docs file.'
-    DRIVE = discovery.build('drive', 'v3', credentials=creds)
-    DATA = {
-        'name': 'Test Doc',
-        'mimeType': 'application/vnd.google-apps.document',
-    }
-    doc_id = DRIVE.files().create(body=DATA, fields='id').execute().get('id')
-    DRIVE.files().delete(fileId=doc_id, fields='').execute()
-    return True
+  "Tests whether project can create and delete a Google Docs file."
+  DRIVE = discovery.build("drive", "v3", credentials=creds)
+  DATA = {
+      "name": "Test Doc",
+      "mimeType": "application/vnd.google-apps.document",
+  }
+  doc_id = DRIVE.files().create(body=DATA, fields="id").execute().get("id")
+  DRIVE.files().delete(fileId=doc_id, fields="").execute()
+  return True
 
 
 def copy_doc_test():
-    'Tests whether project can copy and delete a Google Docs file.'
-    DRIVE = discovery.build('drive', 'v3', credentials=creds)
-    DOCS_FILE_ID = '1Xycxuuv7OhEQUuzbt_Mw0TPMq02MseSD1vZdBJ3nLjk'
-    doc_id = _copy_template(DOCS_FILE_ID, 'text', DRIVE)
-    DRIVE.files().delete(fileId=doc_id, fields='').execute()
-    return True
+  "Tests whether project can copy and delete a Google Docs file."
+  DRIVE = discovery.build("drive", "v3", credentials=creds)
+  DOCS_FILE_ID = "1Xycxuuv7OhEQUuzbt_Mw0TPMq02MseSD1vZdBJ3nLjk"
+  doc_id = _copy_template(DOCS_FILE_ID, "text", DRIVE)
+  DRIVE.files().delete(fileId=doc_id, fields="").execute()
+  return True
 
 
 def get_text_data_test():
-    'Tests reading plain text data.'
-    return get_data('text')
+  "Tests reading plain text data."
+  return get_data("text")
 
 
 def get_sheets_data_test():
-    'Tests reading Google Sheets data.'
-    return get_data('sheets')
+  "Tests reading Google Sheets data."
+  return get_data("sheets")
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

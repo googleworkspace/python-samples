@@ -30,5 +30,6 @@ jobs:
           ERROR_ON_MISSING_EXEC_BIT: true
           VALIDATE_JSCPD: false
           VALIDATE_PYTHON_BLACK: false
+          VALIDATE_PYTHON_FLAKE8: false
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

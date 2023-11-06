@@ -12,20 +12,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import upload_basic
 
 
 class TestUploadBasic(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_upload_basic(cls):
-        """Test upload_basic"""
-        file_id = upload_basic.upload_basic()
-        cls.assertIsNotNone(cls, file_id)
+  @classmethod
+  def test_upload_basic(cls):
+    """Test upload_basic"""
+    file_id = upload_basic.upload_basic()
+    cls.assertIsNotNone(cls, file_id)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

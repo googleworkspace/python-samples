@@ -18,23 +18,20 @@ from base_test import BaseTest
 
 
 class Testbatchupdatevalues(BaseTest):
-    """Unit test for Batch update value Sheet snippet"""
+  """Unit test for Batch update value Sheet snippet"""
 
-    def test_batch_update_values(self):
-        """batch updates values"""
-        spreadsheet_id = self.create_test_spreadsheet()
-        result = sheets_batch_update_values. \
-            batch_update_values(spreadsheet_id,
-                                'A1:B2', 'USER_ENTERED', [
-                                    ['A', 'B'],
-                                    ['C', 'D']
-                                ])
-        self.assertIsNotNone(result)
-        self.assertEqual(1, len(result.get('responses')))
-        self.assertEqual(2, result.get('totalUpdatedRows'))
-        self.assertEqual(2, result.get('totalUpdatedColumns'))
-        self.assertEqual(4, result.get('totalUpdatedCells'))
+  def test_batch_update_values(self):
+    """batch updates values"""
+    spreadsheet_id = self.create_test_spreadsheet()
+    result = sheets_batch_update_values.batch_update_values(
+        spreadsheet_id, "A1:B2", "USER_ENTERED", [["A", "B"], ["C", "D"]]
+    )
+    self.assertIsNotNone(result)
+    self.assertEqual(1, len(result.get("responses")))
+    self.assertEqual(2, result.get("totalUpdatedRows"))
+    self.assertEqual(2, result.get("totalUpdatedColumns"))
+    self.assertEqual(4, result.get("totalUpdatedCells"))
 
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

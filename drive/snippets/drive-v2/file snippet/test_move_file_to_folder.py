@@ -12,24 +12,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import unittest
 
 import move_file_to_folder
 
 
 class TestMoveFileToFolder(unittest.TestCase):
-    """Unit test class for file snippet"""
+  """Unit test class for file snippet"""
 
-    @classmethod
-    def test_move_file_to_folder(cls):
-        """Test move_file_to_folder"""
-        real_file_id = '1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9'
-        real_folder_id = '1v5eyIbXCr9TZX3eX_44HEExfe7yRj24V'
+  @classmethod
+  def test_move_file_to_folder(cls):
+    """Test move_file_to_folder"""
+    file_id = "1KuPmvGq8yoYgbfW74OENMCB5H0n_2Jm9"
+    folder_id = "1v5eyIbXCr9TZX3eX_44HEExfe7yRj24V"
 
-        update = move_file_to_folder.move_file_to_folder(
-            real_file_id=real_file_id, real_folder_id=real_folder_id)
-        cls.assertIsNotNone(cls, 0, len(update))
+    update = move_file_to_folder.move_file_to_folder(
+        file_id=file_id, folder_id=folder_id
+    )
+    cls.assertIsNotNone(cls, 0, len(update))
 
 
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+  unittest.main()

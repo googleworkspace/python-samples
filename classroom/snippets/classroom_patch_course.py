@@ -14,44 +14,39 @@ limitations under the License.
 """
 
 # [START classroom_patch_course]
-
-from __future__ import print_function
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
 def classroom_patch_course(course_id):
+  """
+  Patch new course with existing course in the account the user has access to.
+  Load pre-authorized user credentials from the environment.
+  TODO(developer) - See https://developers.google.com/identity
+  for guides on implementing OAuth2 for the application.
+  """
+  # pylint: disable=maybe-no-member
 
-    """
-    Patch new course with existing course in the account the user has access to.
-    Load pre-authorized user credentials from the environment.
-    TODO(developer) - See https://developers.google.com/identity
-    for guides on implementing OAuth2 for the application.
-    """
-    # pylint: disable=maybe-no-member
+  creds, _ = google.auth.default()
 
-    creds, _ = google.auth.default()
-
-    try:
-        service = build('classroom', 'v1', credentials=creds)
-        course = {
-            'section': 'Period 3',
-            'room': '313'
-        }
-        course = service.courses().patch(id=course_id,
-                                         updateMask='section,room',
-                                         body=course).execute()
-        print(f" Course updated are: {course.get('name')}")
-        return course
-    except HttpError as error:
-        print(f"An error occurred: {error}")
+  try:
+    service = build("classroom", "v1", credentials=creds)
+    course = {"section": "Period 3", "room": "313"}
+    course = (
+        service.courses()
+        .patch(id=course_id, updateMask="section,room", body=course)
+        .execute()
+    )
+    print(f" Course updated are: {course.get('name')}")
+    return course
+  except HttpError as error:
+    print(f"An error occurred: {error}")
 
 
-if __name__ == '__main__':
-    # Put the course_id of course with whom we need to patch some extra
-    # information.
-    classroom_patch_course('course_id')
+if __name__ == "__main__":
+  # Put the course_id of course with whom we need to patch some extra
+  # information.
+  classroom_patch_course("course_id")
 
 # [END classroom_patch_course]
