@@ -20,7 +20,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def create_presentation(title):
+def slides_create_presentation(title):
   """
   Creates the Presentation the user has access to.
   Load pre-authorized user credentials from the environment.
@@ -47,7 +47,6 @@ def create_presentation(title):
 
 if __name__ == "__main__":
   # Put the title of the presentation
-
-  create_presentation("finalp")
+  slides_create_presentation("Presentation Title")
 
 # [END slides_create_presentation]

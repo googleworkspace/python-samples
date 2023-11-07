@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import slides_create_slide
-from base_test import BaseTest
+from .slides_create_slide import *
+from .base_test import BaseTest
 
 
 class TestCreateSlide(BaseTest):

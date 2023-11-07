@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import slides_copy_presentation
-from base_test import BaseTest
+from .slides_copy_presentation import *
+from .base_test import BaseTest
 
 
 class TestCopyPresentation(BaseTest):

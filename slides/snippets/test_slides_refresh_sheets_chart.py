@@ -14,8 +14,8 @@ limitations under the License.
 import unittest
 from pprint import pformat
 
-import slides_refresh_sheets_chart
-from base_test import BaseTest
+from .slides_refresh_sheets_chart import *
+from .base_test import BaseTest
 
 
 class TestCreateSheetsChart(BaseTest):

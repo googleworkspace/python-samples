@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import sheets_batch_get_values
-from base_test import BaseTest
+from .sheets_batch_get_values import *
+from .base_test import BaseTest
 
 
 class Testgetvalues(BaseTest):

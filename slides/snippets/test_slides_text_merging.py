@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import slides_text_merging
-from base_test import BaseTest
+from .slides_text_merging import slides_text_merging
+from .base_test import BaseTest
 
 
 class TestTextMerging(BaseTest):
@@ -23,11 +23,9 @@ class TestTextMerging(BaseTest):
   TEMPLATE_PRESENTATION_ID = "10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4"
   DATA_SPREADSHEET_ID = "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM"
 
-  def test_text_merging(self):
+  def test_slides_text_merging(self):
     """text_merging method"""
-    slides_text_merging.text_merging(
-        self.TEMPLATE_PRESENTATION_ID, self.DATA_SPREADSHEET_ID
-    )
+    slides_text_merging(self.TEMPLATE_PRESENTATION_ID, self.DATA_SPREADSHEET_ID)
 
 
 if __name__ == "__main__":

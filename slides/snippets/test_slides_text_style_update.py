@@ -14,8 +14,8 @@ limitations under the License.
 import unittest
 from pprint import pformat
 
-import slides_text_style_update
-from base_test import BaseTest
+from .slides_text_style_update import *
+from .base_test import BaseTest
 
 
 class TestTextStyleUpdate(BaseTest):

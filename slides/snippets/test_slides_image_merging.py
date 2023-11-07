@@ -14,8 +14,8 @@ limitations under the License.
 import unittest
 from pprint import pformat
 
-import slides_image_merging
-from base_test import BaseTest
+from .slides_image_merging import slides_image_merging
+from .base_test import BaseTest
 
 
 class TestTextMerging(BaseTest):
@@ -27,9 +27,9 @@ class TestTextMerging(BaseTest):
   CHART_ID = 1107320627
   CUSTOMER_NAME = "Fake Customer"
 
-  def test_image_merging(self):
+  def test_slides_image_merging(self):
     """image merging function"""
-    response = slides_image_merging.image_merging(
+    response = slides_image_merging(
         self.TEMPLATE_PRESENTATION_ID, self.IMAGE_URL, self.CUSTOMER_NAME
     )
     presentation_id = response.get("presentationId")

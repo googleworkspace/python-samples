@@ -13,16 +13,16 @@ limitations under the License.
 
 import unittest
 
-import slides_create_presentation
-from base_test import BaseTest
+from .slides_create_presentation import slides_create_presentation
+from .base_test import BaseTest
 
 
 class TestCreatePresentation(BaseTest):
   """Unit test for create presentation  snippet"""
 
-  def test_create_presentation(self):
+  def test_slides_create_presentation(self):
     """Set title for create presentation"""
-    presentation = slides_create_presentation.create_presentation("Title")
+    presentation = slides_create_presentation("Title")
     self.assertIsNotNone(presentation)
     self.delete_file_on_cleanup(presentation.get("presentationId"))
 

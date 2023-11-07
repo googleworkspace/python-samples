@@ -3,3 +3,9 @@ line-length = 80
 preview = true
 pyink-indentation = 2
 pyink-use-majority-quotes = true
+
+[tool.pytest.ini_options]
+addopts = [
+    # Allow test files to have the same name in different directories.
+    "--import-mode=importlib",
+]

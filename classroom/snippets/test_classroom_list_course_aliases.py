@@ -13,9 +13,9 @@ limitations under the License.
 
 import unittest
 
-from base_test import BaseTest
-from classroom_create_course import classroom_create_course
-from classroom_list_course_aliases import classroom_list_course_aliases
+from .base_test import BaseTest
+from .classroom_create_course import classroom_create_course
+from .classroom_list_course_aliases import classroom_list_course_aliases
 
 
 class TestClassroomListCourseAliases(BaseTest):

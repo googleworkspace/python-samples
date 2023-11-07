@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import sheets_append_values
-from base_test import BaseTest
+from .sheets_append_values import *
+from .base_test import BaseTest
 
 
 class Testappendvalues(BaseTest):
