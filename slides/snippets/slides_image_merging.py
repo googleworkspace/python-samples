@@ -20,7 +20,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def image_merging(template_presentation_id, image_url, customer_name):
+def slides_image_merging(template_presentation_id, image_url, customer_name):
   """image_merging require template_presentation_id,
   image_url and customer_name
   Load pre-authorized user credentials from the environment.
@@ -105,7 +105,7 @@ def image_merging(template_presentation_id, image_url, customer_name):
 if __name__ == "__main__":
   # Put the template_presentation_id, image_url and customer_name
 
-  image_merging(
+  slides_image_merging(
       "10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4",
       "https://www.google.com/images/branding/"
       "googlelogo/2x/googlelogo_color_272x92dp.png",

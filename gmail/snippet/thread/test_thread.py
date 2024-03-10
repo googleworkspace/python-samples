@@ -15,17 +15,16 @@ limitations under the License.
 
 import unittest
 
-from threads import show_chatty_threads
+from .threads import show_chatty_threads
 
 
 class TestThreads(unittest.TestCase):
   """unit test class for snippets"""
 
-  @classmethod
-  def test_threads(cls):
+  def test_threads(self):
     """to test threads"""
     result = show_chatty_threads()
-    cls.assertIsNotNone(cls, result)
+    self.assertIsNotNone(result)
 
 
 if __name__ == "__main__":

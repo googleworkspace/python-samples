@@ -20,7 +20,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def text_merging(template_presentation_id, data_spreadsheet_id):
+def slides_text_merging(template_presentation_id, data_spreadsheet_id):
   """
   Run Text merging the user has access to.
   Load pre-authorized user credentials from the environment.
@@ -122,7 +122,7 @@ if __name__ == "__main__":
   # Put the template_presentation_id, data_spreadsheet_id
   # of slides
 
-  text_merging(
+  slides_text_merging(
       "10QnVUx1X2qHsL17WUidGpPh_SQhXYx40CgIxaKk8jU4",
       "17eqFZl_WK4WVixX8PjvjfLD77DraoFwMDXeiHB3dvuM",
   )

@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import sheets_pivot_tables
-from base_test import BaseTest
+from .sheets_pivot_tables import *
+from .base_test import BaseTest
 
 
 class Testpivottables(BaseTest):

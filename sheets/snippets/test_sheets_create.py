@@ -13,16 +13,16 @@ limitations under the License.
 
 import unittest
 
-import sheets_create
-from base_test import BaseTest
+from .sheets_create import sheets_create
+from .base_test import BaseTest
 
 
 class Testsheetscreate(BaseTest):
   """Unit test class for Create Sheet snippet"""
 
-  def test_create(self):
+  def test_sheets_create(self):
     """sheet function for Create sheet"""
-    spreadsheet_id = sheets_create.create("Title")
+    spreadsheet_id = sheets_create("Title")
     self.assertIsNotNone(spreadsheet_id)
     self.delete_file_on_cleanup(spreadsheet_id)
 

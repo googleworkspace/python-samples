@@ -13,9 +13,9 @@ limitations under the License.
 
 import unittest
 
-import sheets_batch_update
-import sheets_create
-from base_test import BaseTest
+from .sheets_batch_update import sheets_batch_update
+from .sheets_create import sheets_create
+from .base_test import BaseTest
 
 
 class Testbatchupdate(BaseTest):
@@ -23,9 +23,9 @@ class Testbatchupdate(BaseTest):
 
   def test_batch_update(self):
     """test_batch_update function"""
-    spreadsheet_id = sheets_create.create("Title")
+    spreadsheet_id = sheets_create("Title")
     self.populate_values(spreadsheet_id)
-    response = sheets_batch_update.sheets_batch_update(
+    response = sheets_batch_update(
         spreadsheet_id, "New Title", "Hello", "Goodbye"
     )
     self.assertIsNotNone(response)

@@ -14,8 +14,8 @@ limitations under the License.
 import unittest
 from pprint import pformat
 
-import slides_create_image
-from base_test import BaseTest
+from .slides_create_image import *
+from .base_test import BaseTest
 
 
 class TestCreateTextboxWithText(BaseTest):

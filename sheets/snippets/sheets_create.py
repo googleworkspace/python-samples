@@ -20,7 +20,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 
-def create(title):
+def sheets_create(title):
   """
   Creates the Sheet the user has access to.
   Load pre-authorized user credentials from the environment.
@@ -46,5 +46,5 @@ def create(title):
 
 if __name__ == "__main__":
   # Pass: title
-  create("mysheet1")
+  sheets_create("mysheet1")
   # [END sheets_create]

@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import sheets_filter_views
-from base_test import BaseTest
+from .sheets_filter_views import *
+from .base_test import BaseTest
 
 
 class Testfilterviews(BaseTest):

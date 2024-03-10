@@ -14,8 +14,8 @@ limitations under the License.
 import unittest
 from pprint import pformat
 
-import slides_simple_text_replace
-from base_test import BaseTest
+from .slides_simple_text_replace import *
+from .base_test import BaseTest
 
 
 class TestSimpleTextReplace(BaseTest):

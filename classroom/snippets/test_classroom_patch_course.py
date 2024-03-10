@@ -13,9 +13,9 @@ limitations under the License.
 
 import unittest
 
-import classroom_create_course
-import classroom_patch_course
-from base_test import BaseTest
+from .classroom_create_course import classroom_create_course
+from .classroom_patch_course import classroom_patch_course
+from .base_test import BaseTest
 
 
 class TestClassroomPatchCourse(BaseTest):
@@ -23,10 +23,10 @@ class TestClassroomPatchCourse(BaseTest):
 
   def test_classroom_patch_course(self):
     """Unit test method for Patch course snippet"""
-    course = classroom_create_course.classroom_create_course()
+    course = classroom_create_course()
     self.assertIsNotNone(course)
     self.delete_course_on_cleanup(course.get("id"))
-    course = classroom_patch_course.classroom_patch_course(course.get("id"))
+    course = classroom_patch_course(course.get("id"))
     self.assertIsNotNone(course)
 
 

@@ -13,8 +13,8 @@ limitations under the License.
 
 import unittest
 
-import sheets_conditional_formatting
-from base_test import BaseTest
+from .sheets_conditional_formatting import *
+from .base_test import BaseTest
 
 
 class Testconditionalformatting(BaseTest):
