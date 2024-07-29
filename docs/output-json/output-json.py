@@ -44,6 +44,6 @@ service = discovery.build(
 )
 
 # Do a document "get" request and print the results as formatted JSON
-result = service.documents().get(documentId=DOCUMENT_ID).execute()
+result = service.documents().get(documentId=DOCUMENT_ID, includeTabsContent=True).execute()
 print(json.dumps(result, indent=4, sort_keys=True))
 # [END output_json_python]
