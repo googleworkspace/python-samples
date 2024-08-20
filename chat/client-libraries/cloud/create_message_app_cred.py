@@ -32,7 +32,47 @@ def create_message_with_app_cred():
         # Replace SPACE_NAME here.
         parent = "spaces/SPACE_NAME",
         message = {
-            "text" : "Hello with app credential!"
+            "text": '👋🌎 Hello world! I created this message by calling ' +
+                    'the Chat API\'s `create_message()` method.',
+            "cards_v2" : [{ "card": {
+                "header": {
+                    "title": 'About this message',
+                    "image_url": 'https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/info/default/24px.svg'
+                },
+                "sections": [{
+                    "header": "Contents",
+                    "widgets": [{ "text_paragraph": {
+                            "text": '🔡 <b>Text</b> which can include ' +
+                                    'hyperlinks 🔗, emojis 😄🎉, and @mentions 🗣️.'
+                        }}, { "text_paragraph": {
+                            "text": '🖼️ A <b>card</b> to display visual elements' +
+                                    'and request information such as text 🔤, ' +
+                                    'dates and times 📅, and selections ☑️.'
+                        }}, { "text_paragraph": {
+                            "text": '👉🔘 An <b>accessory widget</b> which adds ' +
+                                    'a button to the bottom of a message.'
+                        }}
+                    ]}, {
+                        "header": "What's next",
+                        "collapsible": True,
+                        "widgets": [{ "text_paragraph": {
+                                "text": "❤️ <a href='https://developers.google.com/workspace/chat/api/reference/rest/v1/spaces.messages.reactions/create'>Add a reaction</a>."
+                            }}, { "text_paragraph": {
+                                "text": "🔄 <a href='https://developers.google.com/workspace/chat/api/reference/rest/v1/spaces.messages/patch'>Update</a> " +
+                                        "or ❌ <a href='https://developers.google.com/workspace/chat/api/reference/rest/v1/spaces.messages/delete'>delete</a> " +
+                                        "the message."
+                            }
+                        }]
+                    }
+                ]
+            }}],
+            "accessory_widgets": [{ "button_list": { "buttons": [{
+                "text": 'View documentation',
+                "icon": { "material_icon": { "name": 'link' }},
+                "on_click": { "open_link": {
+                    "url": 'https://developers.google.com/workspace/chat/create-messages'
+                }}
+            }]}}]
         }
     )
 
