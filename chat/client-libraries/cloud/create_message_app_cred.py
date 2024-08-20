@@ -33,7 +33,7 @@ def create_message_with_app_cred():
         parent = "spaces/SPACE_NAME",
         message = {
             "text": '👋🌎 Hello world! I created this message by calling ' +
-                    'the Chat API\'s `create_message()` method.',
+                    'the Chat API\'s `messages.create()` method.',
             "cards_v2" : [{ "card": {
                 "header": {
                     "title": 'About this message',
