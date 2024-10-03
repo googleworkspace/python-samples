@@ -38,7 +38,7 @@ def update_space_with_user_cred():
             'display_name': 'New space display name'
         },
         # The field paths to update. Separate multiple values with commas.
-        update_mask = 'display_name'
+        update_mask = 'displayName'
     )
 
     # Make the request
