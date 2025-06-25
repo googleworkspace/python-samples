@@ -87,4 +87,4 @@ def close_form():
 
 if __name__ == "__main__":
   close_form()
-# [end forms_stop_accepting_responses]
+# [END forms_stop_accepting_responses]

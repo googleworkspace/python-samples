@@ -89,4 +89,4 @@ def supports_publishing():
 
 if __name__ == "__main__":
   supports_publishing()
-# [end forms_supports_publishing]
+# [END forms_supports_publishing]

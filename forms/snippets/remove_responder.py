@@ -98,4 +98,4 @@ def remove_responder():
 
 if __name__ == "__main__":
   remove_responder()
-# [end forms_remove_responder]
+# [END forms_remove_responder]
