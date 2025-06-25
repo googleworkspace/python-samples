@@ -95,7 +95,7 @@ def is_anyone_with_link_responder():
   return anyone_with_link_responder
 
 
-# [end forms_is_anyone_with_link_responder]
+# [END forms_is_anyone_with_link_responder]
 
 
 # [START forms_set_anyone_with_link_responder]
@@ -129,7 +129,7 @@ def set_anyone_with_link_responder():
   return False
 
 
-# [end forms_set_anyone_with_link_responder]
+# [END forms_set_anyone_with_link_responder]
 
 
 # [START forms_remove_anyone_with_link_responder]
@@ -181,7 +181,7 @@ def remove_anyone_with_link_responder():
   return False
 
 
-# [end forms_remove_anyone_with_link_responder]
+# [END forms_remove_anyone_with_link_responder]
 
 if __name__ == "__main__":
   is_anyone_with_link_responder()
