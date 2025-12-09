@@ -32,7 +32,9 @@ def main():
         "text": "Hello from a Python script!",
         # To start a thread, set threadKey to an arbitratry string.
         # To reply to a thread, specify that thread's threadKey value.
-        "thread": {"threadKey": "THREAD_KEY_VALUE"},
+        "thread": {
+            "threadKey": "THREAD_KEY_VALUE"
+        },
     }
     message_headers = {"Content-Type": "application/json; charset=UTF-8"}
     http_obj = Http()

@@ -25,7 +25,9 @@ from httplib2 import Http
 def main():
     """Google Chat incoming webhook quickstart."""
     url = "https://chat.googleapis.com/v1/spaces/SPACE_ID/messages?key=KEY&token=TOKEN"
-    app_message = {"text": "Hello from a Python script!"}
+    app_message = {
+        "text": "Hello from a Python script!"
+    }
     message_headers = {"Content-Type": "application/json; charset=UTF-8"}
     http_obj = Http()
     response = http_obj.request(
