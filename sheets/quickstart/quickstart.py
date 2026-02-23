@@ -47,15 +47,16 @@ def main():
       flow = InstalledAppFlow.from_client_secrets_file(
           "credentials.json", SCOPES
       )
-      creds = flow.run_local_server(port=0)
-    # Save the credentials for the next run
+      # Set the port to a fixed number.
+      creds = flow.run_local_server(port=8080)
+    # Save the credentials for the next run.
     with open("token.json", "w") as token:
       token.write(creds.to_json())
 
   try:
     service = build("sheets", "v4", credentials=creds)
 
-    # Call the Sheets API
+    # Call the Sheets API.
     sheet = service.spreadsheets()
     result = (
         sheet.values()
