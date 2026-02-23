@@ -10,7 +10,7 @@ This sample contains a specialized Gemini Enterprise Agent built using the Googl
    The agent automatically discovers your project's `default_collection` engine and dynamically binds its queries to the `default_serving_config`.
    
 2. **Dynamic Authentication (`ToolContext`):** 
-   When deployed as a Bring-Your-Own (BYO) model via Gemini Enterprise, the session state dynamically passes an authentication token (e.g., `enteprise-ai_12345`). This agent intercepts the `ToolContext` state and extracts the token at runtime using regex pattern matching (`^enteprise-ai_\d+$`) to securely execute calls using a Bearer token.
+   When deployed as a Bring-Your-Own (BYO) model via Gemini Enterprise, the session state dynamically passes an authentication token (e.g., `enterprise-ai_12345`). This agent intercepts the `ToolContext` state and extracts the token at runtime using regex pattern matching (`^enterprise-ai_\d+$`) to securely execute calls using a Bearer token.
 
 3. **Graceful Timeouts:**
    The `McpToolset` streaming components have been intentionally configured with an explicit 15-second `timeout` and `sse_read_timeout` to prevent the agent from hanging infinitely on backend network issues.
