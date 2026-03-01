@@ -1,6 +1,6 @@
 # Enterprise AI Agent (built as Gemini Enterprise BYO Agent)
 
-**Note:** This project is part of an official Google Codelab ([link pending](#)).
+**Note:** This project is part of the official Google Codelab [Integrate Gemini Enterprise Agents with Google Workspace](https://codelabs.developers.google.com/ge-gws-agents).
 
 This sample contains a specialized Gemini Enterprise Agent built using the Google Agent Development Kit (ADK). This agent acts as an Enterprise AI Assistant by querying user's data corpus using the Vertex AI Search MCP toolset and sending Chat messages to DM spaces using a custom Function tool & Google Chat API.
 
