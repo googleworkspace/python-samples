@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# It may require modifications to work in your environment.
+
+# To install the latest published package dependency, execute the following:
+#   python3 -m pip install google-apps-chat
+
+
+# [START chat_list_section_items_user_cred]
+from authentication_utils import create_client_with_user_credentials
+from google.apps import chat_v1 as google_chat
+
+SCOPES = ["https://www.googleapis.com/auth/chat.users.sections.readonly"]
+
+# This sample shows how to list section items with user credential for a human
+# user
+def list_section_items_with_user_cred():
+    # Create a client
+    client = create_client_with_user_credentials(SCOPES)
+
+    # Initialize request argument(s)
+    request = chat_v1.ListSectionItemsRequest(
+        # Replace SECTION_NAME here
+        parent="SECTION_NAME",
+        # Number of results that will be returned at once
+        page_size=10
+    )
+
+    # Make the request
+    page_result = client.list_section_items(request)
+
+    # Handle the response. Iterating over page_result will yield results and
+    # resolve additional pages automatically.
+    for item in page_result:
+        print(item)
+
+list_section_items_with_user_cred()
+# [END chat_list_section_items_user_cred]
