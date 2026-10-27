@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "The Enterprise AI agent."
 license = "Apache-2.0"
 readme = "README.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.10,<3.14"
 authors = [
     { name = "Pierrick Voulet" }
 ]
@@ -18,10 +18,11 @@ dependencies = [
     "typing-extensions>=4.12.2",
     "google-cloud-discoveryengine (>=0.13.12,<0.14.0)",
     "google-apps-chat (>=0.6.0,<0.7.0)",
+    "litellm (>=1.84.0)",
 ]
 
 [tool.poetry.group.dev.dependencies]
-google-adk = { version = ">=1.18.0", extras = ["eval"] }
+google-adk = ">=1.18.0"
 
 [tool.poetry.group.deployment.dependencies]
 absl-py = ">=2.2.1"
