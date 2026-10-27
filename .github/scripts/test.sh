@@ -22,7 +22,7 @@ export SERVICE_ACCOUNT_CREDENTIALS="${HOME}/secrets/service_account.json"
 dirs=()
 
 if [ -f "requirements.txt" ]; then
-  pipenv install -r "requirements.txt"
+  pipenv install setuptools -r "requirements.txt"
 fi
 
 IFS=$'\n' read -r -d '' -a dirs < <( find . -name '*_test.py' -exec dirname '{}' \; | sort -u )
@@ -34,7 +34,7 @@ for dir in "${dirs[@]}"; do
   if [ -f "requirements.txt" ]; then
     # If requirements.txt present, create a new isolated environment
     touch Pipfile
-    pipenv install -r "requirements.txt"
+    pipenv install setuptools -r "requirements.txt"
   fi
   pipenv run python -m unittest discover
   status=$?
